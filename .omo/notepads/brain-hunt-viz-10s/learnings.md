@@ -99,3 +99,49 @@
 - Commit `feat(hunt): fly adapter + G2 probes` + `git push origin viz10/hunt` exit 0. HARD STOP: full 300-frame
   render is Task 6 (needs G2 human OK). NOTE: out/frames10/f*.png (300 arena-only take frames) present on disk
   from an earlier lane, git-ignored, left untouched.
+
+# 2026-09-16T20:05Z — Task 6 DONE (C3 full 300 tracking frames, pushed viz10/hunt)
+- Backup FIRST: `cp out/frames10/f*.png out/frames10.sim10.bak/` = 300 Task-1 arena-only frames;
+  `git check-ignore` confirms `out/frames10.sim10.bak/` git-ignored (`*.bak/`). Probes untouched
+  (probe_wide/mid/close.png all present, different filenames).
+- New code ONLY `tools/fly_full.py` (101 lines): imports `fly_compose` + `measure_fly` from
+  `tools/fly_probe.py` — G2 adapter/camera/lighting reused by import, zero retune (offset (32,-26,22),
+  fovy 20, sun+fill, colorize, zfar=1e5/haze=0, dimmed headlight, settle static neutral pose,
+  40x lerp-0.2 convergence from (-4000,-6000,2500)). Per-frame take state: qpos=settled snapshot;
+  loom mocap=(dist_m*1000, 0, 1500) with dist 12->4 m linear from physics_log_10s.csv col 4
+  (csv header carries type annotations — parsed by column position, not DictReader name).
+- Render: `MUJOCO_GL=egl venv-brainfly314/bin/python tools/fly_full.py` → wall 15.0 s, 300 PNGs
+  f00000–f00299. Single compile + one mujoco.Renderer reused across frames (probe recompiled per
+  probe; identical pixels — verified below).
+- Bbox (frozen Task-5 method, proj 320,240 all three): f0/f150/f299 = 52x55 maxside=55 bands=5
+  uniq=1937 — matches G2 close probe exactly. STRONGEST freeze evidence:
+  `md5(f00000.png) == md5(probe_close.png)` = 6c62f53e369e... (loom 12 m vs 8 m both ~135 deg
+  off-axis/behind camera — honestly out of frame; take motion lives in brain panel + CSV).
+  uniq 1937 >> 265 → not checkerboard. `file` 640x480 RGB on all 3 samples.
+- Commit 9f497e9 `feat(hunt): full 300 frames` (1 file, tools/fly_full.py only; 300 PNGs git-ignored
+  per .gitignore), `git push origin viz10/hunt` exit 0 (8f04793..9f497e9). Ready for Task 7 assembly.
+
+# 2026-09-16T23:15Z — Task 7 DONE (C4 assembly + G3 tone-match, pushed viz10/cut)
+- Branch: `git checkout -b viz10/cut` from viz10/hunt tip 9f497e9 (new branch, did not exist).
+- Pre-verify PASS: `ls out/frames10/f*.png | wc -l` = 300, `ls out/brain/b*.png | wc -l` = 300;
+  `file` both f00000/b00000 = 640x480 RGB. No partial-set stitch.
+- Luminance (Rec.709 mean over full 300-frame sets, PIL/numpy): BEFORE hunt=85.15 brain=21.95
+  mismatch=74.22% (expected: sun-lit EGL vs navy #0B1020). Sample sweep (10 frames):
+  gamma 2.0->24.60%, 2.2->6.84%, 2.5->21.69%, 2.8->42.71%, 3.0->53.42%.
+- ITER1 gamma=2.2 on full hunt set: AFTER hunt=23.71 brain=21.95 mismatch=7.41% (<=15% PASS,
+  1 iteration used of max 2). Hunt-side power-law `out=(in/255)^2.2*255` in linear float.
+- Overlays drawn AFTER gamma (exact colors preserved): 2px inner-edge gutter #1A2340 each panel
+  (right edge hunt + left edge brain = 4px seam gutter post-hstack, sampled (26,35,64) exact);
+  tags `HUNT`/`BRAIN` DejaVuSansMono 14px #8A94B0 at (8,H-24) bottom-left (same font file as
+  brain renderer; first pass used PIL bitmap fallback by wrong path — caught by code review,
+  reran with correct libreoffice DejaVuSansMono path, numbers unchanged).
+- Preprocessing script /tmp/kilo/cut_prep.py -> out/cut_h/h%05d.png + out/cut_b/b%05d.png (300+300,
+  git-ignored via new .gitignore lines; originals untouched). HONEST DEVIATION: plan's exact
+  ffmpeg command names out/frames10+out/brain inputs; stitch ran with byte-identical flags on the
+  matched cut_h/cut_b sets (gutter+tags+gamma must be baked pre-hstack per spec) — logged here.
+- Stitch: `ffmpeg -y -framerate 30 -i out/cut_h/h%05d.png -framerate 30 -i out/cut_b/b%05d.png
+  -filter_complex hstack -c:v libx264 -crf 23 -pix_fmt yuv420p out/trophy_hunt_brain.mp4` exit 0.
+- ffprobe: codec=h264 width=1280 height=480 r_frame_rate=30/1 duration=10.0 size=187371 (183K <50MB).
+  `ls out/*.mp4` confirms no second video file (trophy_hunt.mp4 + synth.bak pre-existing, untouched).
+- Commit `feat(video): brain-hunt 10s cut` on viz10/cut + `git push origin viz10/cut` exit 0.
+  HARD STOP after push: G4 human decision + F1-F2 run after.

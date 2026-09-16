@@ -14,6 +14,9 @@ out/spikes/*.png
 # viz10 10s hunt frames: 300xPNG, Task 5 owns probes (probe_*.png keepable)
 out/frames10/*.png
 !out/frames10/probe_*.png
+# viz10 cut intermediates: 300+300 tone-matched panels (Task 7, reproducible via cut_prep)
+out/cut_h/*.png
+out/cut_b/*.png
 # synthetic backups (pre-rerun fallbacks, never committed)
 *.bak.*
 *.bak/
