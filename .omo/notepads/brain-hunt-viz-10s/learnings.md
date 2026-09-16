@@ -40,3 +40,4 @@
   to double-gamma, fixed in linear pipeline, evidence in out/fail_brain.log (no spec-number retune).
 - Commit `feat(brain): cuda renderer + G1 probes` + `git push origin viz10/brain` exit 0.
   HARD STOP after push: full 300-frame render is Task 4 (needs G1 human OK).
+- Push: first attempt connection-reset, retry exit 0 (`34eaec3..3f6a545 viz10/brain -> viz10/brain`).
