@@ -21,37 +21,37 @@ Agent-executed only. Каждый todo несет refs/acceptance/QA-happy/QA-fa
 Строго последовательно (каждый следующий читает артефакты предыдущего): 1 бэкапы+ран -> 2 спайки-рендер -> 3 склейка -> 4 perf -> 5 tldr+failures -> 6 мини-аудит. Ран: сначала проба вендорного `two_flies.py --headless` (сухой импорт + `--help`), при дрейфе — `tools/run_hunt.py` real-path (расширить Phase-0 ветку: EGL уже доказан). Один запрос = один план.
 
 ## TODOs
-- [ ] 1. Git baseline + бэкапы синтетики + реальный EGL-ран 3с (90 frames + CSV + npz + meta)
+- [x] 1. Git baseline + бэкапы синтетики + реальный EGL-ран 3с (90 frames + CSV + npz + meta)
   - refs: `tools/run_hunt.py`, `fly-brain/two_flies.py`, `arena/hunt_arena.xml`, `out/ADAPTATION.md`, `docs/sync.md`, `git remote -v`, `.gitignore`, `git-lfs`
   - acceptance: `git remote -v` показывает origin + `git status --short` чист от лишнего + ветка `rerun/run` + `~/venv-brainfly314/bin/python -c "import torch;print(torch.__version__,torch.cuda.is_available())"` exit 0 + `ls out/frames/f*.png | wc -l` == 90 640x480 + `python3 tools/check_sync.py --csv out/physics_log.csv` PASS 90 rows + `bin10ms_rate.shape` == (300,) + `run_meta.json:path` == `real-egl` + >=1 hit reward>0 dW logged + `git push origin rerun/run` exit 0
   - QA-happy: `grep -c ",1$" out/physics_log.csv` >= 1 + ран-лог содержит `model-ok step-ok` evidence `out/run_egl.log` + torch CUDA True/False запротоколирован (False = CPU-фолбэк, не фейл)
   - QA-fail: нет origin -> STOP + инструкция пользователю (URL не выдумывать) evidence `out/fail_git.log`; вендорный дрейф/torch-импорт -> `run_hunt.py real-path` фолбэк + `out/fail_egl.log` append evidence (read-first, append-only)
   - commit: `feat(run): real egl 3s hunt` + push `rerun/run`
-- [ ] 2. Перерендер спайков magma 90 PNG из нового npz
+- [x] 2. Перерендер спайков magma 90 PNG из нового npz
   - refs: `tools/render_spikes.py --palette magma:#000004-#FCFFA4 --size 640x480 --fps 30`
   - acceptance: `ls out/spikes/sp*.png | wc -l` == 90 + `file out/spikes/sp00000.png` PNG 640x480
   - QA-happy: 90/90 distinct md5 + `#FCFFA4` на hit-кадрах evidence `out/fail_render.log` (append)
   - QA-fail: mismatch count -> `out/fail_render.log` evidence + fix
   - commit: `feat(viz): rerender magma from real run`
-- [ ] 3. Пересклейка trophy_hunt.mp4 той же командой
+- [x] 3. Пересклейка trophy_hunt.mp4 той же командой
   - refs: exact cmd из Scope
   - acceptance: ffprobe == 1280/480/30/h264 + size<50MB
   - QA-happy: `ls -lh out/trophy_hunt.mp4` evidence
   - QA-fail: ffprobe mismatch -> `out/fail_ffmpeg.log` evidence (append)
   - commit: `feat(video): restitch real hunt+spikes`
-- [ ] 4. Свежий perf.md с реальными wall-числами
+- [x] 4. Свежий perf.md с реальными wall-числами
   - refs: `out/run_egl.log` wall, `nvidia-smi`, `out/perf.md`
   - acceptance: `cat out/perf.md` содержит sim/wall>=0.2 (реальный wall), VRAM<3.5, RSS<14
   - QA-happy: evidence `out/perf.md`
   - QA-fail: превышение -> chunked + `out/fail_perf.log` evidence (append)
   - commit: `chore(perf): real-run slo`
-- [ ] 5. Сверка TL;DR + failures под реальный прогон
+- [x] 5. Сверка TL;DR + failures под реальный прогон
   - refs: `out/tldr_check.md`, `out/failures.md`, `out/trophy_hunt.mp4`, `out/physics_log.csv`, `out/spikes.npz`
   - acceptance: `test -f out/trophy_hunt.mp4 && test -f out/physics_log.csv` exit 0 + per-claim VERIFIED в tldr_check
   - QA-happy: `ls -lh out/` evidence
   - QA-fail: артефакта нет -> `out/fail_tldr.log` evidence (append)
   - commit: `docs(tldr): sync real-run artifacts`
-- [ ] 6. Мини-аудит: compliance + live-gates на новых артефактах
+- [x] 6. Мини-аудит: compliance + live-gates на новых артефактах
   - refs: `out/F1_audit.md`, `out/F3_qa.md` (обновить rerun-секцией, не переписывать)
   - acceptance: 7 гейтов EXIT 0 live (budget/circuit/sync/physics/shot/reward/spikes) + ffprobe 1280/480/30/h264 + N=5500 + DN==150 + single ffmpeg cmd
   - QA-happy: `RERUN VERDICT: APPROVE` в обоих файлах evidence
@@ -59,8 +59,8 @@ Agent-executed only. Каждый todo несет refs/acceptance/QA-happy/QA-fa
   - commit: `chore(qa): rerun audit approve`
 
 ## Final verification wave
-- [ ] F1. Rerun compliance — expect все 1–6 чекбоксы со ссылками на живые выводы + `path=real-egl` в run_meta + бэкапы синтетики на месте + каждый todo закоммичен и запушен (`git log origin/rerun/run origin/rerun/video origin/rerun/qa` содержат сообщения из плана)
-- [ ] F2. Scope fidelity — expect один mp4 + forbidden-grep пуст + N=5500 + замороженные числа нетронуты (diff `tools/reward.py`, shot-констант, sync-заголовка пуст)
+- [x] F1. Rerun compliance — expect все 1–6 чекбоксы со ссылками на живые выводы + `path=real-egl` в run_meta + бэкапы синтетики на месте + каждый todo закоммичен и запушен (`git log origin/rerun/run origin/rerun/video origin/rerun/qa` содержат сообщения из плана)
+- [x] F2. Scope fidelity — expect один mp4 + forbidden-grep пуст + N=5500 + замороженные числа нетронуты (diff `tools/reward.py`, shot-констант, sync-заголовка пуст)
 
 ## Commit strategy
 Ветки: `rerun/run` (задачи 1–2), `rerun/video` (задача 3), `rerun/qa` (задачи 4–6). По одному коммиту на todo сообщениями из каждого `commit:` + обязательный `git push origin <ветка>` сразу после коммита (каждая задача считается закрытой только после пуша). Не коммитить `data/*.parquet`, `out/frames/*.png` (кроме 3 сэмплов), `*.bak.*`, `fly-brain/`. Мерж веток в `main` + `git push origin main` только после F1–F2 APPROVE. Тег `trophy-hunt-real-egl`.
