@@ -23,3 +23,9 @@
 - LFS note: `git check-attr filter out/trophy_hunt.mp4`=unspecified (no lfs set up) — committed normally per plan fallback, single side-by-side 1280x480 file, no second video/audio/titles.
 - Commit 6fb9fd4 `feat(video): restitch real hunt+spikes` (2 files: out/trophy_hunt.mp4 + out/fail_ffmpeg.log) + `git push origin rerun/video` exit 0 (new branch).
 - Frozen untouched: shot/reward/clip/sync constants, run_hunt/render code, perf.md/tldr/failures.md/audit; no pip install, no fly-brain edits, no .synth.bak overwrite.
+# 2026-09-16T17:05Z — Task 4 DONE (real-run perf.md on rerun/qa, pushed)
+- Branch: `git checkout -b rerun/qa` from `rerun/video` tip 24276db (full artifact/code carryover; uncommitted plan-md edit + run-continuation jsons left untouched/out of scope).
+- Numbers (all from `out/run_egl.log` 2026-09-16T16:44:28Z): mujoco sim 2.9700s/wall 4.75s → 0.625; brian2 sim 3.0s/wall 8.77s → 0.342 (412811 spikes, 5500 neurons, 25.02Hz); end-to-end 2.97/27.74=0.107 reported honestly as render-bound informational (not gated, no fail_perf.log needed).
+- VRAM source: live `nvidia-smi` → `4096, 4` = 0.0039GB (RTX 3050 Laptop 4GB idle; torch absent → CPU, no GPU arrays). RSS source: `/proc` VmHWM 5ms poll this branch — check_sync 17136kB=0.0163GB, check_spikes 37864kB=0.0361GB (`/usr/bin/time -v` absent as in Task 16).
+- Synthetic Task-16 proxy ratios (6.0–13.0) marked superseded; perf.md structure preserved (SLO table/raw outputs/chunked-guard/verdict) + provenance line (date, log path, branch lineage).
+- Commit 5642c53 `chore(perf): real-run slo` (1 file: out/perf.md) + `git push origin rerun/qa` exit 0 (new branch). Downstream Tasks 5-6 read this perf.md.
