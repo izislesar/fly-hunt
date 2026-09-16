@@ -1,0 +1,3105 @@
+{
+  "path": "real-egl-10s",
+  "import_probe": {
+    "mujoco": "ok",
+    "brian2": "ok",
+    "torch": "ok",
+    "flygym": "ok",
+    "vendor_brain_body_bridge": {
+      "BrainEngine.step@451": true,
+      "get_dn_spikes@464": true,
+      "decoder.update@511": true,
+      "compute_drive@609": true,
+      "no def reset/spike/torque": true
+    },
+    "two_flies_cmd": "two_flies.py --headless --visual --gustatory --somatosensory --duration 3 --separation 5.0 --no-viewer (NOT executed: mujoco missing; synthetic fallback with same 90-frame interface)",
+    "xvfb-run": "/usr/bin/xvfb-run"
+  },
+  "vendor_drift": {
+    "--help": {
+      "exit": 1,
+      "tail": [
+        "  File \"/home/izislesar/Projects/fly_oxota/fly-brain/two_flies.py\", line 24, in <module>",
+        "    from flygym import Fly",
+        "ImportError: cannot import name 'Fly' from 'flygym' (/home/izislesar/venv-brainfly314/lib/python3.14/site-packages/flygym/__init__.py)"
+      ]
+    },
+    "--headless --duration 3 --no-viewer": {
+      "exit": 1,
+      "tail": [
+        "  File \"/home/izislesar/Projects/fly_oxota/fly-brain/two_flies.py\", line 24, in <module>",
+        "    from flygym import Fly",
+        "ImportError: cannot import name 'Fly' from 'flygym' (/home/izislesar/venv-brainfly314/lib/python3.14/site-packages/flygym/__init__.py)"
+      ]
+    }
+  },
+  "torch_state": "ok torch=2.14.0+cu130 cuda=True device=NVIDIA GeForce RTX 3050 Laptop GPU",
+  "frames": 300,
+  "size": "640x480",
+  "fps": 30,
+  "seed": 1,
+  "renderer": "mujoco-EGL-3.9.0-hunt_arena.xml-hunt_cam",
+  "circuit": "data/hunting_circuit_6k.npz N=5500 S=120344 real-edge",
+  "neural": "brian2-2.10.1 PoissonGroup(5500) TimedArray-10ms 10s n_spikes=1354381",
+  "physics": "mujoco-3.9.0 66 phys/frame x0.5ms sim_time=9.9000s",
+  "shot_params": {
+    "threshold": 3,
+    "hysteresis": 2,
+    "ammo_max": 5,
+    "ammo_used": 5,
+    "ammo_left": 0,
+    "range_m": 20.0,
+    "cooldown_ms": 500,
+    "spread_rad": 0.02
+  },
+  "spike_rate_hz": {
+    "min": 4.527,
+    "max": 143.527,
+    "mean": 24.625
+  },
+  "spike_scale": "full-population brian2 counts (no /1000 normalization on real path)",
+  "hits": [
+    {
+      "frame": 0,
+      "dist": 12.0,
+      "loom": 40.0,
+      "reward": 0.98,
+      "dW_mean": 0.035892999793388426,
+      "log_line": "0.0,1,12.0,40.0,0.98,0.035892999793388426"
+    },
+    {
+      "frame": 19,
+      "dist": 11.4916,
+      "loom": 47.63,
+      "reward": 0.98,
+      "dW_mean": 0.03749501632231405,
+      "log_line": "633.27,1,11.4916,47.63,0.98,0.03749501632231405"
+    },
+    {
+      "frame": 46,
+      "dist": 10.7692,
+      "loom": 58.46,
+      "reward": 0.98,
+      "dW_mean": 0.03841597500000001,
+      "log_line": "1533.18,1,10.7692,58.46,0.98,0.03841597500000001"
+    },
+    {
+      "frame": 65,
+      "dist": 10.2609,
+      "loom": 66.09,
+      "reward": 0.98,
+      "dW_mean": 1.9064077766528924,
+      "log_line": "2166.45,1,10.2609,66.09,0.98,1.9064077766528924"
+    },
+    {
+      "frame": 85,
+      "dist": 9.7258,
+      "loom": 74.11,
+      "reward": 0.98,
+      "dW_mean": 0.03934810723140496,
+      "log_line": "2833.05,1,9.7258,74.11,0.98,0.03934810723140496"
+    }
+  ],
+  "per_frame": [
+    {
+      "t": 0.0,
+      "hit": 1,
+      "dist": 12.0,
+      "loom": 40.0,
+      "reward": 0.98,
+      "dW_mean": 0.035892999793388426,
+      "rate_hz": 18.945,
+      "spike_count": 3253
+    },
+    {
+      "t": 33.33,
+      "hit": 0,
+      "dist": 11.9732,
+      "loom": 40.4,
+      "reward": 0.0,
+      "dW_mean": 0.03970959483471074,
+      "rate_hz": 19.927,
+      "spike_count": 4415
+    },
+    {
+      "t": 66.66,
+      "hit": 0,
+      "dist": 11.9465,
+      "loom": 40.8,
+      "reward": 0.0,
+      "dW_mean": 0.036515710537190084,
+      "rate_hz": 19.109,
+      "spike_count": 3195
+    },
+    {
+      "t": 99.99,
+      "hit": 0,
+      "dist": 11.9197,
+      "loom": 41.2,
+      "reward": 0.0,
+      "dW_mean": 0.0407305535123967,
+      "rate_hz": 20.182,
+      "spike_count": 3370
+    },
+    {
+      "t": 133.32,
+      "hit": 0,
+      "dist": 11.893,
+      "loom": 41.61,
+      "reward": 0.0,
+      "dW_mean": 0.040803975,
+      "rate_hz": 20.2,
+      "spike_count": 4314
+    },
+    {
+      "t": 166.65,
+      "hit": 0,
+      "dist": 11.8662,
+      "loom": 42.01,
+      "reward": 0.0,
+      "dW_mean": 0.03735432210743802,
+      "rate_hz": 19.327,
+      "spike_count": 3283
+    },
+    {
+      "t": 199.98,
+      "hit": 0,
+      "dist": 11.8395,
+      "loom": 42.41,
+      "reward": 0.0,
+      "dW_mean": 0.04556281797520661,
+      "rate_hz": 21.345,
+      "spike_count": 3354
+    },
+    {
+      "t": 233.31,
+      "hit": 0,
+      "dist": 11.8127,
+      "loom": 42.81,
+      "reward": 0.0,
+      "dW_mean": 0.04303736342975207,
+      "rate_hz": 20.745,
+      "spike_count": 4445
+    },
+    {
+      "t": 266.64,
+      "hit": 0,
+      "dist": 11.786,
+      "loom": 43.21,
+      "reward": 0.0,
+      "dW_mean": 0.041172074173553716,
+      "rate_hz": 20.291,
+      "spike_count": 3372
+    },
+    {
+      "t": 299.97,
+      "hit": 0,
+      "dist": 11.7592,
+      "loom": 43.61,
+      "reward": 0.0,
+      "dW_mean": 0.04183881797520661,
+      "rate_hz": 20.455,
+      "spike_count": 3263
+    },
+    {
+      "t": 333.3,
+      "hit": 0,
+      "dist": 11.7324,
+      "loom": 44.01,
+      "reward": 0.0,
+      "dW_mean": 0.03913200805785124,
+      "rate_hz": 19.782,
+      "spike_count": 4330
+    },
+    {
+      "t": 366.63,
+      "hit": 0,
+      "dist": 11.7057,
+      "loom": 44.41,
+      "reward": 0.0,
+      "dW_mean": 0.0382735617768595,
+      "rate_hz": 19.564,
+      "spike_count": 3198
+    },
+    {
+      "t": 399.96,
+      "hit": 0,
+      "dist": 11.6789,
+      "loom": 44.82,
+      "reward": 0.0,
+      "dW_mean": 0.03644625599173554,
+      "rate_hz": 19.091,
+      "spike_count": 3276
+    },
+    {
+      "t": 433.29,
+      "hit": 0,
+      "dist": 11.6522,
+      "loom": 45.22,
+      "reward": 0.0,
+      "dW_mean": 0.04341537995867769,
+      "rate_hz": 20.836,
+      "spike_count": 4460
+    },
+    {
+      "t": 466.62,
+      "hit": 0,
+      "dist": 11.6254,
+      "loom": 45.62,
+      "reward": 0.0,
+      "dW_mean": 0.03637686756198348,
+      "rate_hz": 19.073,
+      "spike_count": 3302
+    },
+    {
+      "t": 499.95,
+      "hit": 0,
+      "dist": 11.5987,
+      "loom": 46.02,
+      "reward": 0.0,
+      "dW_mean": 0.0407305535123967,
+      "rate_hz": 20.182,
+      "spike_count": 3285
+    },
+    {
+      "t": 533.28,
+      "hit": 0,
+      "dist": 11.5719,
+      "loom": 46.42,
+      "reward": 0.0,
+      "dW_mean": 0.042136867561983475,
+      "rate_hz": 20.527,
+      "spike_count": 4486
+    },
+    {
+      "t": 566.61,
+      "hit": 0,
+      "dist": 11.5452,
+      "loom": 46.82,
+      "reward": 0.0,
+      "dW_mean": 0.04649901632231405,
+      "rate_hz": 21.564,
+      "spike_count": 3352
+    },
+    {
+      "t": 599.94,
+      "hit": 0,
+      "dist": 11.5184,
+      "loom": 47.22,
+      "reward": 0.0,
+      "dW_mean": 0.039203975,
+      "rate_hz": 19.8,
+      "spike_count": 3313
+    },
+    {
+      "t": 633.27,
+      "hit": 1,
+      "dist": 11.4916,
+      "loom": 47.63,
+      "reward": 0.98,
+      "dW_mean": 0.03749501632231405,
+      "rate_hz": 19.364,
+      "spike_count": 4395
+    },
+    {
+      "t": 666.6,
+      "hit": 0,
+      "dist": 11.4649,
+      "loom": 48.03,
+      "reward": 0.0,
+      "dW_mean": 0.03548083450413223,
+      "rate_hz": 18.836,
+      "spike_count": 3238
+    },
+    {
+      "t": 699.93,
+      "hit": 0,
+      "dist": 11.4381,
+      "loom": 48.43,
+      "reward": 0.0,
+      "dW_mean": 0.03714377665289256,
+      "rate_hz": 19.273,
+      "spike_count": 3190
+    },
+    {
+      "t": 733.26,
+      "hit": 0,
+      "dist": 11.4114,
+      "loom": 48.83,
+      "reward": 0.0,
+      "dW_mean": 0.04087746260330579,
+      "rate_hz": 20.218,
+      "spike_count": 4366
+    },
+    {
+      "t": 766.59,
+      "hit": 0,
+      "dist": 11.3846,
+      "loom": 49.23,
+      "reward": 0.0,
+      "dW_mean": 0.03927600805785124,
+      "rate_hz": 19.818,
+      "spike_count": 3255
+    },
+    {
+      "t": 799.92,
+      "hit": 0,
+      "dist": 11.3579,
+      "loom": 49.63,
+      "reward": 0.0,
+      "dW_mean": 0.03644625599173554,
+      "rate_hz": 19.091,
+      "spike_count": 3314
+    },
+    {
+      "t": 833.25,
+      "hit": 0,
+      "dist": 11.3311,
+      "loom": 50.03,
+      "reward": 0.0,
+      "dW_mean": 0.03637686756198348,
+      "rate_hz": 19.073,
+      "spike_count": 4295
+    },
+    {
+      "t": 866.58,
+      "hit": 0,
+      "dist": 11.3043,
+      "loom": 50.43,
+      "reward": 0.0,
+      "dW_mean": 0.03813141301652893,
+      "rate_hz": 19.527,
+      "spike_count": 3265
+    },
+    {
+      "t": 899.91,
+      "hit": 0,
+      "dist": 11.2776,
+      "loom": 50.84,
+      "reward": 0.0,
+      "dW_mean": 0.0382735617768595,
+      "rate_hz": 19.564,
+      "spike_count": 3296
+    },
+    {
+      "t": 933.24,
+      "hit": 0,
+      "dist": 11.2508,
+      "loom": 51.24,
+      "reward": 0.0,
+      "dW_mean": 0.03658523119834711,
+      "rate_hz": 19.127,
+      "spike_count": 4403
+    },
+    {
+      "t": 966.57,
+      "hit": 0,
+      "dist": 11.2241,
+      "loom": 51.64,
+      "reward": 0.0,
+      "dW_mean": 0.043947379958677694,
+      "rate_hz": 20.964,
+      "spike_count": 3256
+    },
+    {
+      "t": 999.9,
+      "hit": 0,
+      "dist": 11.1973,
+      "loom": 52.04,
+      "reward": 0.0,
+      "dW_mean": 1.9937439749999997,
+      "rate_hz": 141.2,
+      "spike_count": 23388
+    },
+    {
+      "t": 1033.23,
+      "hit": 0,
+      "dist": 11.1706,
+      "loom": 52.44,
+      "reward": 0.0,
+      "dW_mean": 1.9442499254132233,
+      "rate_hz": 139.436,
+      "spike_count": 30782
+    },
+    {
+      "t": 1066.56,
+      "hit": 0,
+      "dist": 11.1438,
+      "loom": 52.84,
+      "reward": 0.0,
+      "dW_mean": 0.03949250392561983,
+      "rate_hz": 19.873,
+      "spike_count": 3320
+    },
+    {
+      "t": 1099.89,
+      "hit": 0,
+      "dist": 11.1171,
+      "loom": 53.24,
+      "reward": 0.0,
+      "dW_mean": 0.04206225599173554,
+      "rate_hz": 20.509,
+      "spike_count": 3291
+    },
+    {
+      "t": 1133.22,
+      "hit": 0,
+      "dist": 11.0903,
+      "loom": 53.65,
+      "reward": 0.0,
+      "dW_mean": 0.03898827252066116,
+      "rate_hz": 19.745,
+      "spike_count": 4390
+    },
+    {
+      "t": 1166.55,
+      "hit": 0,
+      "dist": 11.0635,
+      "loom": 54.05,
+      "reward": 0.0,
+      "dW_mean": 0.04087746260330579,
+      "rate_hz": 20.218,
+      "spike_count": 3334
+    },
+    {
+      "t": 1199.88,
+      "hit": 0,
+      "dist": 11.0368,
+      "loom": 54.45,
+      "reward": 0.0,
+      "dW_mean": 0.039060107231404954,
+      "rate_hz": 19.764,
+      "spike_count": 3293
+    },
+    {
+      "t": 1233.21,
+      "hit": 0,
+      "dist": 11.01,
+      "loom": 54.85,
+      "reward": 0.0,
+      "dW_mean": 0.036863975,
+      "rate_hz": 19.2,
+      "spike_count": 4318
+    },
+    {
+      "t": 1266.54,
+      "hit": 0,
+      "dist": 10.9833,
+      "loom": 55.25,
+      "reward": 0.0,
+      "dW_mean": 0.04043752871900826,
+      "rate_hz": 20.109,
+      "spike_count": 3260
+    },
+    {
+      "t": 1299.87,
+      "hit": 0,
+      "dist": 10.9565,
+      "loom": 55.65,
+      "reward": 0.0,
+      "dW_mean": 0.03728407417355372,
+      "rate_hz": 19.309,
+      "spike_count": 3238
+    },
+    {
+      "t": 1333.2,
+      "hit": 0,
+      "dist": 10.9298,
+      "loom": 56.05,
+      "reward": 0.0,
+      "dW_mean": 0.04087746260330579,
+      "rate_hz": 20.218,
+      "spike_count": 4442
+    },
+    {
+      "t": 1366.53,
+      "hit": 0,
+      "dist": 10.903,
+      "loom": 56.45,
+      "reward": 0.0,
+      "dW_mean": 0.041098322107438016,
+      "rate_hz": 20.273,
+      "spike_count": 3294
+    },
+    {
+      "t": 1399.86,
+      "hit": 0,
+      "dist": 10.8763,
+      "loom": 56.86,
+      "reward": 0.0,
+      "dW_mean": 0.043795049380165284,
+      "rate_hz": 20.927,
+      "spike_count": 3387
+    },
+    {
+      "t": 1433.19,
+      "hit": 0,
+      "dist": 10.8495,
+      "loom": 57.26,
+      "reward": 0.0,
+      "dW_mean": 0.036169098966942155,
+      "rate_hz": 19.018,
+      "spike_count": 4376
+    },
+    {
+      "t": 1466.52,
+      "hit": 0,
+      "dist": 10.8227,
+      "loom": 57.66,
+      "reward": 0.0,
+      "dW_mean": 0.040145561776859504,
+      "rate_hz": 20.036,
+      "spike_count": 3366
+    },
+    {
+      "t": 1499.85,
+      "hit": 0,
+      "dist": 10.796,
+      "loom": 58.06,
+      "reward": 0.0,
+      "dW_mean": 0.0026662890495867775,
+      "rate_hz": 5.164,
+      "spike_count": 830
+    },
+    {
+      "t": 1533.18,
+      "hit": 1,
+      "dist": 10.7692,
+      "loom": 58.46,
+      "reward": 0.98,
+      "dW_mean": 0.03841597500000001,
+      "rate_hz": 19.6,
+      "spike_count": 4365
+    },
+    {
+      "t": 1566.51,
+      "hit": 0,
+      "dist": 10.7425,
+      "loom": 58.86,
+      "reward": 0.0,
+      "dW_mean": 0.03855865268595041,
+      "rate_hz": 19.636,
+      "spike_count": 3354
+    },
+    {
+      "t": 1599.84,
+      "hit": 0,
+      "dist": 10.7157,
+      "loom": 59.26,
+      "reward": 0.0,
+      "dW_mean": 0.037424636157024786,
+      "rate_hz": 19.345,
+      "spike_count": 3212
+    },
+    {
+      "t": 1633.17,
+      "hit": 0,
+      "dist": 10.689,
+      "loom": 59.67,
+      "reward": 0.0,
+      "dW_mean": 0.03784790888429752,
+      "rate_hz": 19.455,
+      "spike_count": 4423
+    },
+    {
+      "t": 1666.5,
+      "hit": 0,
+      "dist": 10.6622,
+      "loom": 60.07,
+      "reward": 0.0,
+      "dW_mean": 0.039203975,
+      "rate_hz": 19.8,
+      "spike_count": 3226
+    },
+    {
+      "t": 1699.83,
+      "hit": 0,
+      "dist": 10.6355,
+      "loom": 60.47,
+      "reward": 0.0,
+      "dW_mean": 0.038701594834710744,
+      "rate_hz": 19.673,
+      "spike_count": 3307
+    },
+    {
+      "t": 1733.16,
+      "hit": 0,
+      "dist": 10.6087,
+      "loom": 60.87,
+      "reward": 0.0,
+      "dW_mean": 0.03749501632231405,
+      "rate_hz": 19.364,
+      "spike_count": 4366
+    },
+    {
+      "t": 1766.49,
+      "hit": 0,
+      "dist": 10.5819,
+      "loom": 61.27,
+      "reward": 0.0,
+      "dW_mean": 0.036099975,
+      "rate_hz": 19.0,
+      "spike_count": 3213
+    },
+    {
+      "t": 1799.82,
+      "hit": 0,
+      "dist": 10.5552,
+      "loom": 61.67,
+      "reward": 0.0,
+      "dW_mean": 0.04221154524793389,
+      "rate_hz": 20.545,
+      "spike_count": 3386
+    },
+    {
+      "t": 1833.15,
+      "hit": 0,
+      "dist": 10.5284,
+      "loom": 62.07,
+      "reward": 0.0,
+      "dW_mean": 0.04198771053719009,
+      "rate_hz": 20.491,
+      "spike_count": 4440
+    },
+    {
+      "t": 1866.48,
+      "hit": 0,
+      "dist": 10.5017,
+      "loom": 62.47,
+      "reward": 0.0,
+      "dW_mean": 0.03913200805785124,
+      "rate_hz": 19.782,
+      "spike_count": 3281
+    },
+    {
+      "t": 1899.81,
+      "hit": 0,
+      "dist": 10.4749,
+      "loom": 62.88,
+      "reward": 0.0,
+      "dW_mean": 0.04595174359504133,
+      "rate_hz": 21.436,
+      "spike_count": 3328
+    },
+    {
+      "t": 1933.14,
+      "hit": 0,
+      "dist": 10.4482,
+      "loom": 63.28,
+      "reward": 0.0,
+      "dW_mean": 0.04198771053719009,
+      "rate_hz": 20.491,
+      "spike_count": 4448
+    },
+    {
+      "t": 1966.47,
+      "hit": 0,
+      "dist": 10.4214,
+      "loom": 63.68,
+      "reward": 0.0,
+      "dW_mean": 0.041615975,
+      "rate_hz": 20.4,
+      "spike_count": 3273
+    },
+    {
+      "t": 1999.8,
+      "hit": 0,
+      "dist": 10.3946,
+      "loom": 64.08,
+      "reward": 0.0,
+      "dW_mean": 0.04556281797520661,
+      "rate_hz": 21.345,
+      "spike_count": 3338
+    },
+    {
+      "t": 2033.13,
+      "hit": 0,
+      "dist": 10.3679,
+      "loom": 64.48,
+      "reward": 0.0,
+      "dW_mean": 0.03665481797520661,
+      "rate_hz": 19.145,
+      "spike_count": 4352
+    },
+    {
+      "t": 2066.46,
+      "hit": 0,
+      "dist": 10.3411,
+      "loom": 64.88,
+      "reward": 0.0,
+      "dW_mean": 0.04051068574380166,
+      "rate_hz": 20.127,
+      "spike_count": 3359
+    },
+    {
+      "t": 2099.79,
+      "hit": 0,
+      "dist": 10.3144,
+      "loom": 65.28,
+      "reward": 0.0,
+      "dW_mean": 0.04183881797520661,
+      "rate_hz": 20.455,
+      "spike_count": 3340
+    },
+    {
+      "t": 2133.12,
+      "hit": 0,
+      "dist": 10.2876,
+      "loom": 65.69,
+      "reward": 0.0,
+      "dW_mean": 0.039060107231404954,
+      "rate_hz": 19.764,
+      "spike_count": 4350
+    },
+    {
+      "t": 2166.45,
+      "hit": 1,
+      "dist": 10.2609,
+      "loom": 66.09,
+      "reward": 0.98,
+      "dW_mean": 1.9064077766528924,
+      "rate_hz": 138.073,
+      "spike_count": 22848
+    },
+    {
+      "t": 2199.78,
+      "hit": 0,
+      "dist": 10.2341,
+      "loom": 66.49,
+      "reward": 0.0,
+      "dW_mean": 1.9559293634297519,
+      "rate_hz": 139.855,
+      "spike_count": 23124
+    },
+    {
+      "t": 2233.11,
+      "hit": 0,
+      "dist": 10.2074,
+      "loom": 66.89,
+      "reward": 0.0,
+      "dW_mean": 0.037635974999999995,
+      "rate_hz": 19.4,
+      "spike_count": 4378
+    },
+    {
+      "t": 2266.44,
+      "hit": 0,
+      "dist": 10.1806,
+      "loom": 67.29,
+      "reward": 0.0,
+      "dW_mean": 0.04058390888429752,
+      "rate_hz": 20.145,
+      "spike_count": 3292
+    },
+    {
+      "t": 2299.77,
+      "hit": 0,
+      "dist": 10.1538,
+      "loom": 67.69,
+      "reward": 0.0,
+      "dW_mean": 0.04341537995867769,
+      "rate_hz": 20.836,
+      "spike_count": 3324
+    },
+    {
+      "t": 2333.1,
+      "hit": 0,
+      "dist": 10.1271,
+      "loom": 68.09,
+      "reward": 0.0,
+      "dW_mean": 0.039203975,
+      "rate_hz": 19.8,
+      "spike_count": 4379
+    },
+    {
+      "t": 2366.43,
+      "hit": 0,
+      "dist": 10.1003,
+      "loom": 68.49,
+      "reward": 0.0,
+      "dW_mean": 0.035275644421487604,
+      "rate_hz": 18.782,
+      "spike_count": 3256
+    },
+    {
+      "t": 2399.76,
+      "hit": 0,
+      "dist": 10.0736,
+      "loom": 68.9,
+      "reward": 0.0,
+      "dW_mean": 0.03942027252066116,
+      "rate_hz": 19.855,
+      "spike_count": 3321
+    },
+    {
+      "t": 2433.09,
+      "hit": 0,
+      "dist": 10.0468,
+      "loom": 69.3,
+      "reward": 0.0,
+      "dW_mean": 0.03956480144628099,
+      "rate_hz": 19.891,
+      "spike_count": 4386
+    },
+    {
+      "t": 2466.42,
+      "hit": 0,
+      "dist": 10.0201,
+      "loom": 69.7,
+      "reward": 0.0,
+      "dW_mean": 0.0407305535123967,
+      "rate_hz": 20.182,
+      "spike_count": 3296
+    },
+    {
+      "t": 2499.75,
+      "hit": 0,
+      "dist": 9.9933,
+      "loom": 70.1,
+      "reward": 0.0,
+      "dW_mean": 0.038844801446281,
+      "rate_hz": 19.709,
+      "spike_count": 3228
+    },
+    {
+      "t": 2533.08,
+      "hit": 0,
+      "dist": 9.9666,
+      "loom": 70.5,
+      "reward": 0.0,
+      "dW_mean": 0.040072735330578514,
+      "rate_hz": 20.018,
+      "spike_count": 4424
+    },
+    {
+      "t": 2566.41,
+      "hit": 0,
+      "dist": 9.9398,
+      "loom": 70.9,
+      "reward": 0.0,
+      "dW_mean": 0.04258592541322315,
+      "rate_hz": 20.636,
+      "spike_count": 3374
+    },
+    {
+      "t": 2599.74,
+      "hit": 0,
+      "dist": 9.913,
+      "loom": 71.3,
+      "reward": 0.0,
+      "dW_mean": 0.03949250392561983,
+      "rate_hz": 19.873,
+      "spike_count": 3216
+    },
+    {
+      "t": 2633.07,
+      "hit": 0,
+      "dist": 9.8863,
+      "loom": 71.71,
+      "reward": 0.0,
+      "dW_mean": 0.040218454338842975,
+      "rate_hz": 20.055,
+      "spike_count": 4415
+    },
+    {
+      "t": 2666.4,
+      "hit": 0,
+      "dist": 9.8595,
+      "loom": 72.11,
+      "reward": 0.0,
+      "dW_mean": 0.03700374359504133,
+      "rate_hz": 19.236,
+      "spike_count": 3267
+    },
+    {
+      "t": 2699.73,
+      "hit": 0,
+      "dist": 9.8328,
+      "loom": 72.51,
+      "reward": 0.0,
+      "dW_mean": 0.041245892355371905,
+      "rate_hz": 20.309,
+      "spike_count": 3296
+    },
+    {
+      "t": 2733.06,
+      "hit": 0,
+      "dist": 9.806,
+      "loom": 72.91,
+      "reward": 0.0,
+      "dW_mean": 0.039203975,
+      "rate_hz": 19.8,
+      "spike_count": 4372
+    },
+    {
+      "t": 2766.39,
+      "hit": 0,
+      "dist": 9.7793,
+      "loom": 73.31,
+      "reward": 0.0,
+      "dW_mean": 0.03985465268595041,
+      "rate_hz": 19.964,
+      "spike_count": 3238
+    },
+    {
+      "t": 2799.72,
+      "hit": 0,
+      "dist": 9.7525,
+      "loom": 73.71,
+      "reward": 0.0,
+      "dW_mean": 0.041172074173553716,
+      "rate_hz": 20.291,
+      "spike_count": 3299
+    },
+    {
+      "t": 2833.05,
+      "hit": 1,
+      "dist": 9.7258,
+      "loom": 74.11,
+      "reward": 0.98,
+      "dW_mean": 0.03934810723140496,
+      "rate_hz": 19.836,
+      "spike_count": 4454
+    },
+    {
+      "t": 2866.38,
+      "hit": 0,
+      "dist": 9.699,
+      "loom": 74.52,
+      "reward": 0.0,
+      "dW_mean": 0.04087746260330579,
+      "rate_hz": 20.218,
+      "spike_count": 3276
+    },
+    {
+      "t": 2899.71,
+      "hit": 0,
+      "dist": 9.6722,
+      "loom": 74.92,
+      "reward": 0.0,
+      "dW_mean": 0.041615975,
+      "rate_hz": 20.4,
+      "spike_count": 3365
+    },
+    {
+      "t": 2933.04,
+      "hit": 0,
+      "dist": 9.6455,
+      "loom": 75.32,
+      "reward": 0.0,
+      "dW_mean": 0.03841597500000001,
+      "rate_hz": 19.6,
+      "spike_count": 4473
+    },
+    {
+      "t": 2966.37,
+      "hit": 0,
+      "dist": 9.6187,
+      "loom": 75.72,
+      "reward": 0.0,
+      "dW_mean": 0.04303736342975207,
+      "rate_hz": 20.745,
+      "spike_count": 3301
+    },
+    {
+      "t": 2999.7,
+      "hit": 0,
+      "dist": 9.592,
+      "loom": 76.12,
+      "reward": 0.0,
+      "dW_mean": 0.03913200805785124,
+      "rate_hz": 19.782,
+      "spike_count": 3355
+    },
+    {
+      "t": 3033.03,
+      "hit": 0,
+      "dist": 9.5652,
+      "loom": 76.52,
+      "reward": 0.0,
+      "dW_mean": 0.04206225599173554,
+      "rate_hz": 20.509,
+      "spike_count": 4374
+    },
+    {
+      "t": 3066.36,
+      "hit": 0,
+      "dist": 9.5385,
+      "loom": 76.92,
+      "reward": 0.0,
+      "dW_mean": 0.04169018987603306,
+      "rate_hz": 20.418,
+      "spike_count": 3390
+    },
+    {
+      "t": 3099.69,
+      "hit": 0,
+      "dist": 9.5117,
+      "loom": 77.32,
+      "reward": 0.0,
+      "dW_mean": 0.038344735330578514,
+      "rate_hz": 19.582,
+      "spike_count": 3271
+    },
+    {
+      "t": 3133.02,
+      "hit": 0,
+      "dist": 9.4849,
+      "loom": 77.73,
+      "reward": 0.0,
+      "dW_mean": 0.038773165082644626,
+      "rate_hz": 19.691,
+      "spike_count": 4323
+    },
+    {
+      "t": 3166.35,
+      "hit": 0,
+      "dist": 9.4582,
+      "loom": 78.13,
+      "reward": 0.0,
+      "dW_mean": 0.03841597500000001,
+      "rate_hz": 19.6,
+      "spike_count": 3286
+    },
+    {
+      "t": 3199.68,
+      "hit": 0,
+      "dist": 9.4314,
+      "loom": 78.53,
+      "reward": 0.0,
+      "dW_mean": 0.042660999793388436,
+      "rate_hz": 20.655,
+      "spike_count": 3348
+    },
+    {
+      "t": 3233.01,
+      "hit": 0,
+      "dist": 9.4047,
+      "loom": 78.93,
+      "reward": 0.0,
+      "dW_mean": 0.03956480144628099,
+      "rate_hz": 19.891,
+      "spike_count": 4367
+    },
+    {
+      "t": 3266.34,
+      "hit": 0,
+      "dist": 9.3779,
+      "loom": 79.33,
+      "reward": 0.0,
+      "dW_mean": 0.03898827252066116,
+      "rate_hz": 19.745,
+      "spike_count": 3293
+    },
+    {
+      "t": 3299.67,
+      "hit": 0,
+      "dist": 9.3512,
+      "loom": 79.73,
+      "reward": 0.0,
+      "dW_mean": 0.036863975,
+      "rate_hz": 19.2,
+      "spike_count": 3173
+    },
+    {
+      "t": 3333.0,
+      "hit": 0,
+      "dist": 9.3244,
+      "loom": 80.13,
+      "reward": 0.0,
+      "dW_mean": 0.04146774359504132,
+      "rate_hz": 20.364,
+      "spike_count": 4445
+    },
+    {
+      "t": 3366.33,
+      "hit": 0,
+      "dist": 9.2977,
+      "loom": 80.54,
+      "reward": 0.0,
+      "dW_mean": 0.03806043780991735,
+      "rate_hz": 19.509,
+      "spike_count": 3320
+    },
+    {
+      "t": 3399.66,
+      "hit": 0,
+      "dist": 9.2709,
+      "loom": 80.94,
+      "reward": 0.0,
+      "dW_mean": 0.03798952871900827,
+      "rate_hz": 19.491,
+      "spike_count": 3248
+    },
+    {
+      "t": 3432.99,
+      "hit": 0,
+      "dist": 9.2441,
+      "loom": 81.34,
+      "reward": 0.0,
+      "dW_mean": 0.041245892355371905,
+      "rate_hz": 20.309,
+      "spike_count": 4470
+    },
+    {
+      "t": 3466.32,
+      "hit": 0,
+      "dist": 9.2174,
+      "loom": 81.74,
+      "reward": 0.0,
+      "dW_mean": 0.043491181611570257,
+      "rate_hz": 20.855,
+      "spike_count": 3333
+    },
+    {
+      "t": 3499.65,
+      "hit": 0,
+      "dist": 9.1906,
+      "loom": 82.14,
+      "reward": 0.0,
+      "dW_mean": 0.041098322107438016,
+      "rate_hz": 20.273,
+      "spike_count": 3321
+    },
+    {
+      "t": 3532.98,
+      "hit": 0,
+      "dist": 9.1639,
+      "loom": 82.54,
+      "reward": 0.0,
+      "dW_mean": 0.040803975,
+      "rate_hz": 20.2,
+      "spike_count": 4470
+    },
+    {
+      "t": 3566.31,
+      "hit": 0,
+      "dist": 9.1371,
+      "loom": 82.94,
+      "reward": 0.0,
+      "dW_mean": 0.040218454338842975,
+      "rate_hz": 20.055,
+      "spike_count": 3232
+    },
+    {
+      "t": 3599.64,
+      "hit": 0,
+      "dist": 9.1104,
+      "loom": 83.34,
+      "reward": 0.0,
+      "dW_mean": 0.040218454338842975,
+      "rate_hz": 20.055,
+      "spike_count": 3313
+    },
+    {
+      "t": 3632.97,
+      "hit": 0,
+      "dist": 9.0836,
+      "loom": 83.75,
+      "reward": 0.0,
+      "dW_mean": 0.03841597500000001,
+      "rate_hz": 19.6,
+      "spike_count": 4368
+    },
+    {
+      "t": 3666.3,
+      "hit": 0,
+      "dist": 9.0569,
+      "loom": 84.15,
+      "reward": 0.0,
+      "dW_mean": 0.04221154524793389,
+      "rate_hz": 20.545,
+      "spike_count": 3315
+    },
+    {
+      "t": 3699.63,
+      "hit": 0,
+      "dist": 9.0301,
+      "loom": 84.55,
+      "reward": 0.0,
+      "dW_mean": 0.04236109896694215,
+      "rate_hz": 20.582,
+      "spike_count": 3287
+    },
+    {
+      "t": 3732.96,
+      "hit": 0,
+      "dist": 9.0033,
+      "loom": 84.95,
+      "reward": 0.0,
+      "dW_mean": 0.04065719814049587,
+      "rate_hz": 20.164,
+      "spike_count": 4513
+    },
+    {
+      "t": 3766.29,
+      "hit": 0,
+      "dist": 8.9766,
+      "loom": 85.35,
+      "reward": 0.0,
+      "dW_mean": 0.04102463615702479,
+      "rate_hz": 20.255,
+      "spike_count": 3303
+    },
+    {
+      "t": 3799.62,
+      "hit": 0,
+      "dist": 8.9498,
+      "loom": 85.75,
+      "reward": 0.0,
+      "dW_mean": 0.04095101632231406,
+      "rate_hz": 20.236,
+      "spike_count": 3312
+    },
+    {
+      "t": 3832.95,
+      "hit": 0,
+      "dist": 8.9231,
+      "loom": 86.15,
+      "reward": 0.0,
+      "dW_mean": 0.037635974999999995,
+      "rate_hz": 19.4,
+      "spike_count": 4267
+    },
+    {
+      "t": 3866.28,
+      "hit": 0,
+      "dist": 8.8963,
+      "loom": 86.56,
+      "reward": 0.0,
+      "dW_mean": 0.03855865268595041,
+      "rate_hz": 19.636,
+      "spike_count": 3351
+    },
+    {
+      "t": 3899.61,
+      "hit": 0,
+      "dist": 8.8696,
+      "loom": 86.96,
+      "reward": 0.0,
+      "dW_mean": 0.043491181611570257,
+      "rate_hz": 20.855,
+      "spike_count": 3270
+    },
+    {
+      "t": 3932.94,
+      "hit": 0,
+      "dist": 8.8428,
+      "loom": 87.36,
+      "reward": 0.0,
+      "dW_mean": 0.03791868574380165,
+      "rate_hz": 19.473,
+      "spike_count": 4293
+    },
+    {
+      "t": 3966.27,
+      "hit": 0,
+      "dist": 8.8161,
+      "loom": 87.76,
+      "reward": 0.0,
+      "dW_mean": 0.0407305535123967,
+      "rate_hz": 20.182,
+      "spike_count": 3236
+    },
+    {
+      "t": 3999.6,
+      "hit": 0,
+      "dist": 8.7893,
+      "loom": 88.16,
+      "reward": 0.0,
+      "dW_mean": 0.03949250392561983,
+      "rate_hz": 19.873,
+      "spike_count": 3300
+    },
+    {
+      "t": 4032.93,
+      "hit": 0,
+      "dist": 8.7625,
+      "loom": 88.56,
+      "reward": 0.0,
+      "dW_mean": 0.0407305535123967,
+      "rate_hz": 20.182,
+      "spike_count": 4425
+    },
+    {
+      "t": 4066.26,
+      "hit": 0,
+      "dist": 8.7358,
+      "loom": 88.96,
+      "reward": 0.0,
+      "dW_mean": 0.038844801446281,
+      "rate_hz": 19.709,
+      "spike_count": 3200
+    },
+    {
+      "t": 4099.59,
+      "hit": 0,
+      "dist": 8.709,
+      "loom": 89.36,
+      "reward": 0.0,
+      "dW_mean": 0.041615975,
+      "rate_hz": 20.4,
+      "spike_count": 3283
+    },
+    {
+      "t": 4132.92,
+      "hit": 0,
+      "dist": 8.6823,
+      "loom": 89.77,
+      "reward": 0.0,
+      "dW_mean": 0.038701594834710744,
+      "rate_hz": 19.673,
+      "spike_count": 4316
+    },
+    {
+      "t": 4166.25,
+      "hit": 0,
+      "dist": 8.6555,
+      "loom": 90.17,
+      "reward": 0.0,
+      "dW_mean": 0.04206225599173554,
+      "rate_hz": 20.509,
+      "spike_count": 3356
+    },
+    {
+      "t": 4199.58,
+      "hit": 0,
+      "dist": 8.6288,
+      "loom": 90.57,
+      "reward": 0.0,
+      "dW_mean": 0.043718983264462816,
+      "rate_hz": 20.909,
+      "spike_count": 3416
+    },
+    {
+      "t": 4232.91,
+      "hit": 0,
+      "dist": 8.602,
+      "loom": 90.97,
+      "reward": 0.0,
+      "dW_mean": 0.038344735330578514,
+      "rate_hz": 19.582,
+      "spike_count": 4441
+    },
+    {
+      "t": 4266.24,
+      "hit": 0,
+      "dist": 8.5753,
+      "loom": 91.37,
+      "reward": 0.0,
+      "dW_mean": 0.0413937270661157,
+      "rate_hz": 20.345,
+      "spike_count": 3249
+    },
+    {
+      "t": 4299.57,
+      "hit": 0,
+      "dist": 8.5485,
+      "loom": 91.77,
+      "reward": 0.0,
+      "dW_mean": 0.03913200805785124,
+      "rate_hz": 19.782,
+      "spike_count": 3257
+    },
+    {
+      "t": 4332.9,
+      "hit": 0,
+      "dist": 8.5217,
+      "loom": 92.17,
+      "reward": 0.0,
+      "dW_mean": 2.026740470867769,
+      "rate_hz": 142.364,
+      "spike_count": 31066
+    },
+    {
+      "t": 4366.23,
+      "hit": 0,
+      "dist": 8.495,
+      "loom": 92.58,
+      "reward": 0.0,
+      "dW_mean": 1.9666237435950416,
+      "rate_hz": 140.236,
+      "spike_count": 23098
+    },
+    {
+      "t": 4399.56,
+      "hit": 0,
+      "dist": 8.4682,
+      "loom": 92.98,
+      "reward": 0.0,
+      "dW_mean": 0.04221154524793389,
+      "rate_hz": 20.545,
+      "spike_count": 3326
+    },
+    {
+      "t": 4432.89,
+      "hit": 0,
+      "dist": 8.4415,
+      "loom": 93.38,
+      "reward": 0.0,
+      "dW_mean": 0.03806043780991735,
+      "rate_hz": 19.509,
+      "spike_count": 4312
+    },
+    {
+      "t": 4466.22,
+      "hit": 0,
+      "dist": 8.4147,
+      "loom": 93.78,
+      "reward": 0.0,
+      "dW_mean": 0.044023644421487595,
+      "rate_hz": 20.982,
+      "spike_count": 3400
+    },
+    {
+      "t": 4499.55,
+      "hit": 0,
+      "dist": 8.388,
+      "loom": 94.18,
+      "reward": 0.0,
+      "dW_mean": 0.040072735330578514,
+      "rate_hz": 20.018,
+      "spike_count": 3314
+    },
+    {
+      "t": 4532.88,
+      "hit": 0,
+      "dist": 8.3612,
+      "loom": 94.58,
+      "reward": 0.0,
+      "dW_mean": 0.04288661962809918,
+      "rate_hz": 20.709,
+      "spike_count": 4356
+    },
+    {
+      "t": 4566.21,
+      "hit": 0,
+      "dist": 8.3344,
+      "loom": 94.98,
+      "reward": 0.0,
+      "dW_mean": 0.04183881797520661,
+      "rate_hz": 20.455,
+      "spike_count": 3386
+    },
+    {
+      "t": 4599.54,
+      "hit": 0,
+      "dist": 8.3077,
+      "loom": 95.38,
+      "reward": 0.0,
+      "dW_mean": 0.04154182623966943,
+      "rate_hz": 20.382,
+      "spike_count": 3295
+    },
+    {
+      "t": 4632.87,
+      "hit": 0,
+      "dist": 8.2809,
+      "loom": 95.79,
+      "reward": 0.0,
+      "dW_mean": 0.03970959483471074,
+      "rate_hz": 19.927,
+      "spike_count": 4489
+    },
+    {
+      "t": 4666.2,
+      "hit": 0,
+      "dist": 8.2542,
+      "loom": 96.19,
+      "reward": 0.0,
+      "dW_mean": 0.04191323119834711,
+      "rate_hz": 20.473,
+      "spike_count": 3383
+    },
+    {
+      "t": 4699.53,
+      "hit": 0,
+      "dist": 8.2274,
+      "loom": 96.59,
+      "reward": 0.0,
+      "dW_mean": 0.041098322107438016,
+      "rate_hz": 20.273,
+      "spike_count": 3329
+    },
+    {
+      "t": 4732.86,
+      "hit": 0,
+      "dist": 8.2007,
+      "loom": 96.99,
+      "reward": 0.0,
+      "dW_mean": 0.0382735617768595,
+      "rate_hz": 19.564,
+      "spike_count": 4350
+    },
+    {
+      "t": 4766.19,
+      "hit": 0,
+      "dist": 8.1739,
+      "loom": 97.39,
+      "reward": 0.0,
+      "dW_mean": 0.04029141301652893,
+      "rate_hz": 20.073,
+      "spike_count": 3192
+    },
+    {
+      "t": 4799.52,
+      "hit": 0,
+      "dist": 8.1472,
+      "loom": 97.79,
+      "reward": 0.0,
+      "dW_mean": 0.038773165082644626,
+      "rate_hz": 19.691,
+      "spike_count": 3323
+    },
+    {
+      "t": 4832.85,
+      "hit": 0,
+      "dist": 8.1204,
+      "loom": 98.19,
+      "reward": 0.0,
+      "dW_mean": 0.0022175287190082647,
+      "rate_hz": 4.709,
+      "spike_count": 1067
+    },
+    {
+      "t": 4866.18,
+      "hit": 0,
+      "dist": 8.0936,
+      "loom": 98.6,
+      "reward": 0.0,
+      "dW_mean": 0.03978209070247934,
+      "rate_hz": 19.945,
+      "spike_count": 3306
+    },
+    {
+      "t": 4899.51,
+      "hit": 0,
+      "dist": 8.0669,
+      "loom": 99.0,
+      "reward": 0.0,
+      "dW_mean": 0.03978209070247934,
+      "rate_hz": 19.945,
+      "spike_count": 3342
+    },
+    {
+      "t": 4932.84,
+      "hit": 0,
+      "dist": 8.0401,
+      "loom": 99.4,
+      "reward": 0.0,
+      "dW_mean": 0.03735432210743802,
+      "rate_hz": 19.327,
+      "spike_count": 4353
+    },
+    {
+      "t": 4966.17,
+      "hit": 0,
+      "dist": 8.0134,
+      "loom": 99.8,
+      "reward": 0.0,
+      "dW_mean": 0.03927600805785124,
+      "rate_hz": 19.818,
+      "spike_count": 3216
+    },
+    {
+      "t": 4999.5,
+      "hit": 0,
+      "dist": 7.9866,
+      "loom": 100.2,
+      "reward": 0.0,
+      "dW_mean": 0.03658523119834711,
+      "rate_hz": 19.127,
+      "spike_count": 3207
+    },
+    {
+      "t": 5032.83,
+      "hit": 0,
+      "dist": 7.9599,
+      "loom": 100.6,
+      "reward": 0.0,
+      "dW_mean": 0.03992728078512396,
+      "rate_hz": 19.982,
+      "spike_count": 4490
+    },
+    {
+      "t": 5066.16,
+      "hit": 0,
+      "dist": 7.9331,
+      "loom": 101.0,
+      "reward": 0.0,
+      "dW_mean": 0.03735432210743802,
+      "rate_hz": 19.327,
+      "spike_count": 3204
+    },
+    {
+      "t": 5099.49,
+      "hit": 0,
+      "dist": 7.9064,
+      "loom": 101.4,
+      "reward": 0.0,
+      "dW_mean": 0.038844801446281,
+      "rate_hz": 19.709,
+      "spike_count": 3313
+    },
+    {
+      "t": 5132.82,
+      "hit": 0,
+      "dist": 7.8796,
+      "loom": 101.81,
+      "reward": 0.0,
+      "dW_mean": 0.040218454338842975,
+      "rate_hz": 20.055,
+      "spike_count": 4379
+    },
+    {
+      "t": 5166.15,
+      "hit": 0,
+      "dist": 7.8528,
+      "loom": 102.21,
+      "reward": 0.0,
+      "dW_mean": 0.03756546260330579,
+      "rate_hz": 19.382,
+      "spike_count": 3262
+    },
+    {
+      "t": 5199.48,
+      "hit": 0,
+      "dist": 7.8261,
+      "loom": 102.61,
+      "reward": 0.0,
+      "dW_mean": 0.0346636444214876,
+      "rate_hz": 18.618,
+      "spike_count": 3311
+    },
+    {
+      "t": 5232.81,
+      "hit": 0,
+      "dist": 7.7993,
+      "loom": 103.01,
+      "reward": 0.0,
+      "dW_mean": 0.038344735330578514,
+      "rate_hz": 19.582,
+      "spike_count": 4388
+    },
+    {
+      "t": 5266.14,
+      "hit": 0,
+      "dist": 7.7726,
+      "loom": 103.41,
+      "reward": 0.0,
+      "dW_mean": 0.042660999793388436,
+      "rate_hz": 20.655,
+      "spike_count": 3261
+    },
+    {
+      "t": 5299.47,
+      "hit": 0,
+      "dist": 7.7458,
+      "loom": 103.81,
+      "reward": 0.0,
+      "dW_mean": 0.04440595847107439,
+      "rate_hz": 21.073,
+      "spike_count": 3413
+    },
+    {
+      "t": 5332.8,
+      "hit": 0,
+      "dist": 7.7191,
+      "loom": 104.21,
+      "reward": 0.0,
+      "dW_mean": 0.039999975,
+      "rate_hz": 20.0,
+      "spike_count": 4293
+    },
+    {
+      "t": 5366.13,
+      "hit": 0,
+      "dist": 7.6923,
+      "loom": 104.62,
+      "reward": 0.0,
+      "dW_mean": 0.03756546260330579,
+      "rate_hz": 19.382,
+      "spike_count": 3236
+    },
+    {
+      "t": 5399.46,
+      "hit": 0,
+      "dist": 7.6656,
+      "loom": 105.02,
+      "reward": 0.0,
+      "dW_mean": 0.034934983264462816,
+      "rate_hz": 18.691,
+      "spike_count": 3190
+    },
+    {
+      "t": 5432.79,
+      "hit": 0,
+      "dist": 7.6388,
+      "loom": 105.42,
+      "reward": 0.0,
+      "dW_mean": 0.03949250392561983,
+      "rate_hz": 19.873,
+      "spike_count": 4326
+    },
+    {
+      "t": 5466.12,
+      "hit": 0,
+      "dist": 7.612,
+      "loom": 105.82,
+      "reward": 0.0,
+      "dW_mean": 0.04296195847107438,
+      "rate_hz": 20.727,
+      "spike_count": 3295
+    },
+    {
+      "t": 5499.45,
+      "hit": 0,
+      "dist": 7.5853,
+      "loom": 106.22,
+      "reward": 0.0,
+      "dW_mean": 1.8838809997933883,
+      "rate_hz": 137.255,
+      "spike_count": 22811
+    },
+    {
+      "t": 5532.78,
+      "hit": 0,
+      "dist": 7.5585,
+      "loom": 106.62,
+      "reward": 0.0,
+      "dW_mean": 2.0386647353305785,
+      "rate_hz": 142.782,
+      "spike_count": 30911
+    },
+    {
+      "t": 5566.11,
+      "hit": 0,
+      "dist": 7.5318,
+      "loom": 107.02,
+      "reward": 0.0,
+      "dW_mean": 0.0413937270661157,
+      "rate_hz": 20.345,
+      "spike_count": 3294
+    },
+    {
+      "t": 5599.44,
+      "hit": 0,
+      "dist": 7.505,
+      "loom": 107.42,
+      "reward": 0.0,
+      "dW_mean": 0.038701594834710744,
+      "rate_hz": 19.673,
+      "spike_count": 3286
+    },
+    {
+      "t": 5632.77,
+      "hit": 0,
+      "dist": 7.4783,
+      "loom": 107.83,
+      "reward": 0.0,
+      "dW_mean": 0.04169018987603306,
+      "rate_hz": 20.418,
+      "spike_count": 4509
+    },
+    {
+      "t": 5666.1,
+      "hit": 0,
+      "dist": 7.4515,
+      "loom": 108.23,
+      "reward": 0.0,
+      "dW_mean": 0.04087746260330579,
+      "rate_hz": 20.218,
+      "spike_count": 3269
+    },
+    {
+      "t": 5699.43,
+      "hit": 0,
+      "dist": 7.4247,
+      "loom": 108.63,
+      "reward": 0.0,
+      "dW_mean": 0.03934810723140496,
+      "rate_hz": 19.836,
+      "spike_count": 3280
+    },
+    {
+      "t": 5732.76,
+      "hit": 0,
+      "dist": 7.398,
+      "loom": 109.03,
+      "reward": 0.0,
+      "dW_mean": 0.034867049380165285,
+      "rate_hz": 18.673,
+      "spike_count": 4328
+    },
+    {
+      "t": 5766.09,
+      "hit": 0,
+      "dist": 7.3712,
+      "loom": 109.43,
+      "reward": 0.0,
+      "dW_mean": 0.04296195847107438,
+      "rate_hz": 20.727,
+      "spike_count": 3356
+    },
+    {
+      "t": 5799.42,
+      "hit": 0,
+      "dist": 7.3445,
+      "loom": 109.83,
+      "reward": 0.0,
+      "dW_mean": 0.04206225599173554,
+      "rate_hz": 20.509,
+      "spike_count": 3276
+    },
+    {
+      "t": 5832.75,
+      "hit": 0,
+      "dist": 7.3177,
+      "loom": 110.23,
+      "reward": 0.0,
+      "dW_mean": 0.038701594834710744,
+      "rate_hz": 19.673,
+      "spike_count": 4369
+    },
+    {
+      "t": 5866.08,
+      "hit": 0,
+      "dist": 7.291,
+      "loom": 110.64,
+      "reward": 0.0,
+      "dW_mean": 0.040145561776859504,
+      "rate_hz": 20.036,
+      "spike_count": 3253
+    },
+    {
+      "t": 5899.41,
+      "hit": 0,
+      "dist": 7.2642,
+      "loom": 111.04,
+      "reward": 0.0,
+      "dW_mean": 0.0377065535123967,
+      "rate_hz": 19.418,
+      "spike_count": 3268
+    },
+    {
+      "t": 5932.74,
+      "hit": 0,
+      "dist": 7.2375,
+      "loom": 111.44,
+      "reward": 0.0,
+      "dW_mean": 0.041245892355371905,
+      "rate_hz": 20.309,
+      "spike_count": 4374
+    },
+    {
+      "t": 5966.07,
+      "hit": 0,
+      "dist": 7.2107,
+      "loom": 111.84,
+      "reward": 0.0,
+      "dW_mean": 0.037424636157024786,
+      "rate_hz": 19.345,
+      "spike_count": 3216
+    },
+    {
+      "t": 5999.4,
+      "hit": 0,
+      "dist": 7.1839,
+      "loom": 112.24,
+      "reward": 0.0,
+      "dW_mean": 0.04525286756198348,
+      "rate_hz": 21.273,
+      "spike_count": 3397
+    },
+    {
+      "t": 6032.73,
+      "hit": 0,
+      "dist": 7.1572,
+      "loom": 112.64,
+      "reward": 0.0,
+      "dW_mean": 0.03658523119834711,
+      "rate_hz": 19.127,
+      "spike_count": 4399
+    },
+    {
+      "t": 6066.06,
+      "hit": 0,
+      "dist": 7.1304,
+      "loom": 113.04,
+      "reward": 0.0,
+      "dW_mean": 0.041172074173553716,
+      "rate_hz": 20.291,
+      "spike_count": 3330
+    },
+    {
+      "t": 6099.39,
+      "hit": 0,
+      "dist": 7.1037,
+      "loom": 113.44,
+      "reward": 0.0,
+      "dW_mean": 0.04228628904958678,
+      "rate_hz": 20.564,
+      "spike_count": 3315
+    },
+    {
+      "t": 6132.72,
+      "hit": 0,
+      "dist": 7.0769,
+      "loom": 113.85,
+      "reward": 0.0,
+      "dW_mean": 0.04131977665289256,
+      "rate_hz": 20.327,
+      "spike_count": 4334
+    },
+    {
+      "t": 6166.05,
+      "hit": 0,
+      "dist": 7.0502,
+      "loom": 114.25,
+      "reward": 0.0,
+      "dW_mean": 0.039060107231404954,
+      "rate_hz": 19.764,
+      "spike_count": 3244
+    },
+    {
+      "t": 6199.38,
+      "hit": 0,
+      "dist": 7.0234,
+      "loom": 114.65,
+      "reward": 0.0,
+      "dW_mean": 0.036515710537190084,
+      "rate_hz": 19.109,
+      "spike_count": 3286
+    },
+    {
+      "t": 6232.71,
+      "hit": 0,
+      "dist": 6.9967,
+      "loom": 115.05,
+      "reward": 0.0,
+      "dW_mean": 0.0329257270661157,
+      "rate_hz": 18.145,
+      "spike_count": 4284
+    },
+    {
+      "t": 6266.04,
+      "hit": 0,
+      "dist": 6.9699,
+      "loom": 115.45,
+      "reward": 0.0,
+      "dW_mean": 0.040145561776859504,
+      "rate_hz": 20.036,
+      "spike_count": 3297
+    },
+    {
+      "t": 6299.37,
+      "hit": 0,
+      "dist": 6.9431,
+      "loom": 115.85,
+      "reward": 0.0,
+      "dW_mean": 0.040803975,
+      "rate_hz": 20.2,
+      "spike_count": 3301
+    },
+    {
+      "t": 6332.7,
+      "hit": 0,
+      "dist": 6.9164,
+      "loom": 116.25,
+      "reward": 0.0,
+      "dW_mean": 0.0407305535123967,
+      "rate_hz": 20.182,
+      "spike_count": 4484
+    },
+    {
+      "t": 6366.03,
+      "hit": 0,
+      "dist": 6.8896,
+      "loom": 116.66,
+      "reward": 0.0,
+      "dW_mean": 0.039060107231404954,
+      "rate_hz": 19.764,
+      "spike_count": 3270
+    },
+    {
+      "t": 6399.36,
+      "hit": 0,
+      "dist": 6.8629,
+      "loom": 117.06,
+      "reward": 0.0,
+      "dW_mean": 0.03898827252066116,
+      "rate_hz": 19.745,
+      "spike_count": 3258
+    },
+    {
+      "t": 6432.69,
+      "hit": 0,
+      "dist": 6.8361,
+      "loom": 117.46,
+      "reward": 0.0,
+      "dW_mean": 0.03863009070247935,
+      "rate_hz": 19.655,
+      "spike_count": 4385
+    },
+    {
+      "t": 6466.02,
+      "hit": 0,
+      "dist": 6.8094,
+      "loom": 117.86,
+      "reward": 0.0,
+      "dW_mean": 0.03479918161157026,
+      "rate_hz": 18.655,
+      "spike_count": 3251
+    },
+    {
+      "t": 6499.35,
+      "hit": 0,
+      "dist": 6.7826,
+      "loom": 118.26,
+      "reward": 0.0,
+      "dW_mean": 0.0427361402892562,
+      "rate_hz": 20.673,
+      "spike_count": 3337
+    },
+    {
+      "t": 6532.68,
+      "hit": 0,
+      "dist": 6.7559,
+      "loom": 118.66,
+      "reward": 0.0,
+      "dW_mean": 0.04198771053719009,
+      "rate_hz": 20.491,
+      "spike_count": 4398
+    },
+    {
+      "t": 6566.01,
+      "hit": 0,
+      "dist": 6.7291,
+      "loom": 119.06,
+      "reward": 0.0,
+      "dW_mean": 0.04058390888429752,
+      "rate_hz": 20.145,
+      "spike_count": 3325
+    },
+    {
+      "t": 6599.34,
+      "hit": 0,
+      "dist": 6.7023,
+      "loom": 119.46,
+      "reward": 0.0,
+      "dW_mean": 0.03970959483471074,
+      "rate_hz": 19.927,
+      "spike_count": 3273
+    },
+    {
+      "t": 6632.67,
+      "hit": 0,
+      "dist": 6.6756,
+      "loom": 119.87,
+      "reward": 0.0,
+      "dW_mean": 0.03637686756198348,
+      "rate_hz": 19.073,
+      "spike_count": 4242
+    },
+    {
+      "t": 6666.0,
+      "hit": 0,
+      "dist": 6.6488,
+      "loom": 120.27,
+      "reward": 0.0,
+      "dW_mean": 0.03949250392561983,
+      "rate_hz": 19.873,
+      "spike_count": 3312
+    },
+    {
+      "t": 6699.33,
+      "hit": 0,
+      "dist": 6.6221,
+      "loom": 120.67,
+      "reward": 0.0,
+      "dW_mean": 0.036169098966942155,
+      "rate_hz": 19.018,
+      "spike_count": 3300
+    },
+    {
+      "t": 6732.66,
+      "hit": 0,
+      "dist": 6.5953,
+      "loom": 121.07,
+      "reward": 0.0,
+      "dW_mean": 0.0407305535123967,
+      "rate_hz": 20.182,
+      "spike_count": 4420
+    },
+    {
+      "t": 6765.99,
+      "hit": 0,
+      "dist": 6.5686,
+      "loom": 121.47,
+      "reward": 0.0,
+      "dW_mean": 0.03913200805785124,
+      "rate_hz": 19.782,
+      "spike_count": 3292
+    },
+    {
+      "t": 6799.32,
+      "hit": 0,
+      "dist": 6.5418,
+      "loom": 121.87,
+      "reward": 0.0,
+      "dW_mean": 0.03749501632231405,
+      "rate_hz": 19.364,
+      "spike_count": 3281
+    },
+    {
+      "t": 6832.65,
+      "hit": 0,
+      "dist": 6.5151,
+      "loom": 122.27,
+      "reward": 0.0,
+      "dW_mean": 0.04058390888429752,
+      "rate_hz": 20.145,
+      "spike_count": 4411
+    },
+    {
+      "t": 6865.98,
+      "hit": 0,
+      "dist": 6.4883,
+      "loom": 122.68,
+      "reward": 0.0,
+      "dW_mean": 0.03714377665289256,
+      "rate_hz": 19.273,
+      "spike_count": 3242
+    },
+    {
+      "t": 6899.31,
+      "hit": 0,
+      "dist": 6.4615,
+      "loom": 123.08,
+      "reward": 0.0,
+      "dW_mean": 0.04036443780991735,
+      "rate_hz": 20.091,
+      "spike_count": 3318
+    },
+    {
+      "t": 6932.64,
+      "hit": 0,
+      "dist": 6.4348,
+      "loom": 123.48,
+      "reward": 0.0,
+      "dW_mean": 0.043112834504132225,
+      "rate_hz": 20.764,
+      "spike_count": 4454
+    },
+    {
+      "t": 6965.97,
+      "hit": 0,
+      "dist": 6.408,
+      "loom": 123.88,
+      "reward": 0.0,
+      "dW_mean": 0.03841597500000001,
+      "rate_hz": 19.6,
+      "spike_count": 3335
+    },
+    {
+      "t": 6999.3,
+      "hit": 0,
+      "dist": 6.3813,
+      "loom": 124.28,
+      "reward": 0.0,
+      "dW_mean": 0.03978209070247934,
+      "rate_hz": 19.945,
+      "spike_count": 3313
+    },
+    {
+      "t": 7032.63,
+      "hit": 0,
+      "dist": 6.3545,
+      "loom": 124.68,
+      "reward": 0.0,
+      "dW_mean": 0.043567049380165285,
+      "rate_hz": 20.873,
+      "spike_count": 4486
+    },
+    {
+      "t": 7065.96,
+      "hit": 0,
+      "dist": 6.3278,
+      "loom": 125.08,
+      "reward": 0.0,
+      "dW_mean": 0.044866917148760344,
+      "rate_hz": 21.182,
+      "spike_count": 3333
+    },
+    {
+      "t": 7099.29,
+      "hit": 0,
+      "dist": 6.301,
+      "loom": 125.48,
+      "reward": 0.0,
+      "dW_mean": 0.03644625599173554,
+      "rate_hz": 19.091,
+      "spike_count": 3252
+    },
+    {
+      "t": 7132.62,
+      "hit": 0,
+      "dist": 6.2742,
+      "loom": 125.89,
+      "reward": 0.0,
+      "dW_mean": 0.04610777665289256,
+      "rate_hz": 21.473,
+      "spike_count": 4515
+    },
+    {
+      "t": 7165.95,
+      "hit": 0,
+      "dist": 6.2475,
+      "loom": 126.29,
+      "reward": 0.0,
+      "dW_mean": 0.038202454338842985,
+      "rate_hz": 19.545,
+      "spike_count": 3217
+    },
+    {
+      "t": 7199.28,
+      "hit": 0,
+      "dist": 6.2207,
+      "loom": 126.69,
+      "reward": 0.0,
+      "dW_mean": 0.04146774359504132,
+      "rate_hz": 20.364,
+      "spike_count": 3337
+    },
+    {
+      "t": 7232.61,
+      "hit": 0,
+      "dist": 6.194,
+      "loom": 127.09,
+      "reward": 0.0,
+      "dW_mean": 0.036515710537190084,
+      "rate_hz": 19.109,
+      "spike_count": 4428
+    },
+    {
+      "t": 7265.94,
+      "hit": 0,
+      "dist": 6.1672,
+      "loom": 127.49,
+      "reward": 0.0,
+      "dW_mean": 0.04058390888429752,
+      "rate_hz": 20.145,
+      "spike_count": 3374
+    },
+    {
+      "t": 7299.27,
+      "hit": 0,
+      "dist": 6.1405,
+      "loom": 127.89,
+      "reward": 0.0,
+      "dW_mean": 0.03806043780991735,
+      "rate_hz": 19.509,
+      "spike_count": 3231
+    },
+    {
+      "t": 7332.6,
+      "hit": 0,
+      "dist": 6.1137,
+      "loom": 128.29,
+      "reward": 0.0,
+      "dW_mean": 0.04131977665289256,
+      "rate_hz": 20.327,
+      "spike_count": 4356
+    },
+    {
+      "t": 7365.93,
+      "hit": 0,
+      "dist": 6.087,
+      "loom": 128.7,
+      "reward": 0.0,
+      "dW_mean": 0.041615975,
+      "rate_hz": 20.4,
+      "spike_count": 3334
+    },
+    {
+      "t": 7399.26,
+      "hit": 0,
+      "dist": 6.0602,
+      "loom": 129.1,
+      "reward": 0.0,
+      "dW_mean": 0.039203975,
+      "rate_hz": 19.8,
+      "spike_count": 3295
+    },
+    {
+      "t": 7432.59,
+      "hit": 0,
+      "dist": 6.0334,
+      "loom": 129.5,
+      "reward": 0.0,
+      "dW_mean": 0.040218454338842975,
+      "rate_hz": 20.055,
+      "spike_count": 4297
+    },
+    {
+      "t": 7465.92,
+      "hit": 0,
+      "dist": 6.0067,
+      "loom": 129.9,
+      "reward": 0.0,
+      "dW_mean": 0.04296195847107438,
+      "rate_hz": 20.727,
+      "spike_count": 3338
+    },
+    {
+      "t": 7499.25,
+      "hit": 0,
+      "dist": 5.9799,
+      "loom": 130.3,
+      "reward": 0.0,
+      "dW_mean": 0.036794189876033064,
+      "rate_hz": 19.182,
+      "spike_count": 3318
+    },
+    {
+      "t": 7532.58,
+      "hit": 0,
+      "dist": 5.9532,
+      "loom": 130.7,
+      "reward": 0.0,
+      "dW_mean": 0.03898827252066116,
+      "rate_hz": 19.745,
+      "spike_count": 4357
+    },
+    {
+      "t": 7565.91,
+      "hit": 0,
+      "dist": 5.9264,
+      "loom": 131.1,
+      "reward": 0.0,
+      "dW_mean": 0.03596192541322315,
+      "rate_hz": 18.964,
+      "spike_count": 3284
+    },
+    {
+      "t": 7599.24,
+      "hit": 0,
+      "dist": 5.8997,
+      "loom": 131.51,
+      "reward": 0.0,
+      "dW_mean": 0.0382735617768595,
+      "rate_hz": 19.564,
+      "spike_count": 3285
+    },
+    {
+      "t": 7632.57,
+      "hit": 0,
+      "dist": 5.8729,
+      "loom": 131.91,
+      "reward": 0.0,
+      "dW_mean": 0.03855865268595041,
+      "rate_hz": 19.636,
+      "spike_count": 4276
+    },
+    {
+      "t": 7665.9,
+      "hit": 0,
+      "dist": 5.8462,
+      "loom": 132.31,
+      "reward": 0.0,
+      "dW_mean": 1.9544039750000002,
+      "rate_hz": 139.8,
+      "spike_count": 23075
+    },
+    {
+      "t": 7699.23,
+      "hit": 0,
+      "dist": 5.8194,
+      "loom": 132.71,
+      "reward": 0.0,
+      "dW_mean": 2.0179493634297527,
+      "rate_hz": 142.055,
+      "spike_count": 23318
+    },
+    {
+      "t": 7732.56,
+      "hit": 0,
+      "dist": 5.7926,
+      "loom": 133.11,
+      "reward": 0.0,
+      "dW_mean": 0.03942027252066116,
+      "rate_hz": 19.855,
+      "spike_count": 4364
+    },
+    {
+      "t": 7765.89,
+      "hit": 0,
+      "dist": 5.7659,
+      "loom": 133.51,
+      "reward": 0.0,
+      "dW_mean": 0.043263975,
+      "rate_hz": 20.8,
+      "spike_count": 3344
+    },
+    {
+      "t": 7799.22,
+      "hit": 0,
+      "dist": 5.7391,
+      "loom": 133.91,
+      "reward": 0.0,
+      "dW_mean": 0.04221154524793389,
+      "rate_hz": 20.545,
+      "spike_count": 3331
+    },
+    {
+      "t": 7832.55,
+      "hit": 0,
+      "dist": 5.7124,
+      "loom": 134.31,
+      "reward": 0.0,
+      "dW_mean": 0.03841597500000001,
+      "rate_hz": 19.6,
+      "spike_count": 4342
+    },
+    {
+      "t": 7865.88,
+      "hit": 0,
+      "dist": 5.6856,
+      "loom": 134.72,
+      "reward": 0.0,
+      "dW_mean": 0.04154182623966943,
+      "rate_hz": 20.382,
+      "spike_count": 3304
+    },
+    {
+      "t": 7899.21,
+      "hit": 0,
+      "dist": 5.6589,
+      "loom": 135.12,
+      "reward": 0.0,
+      "dW_mean": 0.038701594834710744,
+      "rate_hz": 19.673,
+      "spike_count": 3336
+    },
+    {
+      "t": 7932.54,
+      "hit": 0,
+      "dist": 5.6321,
+      "loom": 135.52,
+      "reward": 0.0,
+      "dW_mean": 0.03927600805785124,
+      "rate_hz": 19.818,
+      "spike_count": 4435
+    },
+    {
+      "t": 7965.87,
+      "hit": 0,
+      "dist": 5.6054,
+      "loom": 135.92,
+      "reward": 0.0,
+      "dW_mean": 0.03891650392561983,
+      "rate_hz": 19.727,
+      "spike_count": 3275
+    },
+    {
+      "t": 7999.2,
+      "hit": 0,
+      "dist": 5.5786,
+      "loom": 136.32,
+      "reward": 0.0,
+      "dW_mean": 0.042660999793388436,
+      "rate_hz": 20.655,
+      "spike_count": 3365
+    },
+    {
+      "t": 8032.53,
+      "hit": 0,
+      "dist": 5.5518,
+      "loom": 136.72,
+      "reward": 0.0,
+      "dW_mean": 0.043947379958677694,
+      "rate_hz": 20.964,
+      "spike_count": 4360
+    },
+    {
+      "t": 8065.86,
+      "hit": 0,
+      "dist": 5.5251,
+      "loom": 137.12,
+      "reward": 0.0,
+      "dW_mean": 0.03749501632231405,
+      "rate_hz": 19.364,
+      "spike_count": 3230
+    },
+    {
+      "t": 8099.19,
+      "hit": 0,
+      "dist": 5.4983,
+      "loom": 137.53,
+      "reward": 0.0,
+      "dW_mean": 0.03970959483471074,
+      "rate_hz": 19.927,
+      "spike_count": 3217
+    },
+    {
+      "t": 8132.52,
+      "hit": 0,
+      "dist": 5.4716,
+      "loom": 137.93,
+      "reward": 0.0,
+      "dW_mean": 0.043112834504132225,
+      "rate_hz": 20.764,
+      "spike_count": 4456
+    },
+    {
+      "t": 8165.85,
+      "hit": 0,
+      "dist": 5.4448,
+      "loom": 138.33,
+      "reward": 0.0,
+      "dW_mean": 0.002392074173553719,
+      "rate_hz": 4.891,
+      "spike_count": 824
+    },
+    {
+      "t": 8199.18,
+      "hit": 0,
+      "dist": 5.4181,
+      "loom": 138.73,
+      "reward": 0.0,
+      "dW_mean": 0.041615975,
+      "rate_hz": 20.4,
+      "spike_count": 3326
+    },
+    {
+      "t": 8232.51,
+      "hit": 0,
+      "dist": 5.3913,
+      "loom": 139.13,
+      "reward": 0.0,
+      "dW_mean": 0.040803975,
+      "rate_hz": 20.2,
+      "spike_count": 4502
+    },
+    {
+      "t": 8265.84,
+      "hit": 0,
+      "dist": 5.3645,
+      "loom": 139.53,
+      "reward": 0.0,
+      "dW_mean": 0.04051068574380166,
+      "rate_hz": 20.127,
+      "spike_count": 3273
+    },
+    {
+      "t": 8299.17,
+      "hit": 0,
+      "dist": 5.3378,
+      "loom": 139.93,
+      "reward": 0.0,
+      "dW_mean": 0.038487280785123965,
+      "rate_hz": 19.618,
+      "spike_count": 3231
+    },
+    {
+      "t": 8332.5,
+      "hit": 0,
+      "dist": 5.311,
+      "loom": 140.33,
+      "reward": 0.0,
+      "dW_mean": 0.03863009070247935,
+      "rate_hz": 19.655,
+      "spike_count": 4350
+    },
+    {
+      "t": 8365.83,
+      "hit": 0,
+      "dist": 5.2843,
+      "loom": 140.74,
+      "reward": 0.0,
+      "dW_mean": 0.037073727066115704,
+      "rate_hz": 19.255,
+      "spike_count": 3305
+    },
+    {
+      "t": 8399.16,
+      "hit": 0,
+      "dist": 5.2575,
+      "loom": 141.14,
+      "reward": 0.0,
+      "dW_mean": 0.042660999793388436,
+      "rate_hz": 20.655,
+      "spike_count": 3257
+    },
+    {
+      "t": 8432.49,
+      "hit": 0,
+      "dist": 5.2308,
+      "loom": 141.54,
+      "reward": 0.0,
+      "dW_mean": 0.045098289049586786,
+      "rate_hz": 21.236,
+      "spike_count": 4376
+    },
+    {
+      "t": 8465.82,
+      "hit": 0,
+      "dist": 5.204,
+      "loom": 141.94,
+      "reward": 0.0,
+      "dW_mean": 0.039999975,
+      "rate_hz": 20.0,
+      "spike_count": 3262
+    },
+    {
+      "t": 8499.15,
+      "hit": 0,
+      "dist": 5.1773,
+      "loom": 142.34,
+      "reward": 0.0,
+      "dW_mean": 0.03956480144628099,
+      "rate_hz": 19.891,
+      "spike_count": 3313
+    },
+    {
+      "t": 8532.48,
+      "hit": 0,
+      "dist": 5.1505,
+      "loom": 142.74,
+      "reward": 0.0,
+      "dW_mean": 0.0372138923553719,
+      "rate_hz": 19.291,
+      "spike_count": 4424
+    },
+    {
+      "t": 8565.81,
+      "hit": 0,
+      "dist": 5.1237,
+      "loom": 143.14,
+      "reward": 0.0,
+      "dW_mean": 0.04191323119834711,
+      "rate_hz": 20.473,
+      "spike_count": 3283
+    },
+    {
+      "t": 8599.14,
+      "hit": 0,
+      "dist": 5.097,
+      "loom": 143.55,
+      "reward": 0.0,
+      "dW_mean": 0.03806043780991735,
+      "rate_hz": 19.509,
+      "spike_count": 3319
+    },
+    {
+      "t": 8632.47,
+      "hit": 0,
+      "dist": 5.0702,
+      "loom": 143.95,
+      "reward": 0.0,
+      "dW_mean": 0.041615975,
+      "rate_hz": 20.4,
+      "spike_count": 4346
+    },
+    {
+      "t": 8665.8,
+      "hit": 0,
+      "dist": 5.0435,
+      "loom": 144.35,
+      "reward": 0.0,
+      "dW_mean": 0.04029141301652893,
+      "rate_hz": 20.073,
+      "spike_count": 3264
+    },
+    {
+      "t": 8699.13,
+      "hit": 0,
+      "dist": 5.0167,
+      "loom": 144.75,
+      "reward": 0.0,
+      "dW_mean": 0.04258592541322315,
+      "rate_hz": 20.636,
+      "spike_count": 3377
+    },
+    {
+      "t": 8732.46,
+      "hit": 0,
+      "dist": 4.99,
+      "loom": 145.15,
+      "reward": 0.0,
+      "dW_mean": 0.03934810723140496,
+      "rate_hz": 19.836,
+      "spike_count": 4419
+    },
+    {
+      "t": 8765.79,
+      "hit": 0,
+      "dist": 4.9632,
+      "loom": 145.55,
+      "reward": 0.0,
+      "dW_mean": 0.040145561776859504,
+      "rate_hz": 20.036,
+      "spike_count": 3336
+    },
+    {
+      "t": 8799.12,
+      "hit": 0,
+      "dist": 4.9365,
+      "loom": 145.95,
+      "reward": 0.0,
+      "dW_mean": 0.03963716508264463,
+      "rate_hz": 19.909,
+      "spike_count": 3299
+    },
+    {
+      "t": 8832.45,
+      "hit": 0,
+      "dist": 4.9097,
+      "loom": 146.35,
+      "reward": 0.0,
+      "dW_mean": 1.9549123716942147,
+      "rate_hz": 139.818,
+      "spike_count": 31038
+    },
+    {
+      "t": 8865.78,
+      "hit": 0,
+      "dist": 4.8829,
+      "loom": 146.76,
+      "reward": 0.0,
+      "dW_mean": 1.9169660907024797,
+      "rate_hz": 138.455,
+      "spike_count": 22918
+    },
+    {
+      "t": 8899.11,
+      "hit": 0,
+      "dist": 4.8562,
+      "loom": 147.16,
+      "reward": 0.0,
+      "dW_mean": 0.04618589235537191,
+      "rate_hz": 21.491,
+      "spike_count": 3308
+    },
+    {
+      "t": 8932.44,
+      "hit": 0,
+      "dist": 4.8294,
+      "loom": 147.56,
+      "reward": 0.0,
+      "dW_mean": 0.04236109896694215,
+      "rate_hz": 20.582,
+      "spike_count": 4406
+    },
+    {
+      "t": 8965.77,
+      "hit": 0,
+      "dist": 4.8027,
+      "loom": 147.96,
+      "reward": 0.0,
+      "dW_mean": 0.03992728078512396,
+      "rate_hz": 19.982,
+      "spike_count": 3398
+    },
+    {
+      "t": 8999.1,
+      "hit": 0,
+      "dist": 4.7759,
+      "loom": 148.36,
+      "reward": 0.0,
+      "dW_mean": 0.039060107231404954,
+      "rate_hz": 19.764,
+      "spike_count": 3240
+    },
+    {
+      "t": 9032.43,
+      "hit": 0,
+      "dist": 4.7492,
+      "loom": 148.76,
+      "reward": 0.0,
+      "dW_mean": 0.03970959483471074,
+      "rate_hz": 19.927,
+      "spike_count": 4386
+    },
+    {
+      "t": 9065.76,
+      "hit": 0,
+      "dist": 4.7224,
+      "loom": 149.16,
+      "reward": 0.0,
+      "dW_mean": 0.040218454338842975,
+      "rate_hz": 20.055,
+      "spike_count": 3270
+    },
+    {
+      "t": 9099.09,
+      "hit": 0,
+      "dist": 4.6957,
+      "loom": 149.57,
+      "reward": 0.0,
+      "dW_mean": 0.035275644421487604,
+      "rate_hz": 18.782,
+      "spike_count": 3233
+    },
+    {
+      "t": 9132.42,
+      "hit": 0,
+      "dist": 4.6689,
+      "loom": 149.97,
+      "reward": 0.0,
+      "dW_mean": 0.03985465268595041,
+      "rate_hz": 19.964,
+      "spike_count": 4421
+    },
+    {
+      "t": 9165.75,
+      "hit": 0,
+      "dist": 4.6421,
+      "loom": 150.37,
+      "reward": 0.0,
+      "dW_mean": 0.04087746260330579,
+      "rate_hz": 20.218,
+      "spike_count": 3272
+    },
+    {
+      "t": 9199.08,
+      "hit": 0,
+      "dist": 4.6154,
+      "loom": 150.77,
+      "reward": 0.0,
+      "dW_mean": 0.03898827252066116,
+      "rate_hz": 19.745,
+      "spike_count": 3244
+    },
+    {
+      "t": 9232.41,
+      "hit": 0,
+      "dist": 4.5886,
+      "loom": 151.17,
+      "reward": 0.0,
+      "dW_mean": 0.03898827252066116,
+      "rate_hz": 19.745,
+      "spike_count": 4408
+    },
+    {
+      "t": 9265.74,
+      "hit": 0,
+      "dist": 4.5619,
+      "loom": 151.57,
+      "reward": 0.0,
+      "dW_mean": 0.04154182623966943,
+      "rate_hz": 20.382,
+      "spike_count": 3390
+    },
+    {
+      "t": 9299.07,
+      "hit": 0,
+      "dist": 4.5351,
+      "loom": 151.97,
+      "reward": 0.0,
+      "dW_mean": 0.038701594834710744,
+      "rate_hz": 19.673,
+      "spike_count": 3209
+    },
+    {
+      "t": 9332.4,
+      "hit": 0,
+      "dist": 4.5084,
+      "loom": 152.37,
+      "reward": 0.0,
+      "dW_mean": 0.037073727066115704,
+      "rate_hz": 19.255,
+      "spike_count": 4339
+    },
+    {
+      "t": 9365.73,
+      "hit": 0,
+      "dist": 4.4816,
+      "loom": 152.78,
+      "reward": 0.0,
+      "dW_mean": 0.04146774359504132,
+      "rate_hz": 20.364,
+      "spike_count": 3305
+    },
+    {
+      "t": 9399.06,
+      "hit": 0,
+      "dist": 4.4548,
+      "loom": 153.18,
+      "reward": 0.0,
+      "dW_mean": 0.03813141301652893,
+      "rate_hz": 19.527,
+      "spike_count": 3328
+    },
+    {
+      "t": 9432.39,
+      "hit": 0,
+      "dist": 4.4281,
+      "loom": 153.58,
+      "reward": 0.0,
+      "dW_mean": 0.03623828904958677,
+      "rate_hz": 19.036,
+      "spike_count": 4406
+    },
+    {
+      "t": 9465.72,
+      "hit": 0,
+      "dist": 4.4013,
+      "loom": 153.98,
+      "reward": 0.0,
+      "dW_mean": 0.036030917148760326,
+      "rate_hz": 18.982,
+      "spike_count": 3275
+    },
+    {
+      "t": 9499.05,
+      "hit": 0,
+      "dist": 4.3746,
+      "loom": 154.38,
+      "reward": 0.0,
+      "dW_mean": 0.039999975,
+      "rate_hz": 20.0,
+      "spike_count": 3381
+    },
+    {
+      "t": 9532.38,
+      "hit": 0,
+      "dist": 4.3478,
+      "loom": 154.78,
+      "reward": 0.0,
+      "dW_mean": 0.03963716508264463,
+      "rate_hz": 19.909,
+      "spike_count": 4291
+    },
+    {
+      "t": 9565.71,
+      "hit": 0,
+      "dist": 4.3211,
+      "loom": 155.18,
+      "reward": 0.0,
+      "dW_mean": 0.04131977665289256,
+      "rate_hz": 20.327,
+      "spike_count": 3292
+    },
+    {
+      "t": 9599.04,
+      "hit": 0,
+      "dist": 4.2943,
+      "loom": 155.59,
+      "reward": 0.0,
+      "dW_mean": 0.03992728078512396,
+      "rate_hz": 19.982,
+      "spike_count": 3277
+    },
+    {
+      "t": 9632.37,
+      "hit": 0,
+      "dist": 4.2676,
+      "loom": 155.99,
+      "reward": 0.0,
+      "dW_mean": 0.04228628904958678,
+      "rate_hz": 20.564,
+      "spike_count": 4381
+    },
+    {
+      "t": 9665.7,
+      "hit": 0,
+      "dist": 4.2408,
+      "loom": 156.39,
+      "reward": 0.0,
+      "dW_mean": 0.03927600805785124,
+      "rate_hz": 19.818,
+      "spike_count": 3300
+    },
+    {
+      "t": 9699.03,
+      "hit": 0,
+      "dist": 4.214,
+      "loom": 156.79,
+      "reward": 0.0,
+      "dW_mean": 0.040803975,
+      "rate_hz": 20.2,
+      "spike_count": 3338
+    },
+    {
+      "t": 9732.36,
+      "hit": 0,
+      "dist": 4.1873,
+      "loom": 157.19,
+      "reward": 0.0,
+      "dW_mean": 0.043188371694214876,
+      "rate_hz": 20.782,
+      "spike_count": 4451
+    },
+    {
+      "t": 9765.69,
+      "hit": 0,
+      "dist": 4.1605,
+      "loom": 157.59,
+      "reward": 0.0,
+      "dW_mean": 0.03985465268595041,
+      "rate_hz": 19.964,
+      "spike_count": 3307
+    },
+    {
+      "t": 9799.02,
+      "hit": 0,
+      "dist": 4.1338,
+      "loom": 157.99,
+      "reward": 0.0,
+      "dW_mean": 0.040803975,
+      "rate_hz": 20.2,
+      "spike_count": 3371
+    },
+    {
+      "t": 9832.35,
+      "hit": 0,
+      "dist": 4.107,
+      "loom": 158.39,
+      "reward": 0.0,
+      "dW_mean": 0.03665481797520661,
+      "rate_hz": 19.145,
+      "spike_count": 4377
+    },
+    {
+      "t": 9865.68,
+      "hit": 0,
+      "dist": 4.0803,
+      "loom": 158.8,
+      "reward": 0.0,
+      "dW_mean": 0.045021098966942154,
+      "rate_hz": 21.218,
+      "spike_count": 3383
+    },
+    {
+      "t": 9899.01,
+      "hit": 0,
+      "dist": 4.0535,
+      "loom": 159.2,
+      "reward": 0.0,
+      "dW_mean": 0.03927600805785124,
+      "rate_hz": 19.818,
+      "spike_count": 3273
+    },
+    {
+      "t": 9932.34,
+      "hit": 0,
+      "dist": 4.0268,
+      "loom": 159.6,
+      "reward": 0.0,
+      "dW_mean": 0.043112834504132225,
+      "rate_hz": 20.764,
+      "spike_count": 4442
+    },
+    {
+      "t": 9965.67,
+      "hit": 0,
+      "dist": 4.0,
+      "loom": 160.0,
+      "reward": 0.0,
+      "dW_mean": 0.041098322107438016,
+      "rate_hz": 20.273,
+      "spike_count": 3312
+    }
+  ]
+}

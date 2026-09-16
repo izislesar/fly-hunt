@@ -1,0 +1,10 @@
+date: 2026-09-16T18:28:06Z
+cmd: MUJOCO_GL=egl CC=gcc CXX=g++ /home/izislesar/venv-brainfly314/bin/python tools/run_hunt.py --real-egl-10s
+torch: ok torch=2.14.0+cu130 cuda=True device=NVIDIA GeForce RTX 3050 Laptop GPU
+vendor: two_flies.py --help exit=1, --headless exit=1 (ImportError flygym.Fly -> run_hunt.py real-path fallback)
+model-ok nq=7 nv=6 arena=arena/hunt_arena.xml timestep=0.0005
+render-ok shape=(480, 640, 3) dtype=uint8 mean=150.0 EGL 640x480
+step-ok n_steps=19800 sim_time=9.9000s wall=11.57s
+brian2-ok n_spikes=1354381 neurons=5500 wall=24.84s schedule=base20/stim140/rearm5 seed=1 frames=300 bins=1000
+sim_time=9.9000s mujoco_wall=11.57s total_wall=59.29s
+hits=5 @frames [0, 19, 46, 65, 85] ammo_left=0

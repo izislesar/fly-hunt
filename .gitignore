@@ -11,6 +11,9 @@ out/spikes/*.png
 !out/spikes/sp00000.png
 !out/spikes/sp00030.png
 !out/spikes/sp00065.png
+# viz10 10s hunt frames: 300xPNG, Task 5 owns probes (probe_*.png keepable)
+out/frames10/*.png
+!out/frames10/probe_*.png
 # synthetic backups (pre-rerun fallbacks, never committed)
 *.bak.*
 *.bak/
