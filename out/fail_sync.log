@@ -1,0 +1,2 @@
+not-triggered: check_sync PASS, no sync failure
+PASS: 90 rows, header exact, columns==6, monotonic t_neural/t_physics/frame_id; ratio 5:1 neural:physics (0.1ms x5 = 0.5ms) ok; 66 phys/frame (33.0ms ~= 33.33ms, residual accumulate-and-correct) ok; moose_pos 'x;y;z' ok

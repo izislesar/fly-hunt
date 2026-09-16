@@ -1,0 +1,7 @@
+Task 10 QA-fail gate: clip evidence (exit-range probe must clip, never escape [0,1])
+probe: hit=1 dist=0 loom=0 -> raw=1.2 -> reward=1.0 clipped:true
+expected: raw=1.2 clipped to 1.0 (coef 1.0 + 0.2*(1-0)*1 = 1.2, dist term 0)
+result: clip path WORKS (no out-of-[0,1] escape observed; all live rewards clipped by reward())
+acceptance case: --hit 1 --dist 5.0 --loom 50.0 -> reward=1.0 in (0,1] OK
+miss->0 evidence: reward=0.0 pulse=False
+no-see->0 evidence: reward=0.0 pulse=False

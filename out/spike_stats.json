@@ -1,0 +1,15 @@
+{
+  "n_spikes": 342,
+  "n_bins": 300,
+  "bin_ms": 10,
+  "duration_s": 3.0,
+  "rate_hz": {
+    "min": 18.0,
+    "max": 140.0,
+    "mean": 22.64
+  },
+  "nonempty": true,
+  "meta_mean_hz": 22.911,
+  "meta_diff_hz": 0.27,
+  "source": "run_hunt synthetic seed 1"
+}

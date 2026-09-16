@@ -1,0 +1,103 @@
+{
+  "npz_keys": [
+    "cell_type_detail",
+    "edges",
+    "meta_json",
+    "neuron_ids",
+    "neuron_types",
+    "weights_init"
+  ],
+  "N": 5500,
+  "n_syn": 120344,
+  "per_type_counts": {
+    "DAN": 100,
+    "DN": 150,
+    "JO": 540,
+    "KC": 2000,
+    "LC4": 104,
+    "LPLC2": 210,
+    "MBON": 96,
+    "ORN": 500,
+    "PN": 300,
+    "SEZ-GRN": 700,
+    "T2/T3-vis": 800
+  },
+  "sampling_notes": {
+    "LC4": "207 in pool, sampled 104",
+    "LPLC2": "210 in pool, sampled 210",
+    "T2/T3-vis": "4915 in pool (T2/T2a/T3), sampled 800",
+    "ORN": "2275 ORN_* in pool, sampled 500",
+    "PN": "685 ALPN in pool, sampled 300",
+    "KC": "5177 Kenyon_Cell in pool, sampled 2000",
+    "MBON": "96 MBON in pool, took all 96",
+    "DAN": "PPL101 x2 (all) + PAM x98 sampled from 307; cell_class DAN total 331",
+    "DN_named": {
+      "DNpe017": [
+        720575940629866283,
+        720575940631925156
+      ],
+      "DNp20": [
+        720575940629390123,
+        720575940644166048
+      ],
+      "DNp09": [
+        720575940627652358,
+        720575940635872101
+      ],
+      "DNa01": [
+        720575940627787609,
+        720575940644438551
+      ],
+      "DNa02": [
+        720575940604737708,
+        720575940629327659
+      ],
+      "GF": [
+        720575940622838154,
+        720575940632499757
+      ]
+    },
+    "DN": "named 12 (DNpe017x2, DNp20x2, GFx2, DNa01x2, DNa02x2, DNp09x2) + generic DN* x138 from 1300",
+    "SEZ-GRN": "gustatory cell_class x408 (all; includes sugar/pharyngeal GRNs) + SEZ-region GNG-associated x292 sampled from 1025 (cell_type GRN alone only 71 rows: insufficient, hence documented fallback)",
+    "JO": "1095 JO-* in pool, sampled 540"
+  },
+  "parquet": {
+    "path": "data/2025_Connectivity_783.parquet",
+    "bytes": 100804642,
+    "magic_ok": true,
+    "columns": [
+      "Presynaptic_ID",
+      "Postsynaptic_ID",
+      "Presynaptic_Index",
+      "Postsynaptic_Index",
+      "Connectivity",
+      "Excitatory",
+      "Excitatory x Connectivity"
+    ],
+    "rows": 15091983,
+    "sha256": "efeb23fb99098e9c390f6869969b2a121a2ee92c833cfc45ecb2c1d8e1af0347",
+    "note": "No type columns in parquet (footer-verified); types come from vendor annotations TSV joined to completeness CSV pool."
+  },
+  "parquet_sha": "efeb23fb99098e9c390f6869969b2a121a2ee92c833cfc45ecb2c1d8e1af0347",
+  "edge_engine": "pyarrow 25.0.1",
+  "edge_source": {
+    "method": "inner-join Presynaptic_ID/Postsynaptic_ID to selected 5500 FlyWire IDs, chunked 100k-row batches",
+    "parquet_rows": 15091983,
+    "matched": 120344,
+    "rule": "keep-all natural join (S=120344)",
+    "final_S": 120344
+  },
+  "weight_rule": "clip(Excitatory x Connectivity, 0, 2) float32; inhibitory signed<=0 -> 0 (excitatory-only W convention, clip [0,2])",
+  "weight_stats": {
+    "min": 0.0,
+    "max": 2.0,
+    "mean": 1.3470550775527954,
+    "zeros": 5716,
+    "finite": true
+  },
+  "edges_real": true,
+  "edges_synthetic": false,
+  "backup": "out/hunting_circuit_6k.synthetic.bak.npz",
+  "seed": 0,
+  "target": 5500
+}

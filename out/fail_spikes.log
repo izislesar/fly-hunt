@@ -1,0 +1,1 @@
+not-triggered: raster non-empty, n_spikes=342 bins=300 rate_mean=22.64Hz in [5,200]Hz; empty-raster gate did not fire.

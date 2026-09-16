@@ -1,0 +1,6 @@
+not-triggered: perf SLO ALL-PASS, no exceedance.
+sim/wall effective 6.0-13.0 (>=0.2), VRAM measured 0.0039GB / projected 0.1525GB (<3.5),
+RSS measured <=0.034GB VmHWM / projected 1.6484GB (<14). Chunked 100k guard armed for RSS>12GB.
+On FAIL the remediation would be: (1) chunked synapse load in 100k chunks when RSS>12GB,
+(2) CPU Brian2 priority, GPU torch only if peak<3.5GB, (3) reduce N_FRAMES/PNG size, re-run
+tools/check_budget.py, re-record out/perf.md. Evidence: out/perf.md (this task, 2026-09-16).

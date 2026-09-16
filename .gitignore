@@ -1,0 +1,24 @@
+# Task 1 (ai-trains-fly-rerun): keep vendor + heavy/derived artifacts out of git
+# parquet data (100MB class, fetched per DATA_FETCH.md)
+data/*.parquet
+# rendered frames: 90xPNG per run, keep 3 samples only (hit frames + first)
+out/frames/*.png
+!out/frames/f00000.png
+!out/frames/f00030.png
+!out/frames/f00065.png
+# spike renders: same policy (task 2 owns these; keep samples on its branch)
+out/spikes/*.png
+!out/spikes/sp00000.png
+!out/spikes/sp00030.png
+!out/spikes/sp00065.png
+# synthetic backups (pre-rerun fallbacks, never committed)
+*.bak.*
+*.bak/
+# compiled / caches
+__pycache__/
+*.pyc
+*.pt
+# vendor brain (cloned by SHA per DATA_FETCH.md, read-only, never pushed)
+fly-brain/
+# agent tooling state
+.claude-flow/

@@ -1,0 +1,8 @@
+# fail_fetch.log — Task 4 (clone fly-brain 27cec28d + LFS v783)
+
+STATUS: SUCCESS — not triggered. Fetch completed without fallback.
+
+- 2026-09-16T09:01:59Z: initial `git clone` (with LFS smudge) stalled >120s (timeout 124) — repo/lfs payload slow, NOT a hard network failure.
+- Remediation: `GIT_LFS_SKIP_SMUDGE=1 git clone` succeeded; `git lfs pull` exit 0; HEAD verified == 27cec28d.
+- No cache reuse needed; no errors to capture. This file exists as the QA-fail gate placeholder.
+- Fail-closed rule for later tasks: if any step needs network now, append the real error below and abort offline work that depends on it.

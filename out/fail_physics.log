@@ -1,0 +1,18 @@
+## Task 8 check_physics 2026-09-16T13:18:36Z (superseded run: checker compared scalar gravity vs Task 7 3-vector "0 0 -9.81"; fixed to compare z-component, see correction below)
+## Task 8 check_physics 2026-09-16T13:20:00Z (corrected)
+PATH=analytic(mujoco-missing), xml-cross-checked (/home/izislesar/Projects/fly_oxota/arena/hunt_arena.xml)
+checker: python tools/check_physics.py --steps 500 -> exit 0
+output:
+PATH=analytic(mujoco-missing) xml-cross-checked (/home/izislesar/Projects/fly_oxota/arena/hunt_arena.xml)
+no NaN in 500 steps
+table: arena/physics_table.md frozen (fly 1e-6kg/3mm, moose-box 0.5kg/0.05m3, gravity -9.81, dt 0.0005, iter 100, solref [2e-4,1e3], solimp [0.999,0.9999,1e-3,0.5,2.0]); fudge flags default OFF, none enabled
+status: PASS (no instability; fudge flags not triggered)
+## 2026-09-16 Task 7 arena-run: not-triggered note (no NaN/freeze observed)
+- Static XML validation PASS (xml-ok, exit 0); structural counts verified, see out/arena.log.
+- Real stepping impossible: `import mujoco` -> ModuleNotFoundError (env blocker, honest log in out/arena.log).
+- No NaN/freeze evidence to record: no stepping ran, no watchdog recovery needed.
+- Watchdog recovery path (for real runs under Task 8/12): on NaN/freeze, reset via
+  mujoco.mj_resetData + respawn at safe position (cf. ProceduralArena.
+  get_safe_respawn_position) and append the incident here; fudge flags live in
+  arena/physics_table.md (all default OFF).
+

@@ -1,0 +1,43 @@
+# out/arena.log — Task 7 arena-run evidence (2026-09-16)
+# Model: arena/hunt_arena.xml (MuJoCo 3.1.6 schema, SI meters)
+
+## 1. Headless import attempt (REAL output, not faked)
+CMD: MUJOCO_GL=egl python3 -c "import mujoco; m=mujoco.MjModel.from_xml_path('arena/hunt_arena.xml'); print('model-ok', m.nq, m.nv)"
+RESULT: exit 1
+  Traceback (most recent call last):
+    File "<string>", line 1, in <module>
+      import mujoco; m=mujoco.MjModel.from_xml_path('arena/hunt_arena.xml'); print('model-ok', m.nq, m.nv)
+      ^^^^^^^^^^^^^
+  ModuleNotFoundError: No module named 'mujoco'
+NOTE: mujoco NOT installed on host (known env blocker, cf. issues.md / Task 1
+out/env.log). No `model-ok` output fabricated. Real 500-step physics stepping
+is therefore impossible here; 500-step gate is owned by tools/check_physics.py
+(Task 8) once the brain-fly env exists. Structural validation below MUST pass
+as the fallback evidence.
+
+## 2. XML structural validation (MUST pass — REAL output)
+CMD: python3 -c "import xml.etree.ElementTree as ET; ET.parse('arena/hunt_arena.xml'); print('xml-ok')"
+RESULT: exit 0 / xml-ok
+option: gravity="0 0 -9.81" timestep="0.0005" iterations="100"  (exact per Scope)
+contact: default geom solref="2e-4 1e3" solimp="0.999 0.9999 0.001 0.5 2.0"
+  (+ explicit same values on moose_geom; vendor CrossFlySimulation pair values match)
+worldbody children: 10
+  geom x5: ground, moose_geom, odor_pit_0, odor_pit_1, looming_ball
+  body x2: moose_box (freejoint, inertial 0.5 kg), looming_sphere (mocap)
+  site x4: fly_spawn_0 (marker, NOT a body), moose_target, odor_label_0, odor_label_1
+  light x1: sun | camera x1: hunt_cam
+keyframes x2: loom_start mpos="12 0 1.5" / loom_end mpos="0.5 0 0.15" (3 s approach)
+NaN check: no numeric stepping possible without mujoco — no NaN observed in
+  static validation; NaN/freeze watchdog path documented in out/fail_physics.log.
+
+## 3. Frames ownership
+CMD: ls out/frames | wc -l
+RESULT: 0 (empty — frames belong to Task 12; Task 7 generates no PNGs)
+
+## 4. Cross-refs
+- physics numbers coordinated with arena/physics_table.md (Task 8, present):
+  fly 1e-6 kg / 3 mm wingspan; moose-box 0.5 kg / ~0.05 m3; same solver/contact.
+- vendor refs: fly-brain/procedural_arena.py (sky/sun/checker/mocap/visual-only),
+  fly-brain/looming_arena.py (dark sphere +x approach), fly-brain/two_flies.py
+  Fly(...) composition (fly body NOT copied into this XML).
+- sync: docs/sync.md — 66 phys steps/frame nominal (0.5 ms x66 = 33.0 ms).

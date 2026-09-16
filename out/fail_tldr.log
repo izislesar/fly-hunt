@@ -1,0 +1,1 @@
+not-triggered: all 3 Task-18 artifacts present — out/trophy_hunt.mp4 (47555 bytes), out/physics_log.csv (4015 bytes), out/spikes.npz (8654 bytes). test -f on mp4+csv exit 0. No missing-file dump needed.

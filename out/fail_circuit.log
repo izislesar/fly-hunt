@@ -1,0 +1,2 @@
+not-triggered: check_circuit PASS, no circuit failure
+PASS: N=5500 in [4000,6500], syn=120344, RSS_est=1.5014GB < 8.0GB

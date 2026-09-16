@@ -1,0 +1,20 @@
+=== QA-fail: WITHOUT MUJOCO_GL (clean-fail evidence) ===
+date: 2026-09-16T09:04:05Z
+MUJOCO_GL=<unset>
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import mujoco;print(mujoco.__version__)
+    ^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'mujoco'
+exit=1
+
+NOTE: mujoco not installed in system python 3.14.7; clean ModuleNotFoundError (no traceback leak beyond standard import error, no EGL crash). EGL libs present: /usr/lib/libEGL_nvidia.so, /usr/lib/libEGL_mesa.so. Fix path: create brain-fly env (python=3.10.14) via miniforge then pip install mujoco==3.1.6, retry with MUJOCO_GL=egl.
+
+=== Task 12 headless run 3s EGL (synthetic fallback) ===
+date: 2026-09-16T13:30:00Z
+PATH=synthetic(mujoco-missing)
+import_probe: mujoco=ModuleNotFoundError: No module named 'mujoco'; brian2=ModuleNotFoundError: No module named 'brian2'; torch=ModuleNotFoundError: No module named 'torch'; flygym=ModuleNotFoundError: No module named 'flygym'
+xvfb attempt: `which xvfb-run` -> not-found (xvfb-run NOT installed; no X retry possible, synthetic path is the documented fallback per task card)
+EGL libs (host): /usr/lib/libEGL_nvidia.so + /usr/lib/libEGL_mesa.so present (Task 1), but unusable without mujoco pip package (PEP668, no conda env).
+real_cmd (NOT executed): two_flies.py --headless --visual --gustatory --somatosensory --duration 3 --separation 5.0 --no-viewer
+delivered instead: 90x out/frames/f00000..f00089.png (640x480 PIL hunt scene), out/physics_log.csv 90 rows (check_sync PASS), out/spikes.npz (300 bins), out/run_meta.json path=synthetic(mujoco-missing), 2 hits @frames 30,65 ammo_left=3. No EGL output faked.

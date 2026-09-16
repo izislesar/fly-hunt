@@ -1,0 +1,44 @@
+{
+  "params": {
+    "threshold": 3,
+    "hysteresis": 2,
+    "ammo": 5,
+    "range_m": 20.0,
+    "cooldown_ms": 500,
+    "spread_rad": 0.02,
+    "bin_ms": 10,
+    "seed": 1,
+    "note": "only --range/--spread overridable; others frozen"
+  },
+  "scenarios": [
+    {
+      "name": "hit-5m",
+      "dist_m": 5.0,
+      "visible": true,
+      "dnpe017_count": 3,
+      "hit": true,
+      "reason": "hit"
+    },
+    {
+      "name": "miss-25m",
+      "dist_m": 25.0,
+      "visible": true,
+      "dnpe017_count": 5,
+      "hit": false,
+      "reason": "out-of-range"
+    },
+    {
+      "name": "occluded-5m",
+      "dist_m": 5.0,
+      "visible": false,
+      "dnpe017_count": 5,
+      "hit": false,
+      "reason": "no-visibility"
+    }
+  ],
+  "ammo_left": 4,
+  "checks": {
+    "cooldown_ok": true,
+    "hysteresis_ok": true
+  }
+}

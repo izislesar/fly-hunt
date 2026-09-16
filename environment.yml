@@ -1,0 +1,29 @@
+# brain-fly conda env — Task 1 pins (frozen per plan ai-trains-fly.md)
+# Path-A refresh 2026-09-16: live venv ~/venv-brainfly314 (python 3.14.7) holds
+#   mujoco==3.9.0 brian2==2.10.1 flygym==2.1.0 (VERIFIED-BY-USER-FREEZE).
+#   Old pins (python=3.10.14, mujoco==3.1.6, brian2==2.5.2, flygym==1.2.1)
+#   superseded by Fresh resolve 2026-09-16 — kept in pins.md audit trail.
+# Arch system prereqs (install via pacman, NOT conda):
+#   sudo pacman -S --needed base-devel gcc12 git git-lfs glfw-wayland libglvnd egl-wayland mesa cuda nvidia-utils
+# Miniforge bootstrap (if /opt/miniforge3 missing):
+#   wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh -O /tmp/miniforge.sh
+#   bash /tmp/miniforge.sh -b -p /opt/miniforge3
+# Create: mamba env create -f environment.yml  (or: conda env create -f environment.yml)
+# Activate: conda activate brain-fly
+name: brain-fly
+channels:
+  - conda-forge
+dependencies:
+  - python>=3.10  # validated on 3.14.7 (Path A venv 2026-09-16; was python=3.10.14, superseded)
+  - pip
+  - pip:
+      - mujoco==3.9.0
+      - brian2==2.10.1
+      - flygym==2.1.0
+variables:
+  CC: gcc  # gcc12->gcc16 host deviation 2026-09-16 (no gcc12 on Arch; brian2 codegen accepts gcc16)
+  CXX: g++  # gcc12->gcc16 host deviation 2026-09-16
+  MUJOCO_GL: egl
+  # Fallbacks (uncomment as needed):
+  # QT_QPA_PLATFORM: xcb
+  # xvfb fallback: xvfb-run -a python ...

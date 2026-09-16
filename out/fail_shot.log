@@ -1,0 +1,5 @@
+out-of-range case: dist=25.0m > range=20.0m -> no shot, hit=False, reason=out-of-range
+no-visibility case: occluded flag visible=False at dist=5.0m -> no shot, hit=False, reason=no-visibility
+in-range path: dist=5.0m visible with count=3 -> TRIGGERED (not a failure), hit=True, reason=hit
+cooldown sub-check: second shot at +100ms blocked -> hit=False reason=cooldown ok=True
+hysteresis sub-check: count=2 after fire does not retrigger -> hit=False reason=hysteresis-not-rearmed ok=True

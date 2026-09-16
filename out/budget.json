@@ -1,0 +1,47 @@
+{
+  "peak_rss_gb": 1.6484,
+  "peak_vram_gb": 0.1525,
+  "vram_cap": 3.5,
+  "ram_cap": 14.0,
+  "verdict": "PASS",
+  "chunked_guard": {
+    "chunk_synapses": 100000,
+    "rss_trigger_gb": 12.0,
+    "triggered": false,
+    "note": "RSS>12GB -> load synapses in 100k chunks; CPU Brian2 priority; torch GPU only if peak<3.5GB"
+  },
+  "estimate": {
+    "n_neurons": 5500,
+    "n_synapses": 220000,
+    "mean_fanout": 40,
+    "syn_f64_gb": 0.00176,
+    "syn_f32_gb": 0.00088,
+    "neuron_state_gb": 0.00044,
+    "frames_gb": 0.082944,
+    "spikes_png_gb": 0.009216,
+    "video_cap_gb": 0.052429,
+    "base_overhead_gb": 1.5,
+    "peak_rss_gb": 1.6484,
+    "peak_vram_gb": 0.1525
+  },
+  "populations": {
+    "LC4": 104,
+    "LPLC2": 210,
+    "T2/T3-vis": 800,
+    "ORN": 500,
+    "PN": 300,
+    "KC": 2000,
+    "MBON": 96,
+    "DAN": 100,
+    "DN": 150,
+    "SEZ-GRN": 700,
+    "JO": 540
+  },
+  "host_actual": {
+    "ram_total_gb": 15.36,
+    "ram_available_gb": 4.62,
+    "vram_host_missing": false,
+    "vram_total_mb": 4096.0,
+    "vram_used_mb": 4.0
+  }
+}

@@ -1,0 +1,13 @@
+# fail_bridge.log — Task 11 (QA-fail gate)
+
+Status: NOT-TRIGGERED.
+`tools/check_bridge.py` exits 1 (10/15 PASS; FAILs: `def reset`, `def spike`,
+`def torque`, DNpe017-in-bridge, torch import probe), but every mismatch is
+covered by the иначе-branch: `out/ADAPTATION.md` exists with the full
+expected-vs-actual diff, file:line references, impact notes, and the
+behavior-not-invented declaration. Per Task 11 acceptance
+(`... иначе out/ADAPTATION.md с diff`), this is the handled path, not an
+unhandled FAIL. No missing-ADAPTATION condition occurred, so no FAIL evidence
+is recorded here.
+Acceptance grep itself exited 0 (`451: def step(self):`).
+Date: 2026-09-16.

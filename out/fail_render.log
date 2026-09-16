@@ -1,0 +1,5 @@
+# fail_render.log Task 14 — header: LUT source = matplotlib-magma-256 (matplotlib 3.11.2), endpoints forced EXACT #000004 (0,0,4) -> #FCFFA4 (252,255,164); render path = PIL 12.3.0 (struct+zlib fallback coded, not taken); 8-stop handcoded approx NOT used.
+# count-mismatch evidence section: NOT TRIGGERED — ls out/spikes/sp*.png | wc -l == 90; all 90 parse 640x480 (struct unpack); file sp00000.png = PNG 640x480 8-bit RGB; 90/90 distinct md5; bg (0,0,4) present sp00000; burst (252,255,164) present on hit frames sp00030/sp00065.
+# CLI recorded: python3 tools/render_spikes.py --palette magma:#000004-#FCFFA4 --size 640x480 --fps 30 (args parsed; non-default palette/size/fps warn-only)
+# frame mapping: 90 frames <- 300 bins @3.333 bins/frame; y = 480 rows sampled from 5500 seed 0; hit frames {30,65} from run_meta.json with #FCFFA4 flash bar + counter text.
+status: OK no-mismatch

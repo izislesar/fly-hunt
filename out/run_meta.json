@@ -1,0 +1,960 @@
+{
+  "path": "synthetic(mujoco-missing)",
+  "import_probe": {
+    "mujoco": "ModuleNotFoundError: No module named 'mujoco'",
+    "brian2": "ModuleNotFoundError: No module named 'brian2'",
+    "torch": "ModuleNotFoundError: No module named 'torch'",
+    "flygym": "ModuleNotFoundError: No module named 'flygym'",
+    "vendor_brain_body_bridge": {
+      "BrainEngine.step@451": true,
+      "get_dn_spikes@464": true,
+      "decoder.update@511": true,
+      "compute_drive@609": true,
+      "no def reset/spike/torque": true
+    },
+    "two_flies_cmd": "two_flies.py --headless --visual --gustatory --somatosensory --duration 3 --separation 5.0 --no-viewer (NOT executed: mujoco missing; synthetic fallback with same 90-frame interface)",
+    "xvfb-run": "not-found (synthetic fallback, no X needed)"
+  },
+  "frames": 90,
+  "size": "640x480",
+  "fps": 30,
+  "seed": 1,
+  "renderer": "PIL-12.3.0-hunt-scene",
+  "circuit_N": 5500,
+  "shot_params": {
+    "threshold": 3,
+    "hysteresis": 2,
+    "ammo_max": 5,
+    "ammo_used": 2,
+    "ammo_left": 3,
+    "range_m": 20.0,
+    "cooldown_ms": 500,
+    "spread_rad": 0.02
+  },
+  "spike_rate_hz": {
+    "min": 18.0,
+    "max": 140.0,
+    "mean": 22.911
+  },
+  "spike_scale": "spike_count = round(rate_hz * window_s * N/1000); per-1000-neuron normalization, documented",
+  "hits": [
+    {
+      "frame": 30,
+      "dist": 9.3034,
+      "loom": 80.45,
+      "reward": 0.98,
+      "dW_mean": 1.959999975,
+      "log_line": "999.9,1,9.3034,80.45,0.98,1.959999975"
+    },
+    {
+      "frame": 65,
+      "dist": 6.1573,
+      "loom": 127.64,
+      "reward": 0.98,
+      "dW_mean": 1.9043999750000002,
+      "log_line": "2166.45,1,6.1573,127.64,0.98,1.9043999750000002"
+    }
+  ],
+  "per_frame": [
+    {
+      "t": 0.0,
+      "hit": 0,
+      "dist": 12.0,
+      "loom": 40.0,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 3
+    },
+    {
+      "t": 33.33,
+      "hit": 0,
+      "dist": 11.9101,
+      "loom": 41.35,
+      "reward": 0.0,
+      "dW_mean": 0.039999975,
+      "rate_hz": 20.0,
+      "spike_count": 4
+    },
+    {
+      "t": 66.66,
+      "hit": 0,
+      "dist": 11.8202,
+      "loom": 42.7,
+      "reward": 0.0,
+      "dW_mean": 0.032399975000000004,
+      "rate_hz": 18.0,
+      "spike_count": 3
+    },
+    {
+      "t": 99.99,
+      "hit": 0,
+      "dist": 11.7303,
+      "loom": 44.04,
+      "reward": 0.0,
+      "dW_mean": 0.04409997500000001,
+      "rate_hz": 21.0,
+      "spike_count": 3
+    },
+    {
+      "t": 133.32,
+      "hit": 0,
+      "dist": 11.6404,
+      "loom": 45.39,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 4
+    },
+    {
+      "t": 166.65,
+      "hit": 0,
+      "dist": 11.5506,
+      "loom": 46.74,
+      "reward": 0.0,
+      "dW_mean": 0.032399975000000004,
+      "rate_hz": 18.0,
+      "spike_count": 3
+    },
+    {
+      "t": 199.98,
+      "hit": 0,
+      "dist": 11.4607,
+      "loom": 48.09,
+      "reward": 0.0,
+      "dW_mean": 0.036099975,
+      "rate_hz": 19.0,
+      "spike_count": 3
+    },
+    {
+      "t": 233.31,
+      "hit": 0,
+      "dist": 11.3708,
+      "loom": 49.44,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 4
+    },
+    {
+      "t": 266.64,
+      "hit": 0,
+      "dist": 11.2809,
+      "loom": 50.79,
+      "reward": 0.0,
+      "dW_mean": 0.04409997500000001,
+      "rate_hz": 21.0,
+      "spike_count": 3
+    },
+    {
+      "t": 299.97,
+      "hit": 0,
+      "dist": 11.191,
+      "loom": 52.13,
+      "reward": 0.0,
+      "dW_mean": 0.039999975,
+      "rate_hz": 20.0,
+      "spike_count": 3
+    },
+    {
+      "t": 333.3,
+      "hit": 0,
+      "dist": 11.1011,
+      "loom": 53.48,
+      "reward": 0.0,
+      "dW_mean": 0.04409997500000001,
+      "rate_hz": 21.0,
+      "spike_count": 4
+    },
+    {
+      "t": 366.63,
+      "hit": 0,
+      "dist": 11.0112,
+      "loom": 54.83,
+      "reward": 0.0,
+      "dW_mean": 0.032399975000000004,
+      "rate_hz": 18.0,
+      "spike_count": 3
+    },
+    {
+      "t": 399.96,
+      "hit": 0,
+      "dist": 10.9213,
+      "loom": 56.18,
+      "reward": 0.0,
+      "dW_mean": 0.04409997500000001,
+      "rate_hz": 21.0,
+      "spike_count": 3
+    },
+    {
+      "t": 433.29,
+      "hit": 0,
+      "dist": 10.8315,
+      "loom": 57.53,
+      "reward": 0.0,
+      "dW_mean": 0.032399975000000004,
+      "rate_hz": 18.0,
+      "spike_count": 4
+    },
+    {
+      "t": 466.62,
+      "hit": 0,
+      "dist": 10.7416,
+      "loom": 58.88,
+      "reward": 0.0,
+      "dW_mean": 0.039999975,
+      "rate_hz": 20.0,
+      "spike_count": 3
+    },
+    {
+      "t": 499.95,
+      "hit": 0,
+      "dist": 10.6517,
+      "loom": 60.22,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 3
+    },
+    {
+      "t": 533.28,
+      "hit": 0,
+      "dist": 10.5618,
+      "loom": 61.57,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 4
+    },
+    {
+      "t": 566.61,
+      "hit": 0,
+      "dist": 10.4719,
+      "loom": 62.92,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 3
+    },
+    {
+      "t": 599.94,
+      "hit": 0,
+      "dist": 10.382,
+      "loom": 64.27,
+      "reward": 0.0,
+      "dW_mean": 0.04409997500000001,
+      "rate_hz": 21.0,
+      "spike_count": 3
+    },
+    {
+      "t": 633.27,
+      "hit": 0,
+      "dist": 10.2921,
+      "loom": 65.62,
+      "reward": 0.0,
+      "dW_mean": 0.036099975,
+      "rate_hz": 19.0,
+      "spike_count": 4
+    },
+    {
+      "t": 666.6,
+      "hit": 0,
+      "dist": 10.2022,
+      "loom": 66.97,
+      "reward": 0.0,
+      "dW_mean": 0.036099975,
+      "rate_hz": 19.0,
+      "spike_count": 3
+    },
+    {
+      "t": 699.93,
+      "hit": 0,
+      "dist": 10.1124,
+      "loom": 68.31,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 3
+    },
+    {
+      "t": 733.26,
+      "hit": 0,
+      "dist": 10.0225,
+      "loom": 69.66,
+      "reward": 0.0,
+      "dW_mean": 0.036099975,
+      "rate_hz": 19.0,
+      "spike_count": 4
+    },
+    {
+      "t": 766.59,
+      "hit": 0,
+      "dist": 9.9326,
+      "loom": 71.01,
+      "reward": 0.0,
+      "dW_mean": 0.032399975000000004,
+      "rate_hz": 18.0,
+      "spike_count": 3
+    },
+    {
+      "t": 799.92,
+      "hit": 0,
+      "dist": 9.8427,
+      "loom": 72.36,
+      "reward": 0.0,
+      "dW_mean": 0.036099975,
+      "rate_hz": 19.0,
+      "spike_count": 3
+    },
+    {
+      "t": 833.25,
+      "hit": 0,
+      "dist": 9.7528,
+      "loom": 73.71,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 4
+    },
+    {
+      "t": 866.58,
+      "hit": 0,
+      "dist": 9.6629,
+      "loom": 75.06,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 3
+    },
+    {
+      "t": 899.91,
+      "hit": 0,
+      "dist": 9.573,
+      "loom": 76.4,
+      "reward": 0.0,
+      "dW_mean": 0.036099975,
+      "rate_hz": 19.0,
+      "spike_count": 3
+    },
+    {
+      "t": 933.24,
+      "hit": 0,
+      "dist": 9.4831,
+      "loom": 77.75,
+      "reward": 0.0,
+      "dW_mean": 0.04409997500000001,
+      "rate_hz": 21.0,
+      "spike_count": 4
+    },
+    {
+      "t": 966.57,
+      "hit": 0,
+      "dist": 9.3933,
+      "loom": 79.1,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 3
+    },
+    {
+      "t": 999.9,
+      "hit": 1,
+      "dist": 9.3034,
+      "loom": 80.45,
+      "reward": 0.98,
+      "dW_mean": 1.959999975,
+      "rate_hz": 140.0,
+      "spike_count": 24
+    },
+    {
+      "t": 1033.23,
+      "hit": 0,
+      "dist": 9.2135,
+      "loom": 81.8,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 4
+    },
+    {
+      "t": 1066.56,
+      "hit": 0,
+      "dist": 9.1236,
+      "loom": 83.15,
+      "reward": 0.0,
+      "dW_mean": 0.039999975,
+      "rate_hz": 20.0,
+      "spike_count": 3
+    },
+    {
+      "t": 1099.89,
+      "hit": 0,
+      "dist": 9.0337,
+      "loom": 84.49,
+      "reward": 0.0,
+      "dW_mean": 0.04409997500000001,
+      "rate_hz": 21.0,
+      "spike_count": 3
+    },
+    {
+      "t": 1133.22,
+      "hit": 0,
+      "dist": 8.9438,
+      "loom": 85.84,
+      "reward": 0.0,
+      "dW_mean": 0.039999975,
+      "rate_hz": 20.0,
+      "spike_count": 4
+    },
+    {
+      "t": 1166.55,
+      "hit": 0,
+      "dist": 8.8539,
+      "loom": 87.19,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 3
+    },
+    {
+      "t": 1199.88,
+      "hit": 0,
+      "dist": 8.764,
+      "loom": 88.54,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 3
+    },
+    {
+      "t": 1233.21,
+      "hit": 0,
+      "dist": 8.6742,
+      "loom": 89.89,
+      "reward": 0.0,
+      "dW_mean": 0.032399975000000004,
+      "rate_hz": 18.0,
+      "spike_count": 4
+    },
+    {
+      "t": 1266.54,
+      "hit": 0,
+      "dist": 8.5843,
+      "loom": 91.24,
+      "reward": 0.0,
+      "dW_mean": 0.04409997500000001,
+      "rate_hz": 21.0,
+      "spike_count": 3
+    },
+    {
+      "t": 1299.87,
+      "hit": 0,
+      "dist": 8.4944,
+      "loom": 92.58,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 3
+    },
+    {
+      "t": 1333.2,
+      "hit": 0,
+      "dist": 8.4045,
+      "loom": 93.93,
+      "reward": 0.0,
+      "dW_mean": 0.036099975,
+      "rate_hz": 19.0,
+      "spike_count": 4
+    },
+    {
+      "t": 1366.53,
+      "hit": 0,
+      "dist": 8.3146,
+      "loom": 95.28,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 3
+    },
+    {
+      "t": 1399.86,
+      "hit": 0,
+      "dist": 8.2247,
+      "loom": 96.63,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 3
+    },
+    {
+      "t": 1433.19,
+      "hit": 0,
+      "dist": 8.1348,
+      "loom": 97.98,
+      "reward": 0.0,
+      "dW_mean": 0.036099975,
+      "rate_hz": 19.0,
+      "spike_count": 4
+    },
+    {
+      "t": 1466.52,
+      "hit": 0,
+      "dist": 8.0449,
+      "loom": 99.33,
+      "reward": 0.0,
+      "dW_mean": 0.04409997500000001,
+      "rate_hz": 21.0,
+      "spike_count": 3
+    },
+    {
+      "t": 1499.85,
+      "hit": 0,
+      "dist": 7.9551,
+      "loom": 100.67,
+      "reward": 0.0,
+      "dW_mean": 0.032399975000000004,
+      "rate_hz": 18.0,
+      "spike_count": 3
+    },
+    {
+      "t": 1533.18,
+      "hit": 0,
+      "dist": 7.8652,
+      "loom": 102.02,
+      "reward": 0.0,
+      "dW_mean": 0.04409997500000001,
+      "rate_hz": 21.0,
+      "spike_count": 4
+    },
+    {
+      "t": 1566.51,
+      "hit": 0,
+      "dist": 7.7753,
+      "loom": 103.37,
+      "reward": 0.0,
+      "dW_mean": 0.039999975,
+      "rate_hz": 20.0,
+      "spike_count": 3
+    },
+    {
+      "t": 1599.84,
+      "hit": 0,
+      "dist": 7.6854,
+      "loom": 104.72,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 3
+    },
+    {
+      "t": 1633.17,
+      "hit": 0,
+      "dist": 7.5955,
+      "loom": 106.07,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 4
+    },
+    {
+      "t": 1666.5,
+      "hit": 0,
+      "dist": 7.5056,
+      "loom": 107.42,
+      "reward": 0.0,
+      "dW_mean": 0.036099975,
+      "rate_hz": 19.0,
+      "spike_count": 3
+    },
+    {
+      "t": 1699.83,
+      "hit": 0,
+      "dist": 7.4157,
+      "loom": 108.76,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 3
+    },
+    {
+      "t": 1733.16,
+      "hit": 0,
+      "dist": 7.3258,
+      "loom": 110.11,
+      "reward": 0.0,
+      "dW_mean": 0.04409997500000001,
+      "rate_hz": 21.0,
+      "spike_count": 4
+    },
+    {
+      "t": 1766.49,
+      "hit": 0,
+      "dist": 7.236,
+      "loom": 111.46,
+      "reward": 0.0,
+      "dW_mean": 0.04409997500000001,
+      "rate_hz": 21.0,
+      "spike_count": 3
+    },
+    {
+      "t": 1799.82,
+      "hit": 0,
+      "dist": 7.1461,
+      "loom": 112.81,
+      "reward": 0.0,
+      "dW_mean": 0.039999975,
+      "rate_hz": 20.0,
+      "spike_count": 3
+    },
+    {
+      "t": 1833.15,
+      "hit": 0,
+      "dist": 7.0562,
+      "loom": 114.16,
+      "reward": 0.0,
+      "dW_mean": 0.04409997500000001,
+      "rate_hz": 21.0,
+      "spike_count": 4
+    },
+    {
+      "t": 1866.48,
+      "hit": 0,
+      "dist": 6.9663,
+      "loom": 115.51,
+      "reward": 0.0,
+      "dW_mean": 0.039999975,
+      "rate_hz": 20.0,
+      "spike_count": 3
+    },
+    {
+      "t": 1899.81,
+      "hit": 0,
+      "dist": 6.8764,
+      "loom": 116.85,
+      "reward": 0.0,
+      "dW_mean": 0.032399975000000004,
+      "rate_hz": 18.0,
+      "spike_count": 3
+    },
+    {
+      "t": 1933.14,
+      "hit": 0,
+      "dist": 6.7865,
+      "loom": 118.2,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 4
+    },
+    {
+      "t": 1966.47,
+      "hit": 0,
+      "dist": 6.6966,
+      "loom": 119.55,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 3
+    },
+    {
+      "t": 1999.8,
+      "hit": 0,
+      "dist": 6.6067,
+      "loom": 120.9,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 3
+    },
+    {
+      "t": 2033.13,
+      "hit": 0,
+      "dist": 6.5169,
+      "loom": 122.25,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 4
+    },
+    {
+      "t": 2066.46,
+      "hit": 0,
+      "dist": 6.427,
+      "loom": 123.6,
+      "reward": 0.0,
+      "dW_mean": 0.039999975,
+      "rate_hz": 20.0,
+      "spike_count": 3
+    },
+    {
+      "t": 2099.79,
+      "hit": 0,
+      "dist": 6.3371,
+      "loom": 124.94,
+      "reward": 0.0,
+      "dW_mean": 0.04409997500000001,
+      "rate_hz": 21.0,
+      "spike_count": 3
+    },
+    {
+      "t": 2133.12,
+      "hit": 0,
+      "dist": 6.2472,
+      "loom": 126.29,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 4
+    },
+    {
+      "t": 2166.45,
+      "hit": 1,
+      "dist": 6.1573,
+      "loom": 127.64,
+      "reward": 0.98,
+      "dW_mean": 1.9043999750000002,
+      "rate_hz": 138.0,
+      "spike_count": 24
+    },
+    {
+      "t": 2199.78,
+      "hit": 0,
+      "dist": 6.0674,
+      "loom": 128.99,
+      "reward": 0.0,
+      "dW_mean": 0.036099975,
+      "rate_hz": 19.0,
+      "spike_count": 3
+    },
+    {
+      "t": 2233.11,
+      "hit": 0,
+      "dist": 5.9775,
+      "loom": 130.34,
+      "reward": 0.0,
+      "dW_mean": 0.036099975,
+      "rate_hz": 19.0,
+      "spike_count": 4
+    },
+    {
+      "t": 2266.44,
+      "hit": 0,
+      "dist": 5.8876,
+      "loom": 131.69,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 3
+    },
+    {
+      "t": 2299.77,
+      "hit": 0,
+      "dist": 5.7978,
+      "loom": 133.03,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 3
+    },
+    {
+      "t": 2333.1,
+      "hit": 0,
+      "dist": 5.7079,
+      "loom": 134.38,
+      "reward": 0.0,
+      "dW_mean": 0.036099975,
+      "rate_hz": 19.0,
+      "spike_count": 4
+    },
+    {
+      "t": 2366.43,
+      "hit": 0,
+      "dist": 5.618,
+      "loom": 135.73,
+      "reward": 0.0,
+      "dW_mean": 0.032399975000000004,
+      "rate_hz": 18.0,
+      "spike_count": 3
+    },
+    {
+      "t": 2399.76,
+      "hit": 0,
+      "dist": 5.5281,
+      "loom": 137.08,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 3
+    },
+    {
+      "t": 2433.09,
+      "hit": 0,
+      "dist": 5.4382,
+      "loom": 138.43,
+      "reward": 0.0,
+      "dW_mean": 0.039999975,
+      "rate_hz": 20.0,
+      "spike_count": 4
+    },
+    {
+      "t": 2466.42,
+      "hit": 0,
+      "dist": 5.3483,
+      "loom": 139.78,
+      "reward": 0.0,
+      "dW_mean": 0.032399975000000004,
+      "rate_hz": 18.0,
+      "spike_count": 3
+    },
+    {
+      "t": 2499.75,
+      "hit": 0,
+      "dist": 5.2584,
+      "loom": 141.12,
+      "reward": 0.0,
+      "dW_mean": 0.032399975000000004,
+      "rate_hz": 18.0,
+      "spike_count": 3
+    },
+    {
+      "t": 2533.08,
+      "hit": 0,
+      "dist": 5.1685,
+      "loom": 142.47,
+      "reward": 0.0,
+      "dW_mean": 0.032399975000000004,
+      "rate_hz": 18.0,
+      "spike_count": 4
+    },
+    {
+      "t": 2566.41,
+      "hit": 0,
+      "dist": 5.0787,
+      "loom": 143.82,
+      "reward": 0.0,
+      "dW_mean": 0.032399975000000004,
+      "rate_hz": 18.0,
+      "spike_count": 3
+    },
+    {
+      "t": 2599.74,
+      "hit": 0,
+      "dist": 4.9888,
+      "loom": 145.17,
+      "reward": 0.0,
+      "dW_mean": 0.04409997500000001,
+      "rate_hz": 21.0,
+      "spike_count": 3
+    },
+    {
+      "t": 2633.07,
+      "hit": 0,
+      "dist": 4.8989,
+      "loom": 146.52,
+      "reward": 0.0,
+      "dW_mean": 0.032399975000000004,
+      "rate_hz": 18.0,
+      "spike_count": 4
+    },
+    {
+      "t": 2666.4,
+      "hit": 0,
+      "dist": 4.809,
+      "loom": 147.87,
+      "reward": 0.0,
+      "dW_mean": 0.039999975,
+      "rate_hz": 20.0,
+      "spike_count": 3
+    },
+    {
+      "t": 2699.73,
+      "hit": 0,
+      "dist": 4.7191,
+      "loom": 149.21,
+      "reward": 0.0,
+      "dW_mean": 0.036099975,
+      "rate_hz": 19.0,
+      "spike_count": 3
+    },
+    {
+      "t": 2733.06,
+      "hit": 0,
+      "dist": 4.6292,
+      "loom": 150.56,
+      "reward": 0.0,
+      "dW_mean": 0.039999975,
+      "rate_hz": 20.0,
+      "spike_count": 4
+    },
+    {
+      "t": 2766.39,
+      "hit": 0,
+      "dist": 4.5393,
+      "loom": 151.91,
+      "reward": 0.0,
+      "dW_mean": 0.032399975000000004,
+      "rate_hz": 18.0,
+      "spike_count": 3
+    },
+    {
+      "t": 2799.72,
+      "hit": 0,
+      "dist": 4.4494,
+      "loom": 153.26,
+      "reward": 0.0,
+      "dW_mean": 0.048399975000000005,
+      "rate_hz": 22.0,
+      "spike_count": 3
+    },
+    {
+      "t": 2833.05,
+      "hit": 0,
+      "dist": 4.3596,
+      "loom": 154.61,
+      "reward": 0.0,
+      "dW_mean": 0.036099975,
+      "rate_hz": 19.0,
+      "spike_count": 4
+    },
+    {
+      "t": 2866.38,
+      "hit": 0,
+      "dist": 4.2697,
+      "loom": 155.96,
+      "reward": 0.0,
+      "dW_mean": 0.039999975,
+      "rate_hz": 20.0,
+      "spike_count": 3
+    },
+    {
+      "t": 2899.71,
+      "hit": 0,
+      "dist": 4.1798,
+      "loom": 157.3,
+      "reward": 0.0,
+      "dW_mean": 0.039999975,
+      "rate_hz": 20.0,
+      "spike_count": 3
+    },
+    {
+      "t": 2933.04,
+      "hit": 0,
+      "dist": 4.0899,
+      "loom": 158.65,
+      "reward": 0.0,
+      "dW_mean": 0.032399975000000004,
+      "rate_hz": 18.0,
+      "spike_count": 4
+    },
+    {
+      "t": 2966.37,
+      "hit": 0,
+      "dist": 4.0,
+      "loom": 160.0,
+      "reward": 0.0,
+      "dW_mean": 0.036099975,
+      "rate_hz": 19.0,
+      "spike_count": 3
+    }
+  ]
+}

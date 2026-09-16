@@ -1,0 +1,107 @@
+<mujoco model="hunt_arena">
+  <!--
+    hunt_arena.xml — Task 7 trophy-hunt arena (MuJoCo 3.1.6 schema).
+    fly + moose-box 1:100 fantasy + 2 odor pits + looming ball, headless EGL.
+
+    FLY (reference only, NO body edits — plan Must-NOT: no new XML fly bodies):
+      The fly body is NOT copied into this file. At runtime the arena is
+      composed with the stock NeuroMechFly model via
+        fly-brain/two_flies.py: `Fly(name=..., spawn_pos=..., ...)`
+        (flygym.Fly; bodies Thomax/legs/wings untouched).
+      `fly_spawn_0` below is a spawn MARKER (site), not a body.
+      Fly seed numbers (arena/physics_table.md, Task 8): mass 1e-6 kg,
+      wingspan 3 mm.
+
+    MOOSE-BOX 1:100 fantasy (numbers coordinated with arena/physics_table.md):
+      Real moose reference: ~500 kg, ~3 m body length, ~2 m shoulder height.
+      Arena moose-box: 0.5 kg, box ~0.4 x 0.3 x 0.4 m (volume 0.048 m3,
+      ~0.05 m3 class). This is a FANTASY gameplay seed value (1:100 vs the
+      real animal), not a physically consistent scaling — see physics_table.md
+      "Fantasy scale statement".
+
+    UNITS: SI meters in this file (gravity -9.81). Vendor runtime
+      (fly-brain/two_flies.py CrossFlySimulation) works in mm
+      (gravity -9.81e3, TIMESTEP 2e-4); composition rescales on spawn.
+
+    PHYSICS (EXACT from plan Scope + Task 8 table):
+      gravity -9.81 | timestep 0.0005 s | solver iterations 100 |
+      contact solref [2e-4, 1e3] | solimp [0.999, 0.9999, 1e-3, 0.5, 2.0]
+      (vendor CrossFlySimulation injects solref=[2e-4,1e3],
+       solimp=[0.999,0.9999,1e-3,0.5,2.0] on cross-fly pairs — same values).
+
+    SYNC (see docs/sync.md): neural 0.1 ms x5 = physics 0.5 ms;
+      66 physics steps = 1 frame 33.33 ms (66 x 0.5 ms = 33.0 ms nominal,
+      +0.33 ms/frame accumulate-and-correct residual).
+
+    VENDOR CONVENTIONS (read-only refs, not copied):
+      fly-brain/procedural_arena.py — gradient skybox, warm sun, checker
+        ground, mocap obstacle pool, visual-only obstacles
+        (contype=0 conaffinity=0), odor/vibration/taste sources.
+      fly-brain/looming_arena.py — dark looming sphere (vendor r=6 mm,
+        approach along +x), mocap body, single-loom pass then hide.
+  -->
+  <compiler autolimits="true"/>
+  <option gravity="0 0 -9.81" timestep="0.0005" iterations="100"/>
+
+  <default>
+    <!-- Contact solver params from Scope on every geom unless overridden. -->
+    <geom solref="2e-4 1e3" solimp="0.999 0.9999 0.001 0.5 2.0"/>
+  </default>
+
+  <asset>
+    <texture name="sky" type="skybox" builtin="gradient"
+             rgb1="0.35 0.55 0.8" rgb2="0.85 0.9 1.0" width="512" height="512"/>
+    <texture name="ground_tex" type="2d" builtin="checker" width="512" height="512"
+             rgb1="0.28 0.38 0.2" rgb2="0.35 0.42 0.25"/>
+    <material name="ground_mat" texture="ground_tex" texrepeat="30 30" reflectance="0.05"/>
+    <material name="moose_mat" rgba="0.35 0.25 0.15 1.0" reflectance="0.1"/>
+    <material name="threat_ball" rgba="0.05 0.05 0.08 1.0" reflectance="0.15" specular="0.5" shininess="0.8"/>
+    <material name="odor_food" rgba="0.2 0.85 0.3 0.7" reflectance="0.3" emission="0.5"/>
+    <material name="odor_danger" rgba="0.85 0.2 0.85 0.7" reflectance="0.3" emission="0.5"/>
+  </asset>
+
+  <visual>
+    <headlight ambient="0.35 0.35 0.4" diffuse="0.7 0.7 0.65" specular="0.3 0.3 0.3"/>
+  </visual>
+
+  <worldbody>
+    <light name="sun" pos="0 0 200" dir="0.4 0.3 -1.0"
+           diffuse="1.0 0.95 0.85" specular="0.5 0.5 0.4"
+           castshadow="true" directional="true"/>
+    <geom name="ground" type="plane" material="ground_mat"
+          size="30 30 1" friction="1 0.005 0.0001" conaffinity="0"/>
+    <camera name="hunt_cam" pos="-4 -6 4" xyaxes="1 0 0 0 1 0"/>
+
+    <!-- Fly spawn marker (site, NOT a body — real fly composed at runtime). -->
+    <site name="fly_spawn_0" pos="0 0 0.05" size="0.01" rgba="1 1 1 1" group="4"/>
+
+    <!-- Moose-box 1:100 fantasy: 0.5 kg, 0.4 x 0.3 x 0.4 m = 0.048 m3. -->
+    <body name="moose_box" pos="5 0 0.2">
+      <freejoint name="moose_free"/>
+      <inertial mass="0.5" diaginertia="0.0104 0.0133 0.0104" pos="0 0 0"/>
+      <geom name="moose_geom" type="box" size="0.2 0.15 0.2" material="moose_mat"
+            solref="2e-4 1e3" solimp="0.999 0.9999 0.001 0.5 2.0"/>
+      <site name="moose_target" pos="0 0 0.25" size="0.02" rgba="1 0 0 1" group="4"/>
+    </body>
+
+    <!-- 2 odor pits (visual-only, vendor convention contype=0 conaffinity=0). -->
+    <geom name="odor_pit_0" type="cylinder" size="0.5 0.01" pos="2.5 1.0 0.011"
+          material="odor_food" contype="0" conaffinity="0"/>
+    <geom name="odor_pit_1" type="cylinder" size="0.5 0.01" pos="-3.0 -2.0 0.011"
+          material="odor_danger" contype="0" conaffinity="0"/>
+    <site name="odor_label_0" pos="2.5 1.0 0.6" size="0.02" rgba="0.2 0.85 0.3 1" group="4"/>
+    <site name="odor_label_1" pos="-3.0 -2.0 0.6" size="0.02" rgba="0.85 0.2 0.85 1" group="4"/>
+
+    <!-- Looming ball: mocap body, 3 s approach trajectory via keyframes. -->
+    <body name="looming_sphere" mocap="true" pos="12 0 1.5" gravcomp="1">
+      <geom name="looming_ball" type="sphere" size="0.15" material="threat_ball"
+            contype="0" conaffinity="0"/>
+    </body>
+  </worldbody>
+
+  <keyframe>
+    <!-- 3 s headless loom: start far on +x, end near origin (Task 12 renders 90 frames). -->
+    <key name="loom_start" mpos="12 0 1.5" mquat="1 0 0 0"/>
+    <key name="loom_end" mpos="0.5 0 0.15" mquat="1 0 0 0"/>
+  </keyframe>
+</mujoco>

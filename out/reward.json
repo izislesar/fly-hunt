@@ -1,0 +1,67 @@
+{
+  "task": 10,
+  "formula": "reward=clip(1.0*hit-0.3*dist_norm+0.2*(1-loom_norm)*hit,0,1); dist_norm=clip(dist_m/20.0,0,1); loom_norm=clip(loom_Hz/200.0,0,1)",
+  "dopamine": {
+    "amp": 0.8,
+    "dur_ms": 200.0,
+    "target": "PPL101 -> KC->MBON plasticity gate"
+  },
+  "hebb": {
+    "formula": "dW=1e-4*r_i*r_j-1e-7*W, clip W [0,2]; r = 10ms binned rate Hz",
+    "dims": "W shape (96,32): 96 MBON x 32 sampled KC fan-in of 2000 KC; r = 10ms binned rate Hz; seed 10"
+  },
+  "cases": {
+    "hit": {
+      "hit": 1,
+      "dist": 5.0,
+      "loom": 50.0,
+      "reward": 1.0,
+      "dist_norm": 0.25,
+      "loom_norm": 0.25,
+      "raw": 1.0750000000000002,
+      "clipped": true,
+      "dopamine": {
+        "pulse": true,
+        "amp": 0.8,
+        "dur_ms": 200.0,
+        "target": "PPL101 -> KC->MBON plasticity gate"
+      }
+    },
+    "miss": {
+      "hit": 0,
+      "dist": 5.0,
+      "loom": 50.0,
+      "reward": 0.0,
+      "dopamine": {
+        "pulse": false,
+        "amp": 0.0,
+        "dur_ms": 0.0,
+        "target": "PPL101 -> KC->MBON plasticity gate"
+      }
+    },
+    "no_see": {
+      "hit": 1,
+      "dist": 5.0,
+      "loom": null,
+      "reward": 0.0,
+      "dopamine": {
+        "pulse": false,
+        "amp": 0.0,
+        "dur_ms": 0.0,
+        "target": "PPL101 -> KC->MBON plasticity gate"
+      }
+    }
+  },
+  "clip_probe": {
+    "hit": 1,
+    "dist": 0.0,
+    "loom": 0.0,
+    "raw": 1.2,
+    "reward": 1.0,
+    "clipped": true
+  },
+  "dW_mean": 1.0587914334995865,
+  "log_line": "0.0,1,5.0,50.0,1.0,1.0587914334995865",
+  "log_columns": "t,hit,dist,loom,reward,dW_mean",
+  "t_note": "t = frame time in ms (0.0 for single-shot check; Task 12 logs per-frame t)"
+}
