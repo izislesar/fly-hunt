@@ -1,4 +1,4 @@
-# Failure gates inventory — Task 17 (2026-09-16)
+# Failure gates inventory — Task 17 (2026-09-16) + Task 5 rerun section (2026-09-16, branch rerun/qa)
 
 Acceptance: `ls out/fail_*.log` = 14 files (>= 2 required). TRIGGERED clean-fail entries: 3
 (fail_egl, fail_pins pip gate, fail_reward clip probe). Exit codes below are read from each
@@ -42,3 +42,34 @@ gate file's recorded output, not invented.
 - Note: out/fail_tldr.log appeared mid-task (parallel Task 18 TL;DR owns it) — out of scope here,
   inventoried 14 above; `ls` count at verification time = 15, acceptance (>=2) unaffected.
 - Prepared commit msg (NOT committed): chore(qa): failure gates
+
+---
+
+## RERUN section — Task 5 real-egl rerun (2026-09-16, branch rerun/qa)
+
+Historical Task 17 entries above are PRESERVED unchanged. This section records only what
+failed (or was accepted as known) during the real rerun (Tasks 1–4) and Task 5 verification.
+
+### Rerun failures (all resolved, zero open blockers)
+
+| # | failure | evidence | resolution | status |
+|---|---|---|---|---|
+| R1 | Vendor drift: `fly-brain/two_flies.py` line 24 `from flygym import Fly` → ImportError with flygym 2.1.0 (`--help` exit=1, `--headless --duration 3 --no-viewer` exit=1) | `out/run_egl.log` line 4 (`vendor: two_flies.py --help exit=1, --headless exit=1 (ImportError flygym.Fly -> run_hunt.py real-path fallback)`); `out/run_meta.json` → `vendor_drift.{--help,--headless --duration 3 --no-viewer}.exit=1` with ImportError tails | Fallback used: `tools/run_hunt.py --real-egl` (extended Phase-0 branch; vendor NOT edited per plan ADAPTATION contract) → real EGL run delivered 90 frames + CSV + npz + meta path=real-egl | known-accepted, closed |
+| R2 | torch absent in `~/venv-brainfly314` (`ModuleNotFoundError: No module named 'torch'`) | `out/run_egl.log` line 3 (`torch: ModuleNotFoundError ... (CPU fallback, not a failure)`); `out/run_meta.json` → `torch_state` + `import_probe.torch` same message | CPU fallback accepted per rerun plan QA (`torch.cuda False = CPU fallback, not a failure`); no pip install performed (env frozen); run completed brian2 wall 8.77s, 412811 spikes | known-accepted, closed |
+| R3 | LFS unconfigured (`git check-attr filter out/trophy_hunt.mp4` = unspecified) | Task 3 learnings entry (2026-09-16T16:53Z) | Normal commit of single 354K mp4 per plan fallback (no second video, no LFS invention); pushed to `origin/rerun/video` exit 0 | known-accepted, closed |
+
+### Rerun QA-happy (Task 5 verification, live this task)
+
+- `test -f out/trophy_hunt.mp4 && test -f out/physics_log.csv` → exit 0 (GATES_OK).
+- ffprobe live: `codec_name=h264 width=1280 height=480 pix_fmt=yuv420p r_frame_rate=30/1 duration=3.000000` exit=0; mp4 354K <50MB.
+- `python3 tools/check_sync.py --csv out/physics_log.csv` → PASS 90 rows exit=0; `grep -c ",1$"` = 5.
+- `python3 tools/check_spikes.py --input out/spikes.npz` → `shape=(300,) n_spikes=412811 rate_mean=25.02` PASS exit=0.
+- `out/run_meta.json` → `path= real-egl frames= 90` (live query).
+- `out/run_egl.log` → model-ok + step-ok + render-ok + brian2-ok lines present (quoted in tldr_check §1.3).
+- `out/perf.md` (Task 4, rerun/qa) → mujoco 0.625, brian2 0.342, VRAM 0.0039GB, RSS ≤0.036GB.
+- `out/fail_tldr.log` = not-triggered (no artifact missing; no append needed — QA-happy path).
+
+### Open blockers: ZERO
+
+- No unresolved failures from the rerun. R1–R3 are known-accepted with fallbacks recorded.
+- Downstream Task 6 (mini-audit) can read `out/tldr_check.md` + this file as complete and traceable.
