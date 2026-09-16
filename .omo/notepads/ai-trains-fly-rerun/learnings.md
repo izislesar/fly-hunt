@@ -15,3 +15,11 @@
 - Render output: LUT matplotlib-magma-256 (3.11.2), PIL path, hits=[0,19,46,65,85]; wrote 90 PNGs over stale set (no leftovers possible — full overwrite).
 - Verify: `ls out/spikes/sp*.png | wc -l`=90; `file sp00000.png`=PNG 640x480 8-bit RGB; distinct md5=90/90; #FCFFA4 top-24px counts f0=14966 f19=14986 f46=14976 f65=14982 f85=14989; nonhit sp00001 topleft magma (24,15,61).
 - Git: .gitignore keeps only 3 spike samples (sp00000/sp00030/sp00065); other 87 PNGs ignored by rule. Committed b0eb76f `feat(viz): rerender magma from real run` (5 files: 3 sample PNGs + out/fail_render.log + learnings.md) + `git push origin rerun/run` exit 0 (2b1c047..b0eb76f). Left untouched: plan-md edit + run-continuation json (out of scope).
+# 2026-09-16T16:53Z — Task 3 DONE (restitch real hunt+spikes on rerun/video, pushed)
+- Branch: `git checkout -b rerun/video` from `rerun/run` tip 9fb49aa (real EGL frames + magma spikes + code carried over; uncommitted plan-md edit + run-continuation jsons left untouched/out of scope).
+- Pre-check: glob `out/frames/f*.png`=90 + `out/spikes/sp*.png`=90 (both 640x480 real inputs, no mismatch, no .synth.bak use).
+- Exact cmd (verbatim, exit 0): `ffmpeg -y -framerate 30 -i out/frames/f%05d.png -framerate 30 -i out/spikes/sp%05d.png -filter_complex hstack -c:v libx264 -crf 23 -pix_fmt yuv420p out/trophy_hunt.mp4`.
+- ffprobe: codec_name=h264 width=1280 height=480 pix_fmt=yuv420p r_frame_rate=30/1 duration=3.000000 size=362406; `ls -lh`=354K (<50MB PASS). Evidence appended to out/fail_ffmpeg.log as success record.
+- LFS note: `git check-attr filter out/trophy_hunt.mp4`=unspecified (no lfs set up) — committed normally per plan fallback, single side-by-side 1280x480 file, no second video/audio/titles.
+- Commit 6fb9fd4 `feat(video): restitch real hunt+spikes` (2 files: out/trophy_hunt.mp4 + out/fail_ffmpeg.log) + `git push origin rerun/video` exit 0 (new branch).
+- Frozen untouched: shot/reward/clip/sync constants, run_hunt/render code, perf.md/tldr/failures.md/audit; no pip install, no fly-brain edits, no .synth.bak overwrite.
