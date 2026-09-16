@@ -1,0 +1,7 @@
+# 2026-09-16T21:50Z — Task 3 probe evidence (G1; NO param retune, spec numbers frozen)
+- First render attempt: bg sampled (61,72,99) instead of #0B1020 (11,16,32) — root cause
+  DOUBLE GAMMA (sRGB bg composited in display space, then pow(1/2.2) applied to bg too).
+  Fix: bg converted sRGB->linear (pow 2.2), glow/bloom added in linear, encoded once
+  (pow 1/2.2). Correctness fix, NOT a retune: sprite6/sigma2.0/bloom12/0.6/gamma2.2,
+  norm [0.15,1.0], tau=4, legend spec all unchanged.
+- After fix: bg sample (11,16,32) exact at (5,470), corner (0,0), center (320,240), both probes.
