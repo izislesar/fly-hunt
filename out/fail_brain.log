@@ -5,3 +5,15 @@
   (pow 1/2.2). Correctness fix, NOT a retune: sprite6/sigma2.0/bloom12/0.6/gamma2.2,
   norm [0.15,1.0], tau=4, legend spec all unchanged.
 - After fix: bg sample (11,16,32) exact at (5,470), corner (0,0), center (320,240), both probes.
+
+# 2026-09-16T22:05Z — G1 REJECT: per-frame min-max [0.15,1.0] stretched quiet frames up
+  (hit 109Hz vs med 20Hz looked equally bright: lum>100 5825/4523 ratio 1.29x;
+  neurons lit>0.4: 220 vs 62 ratio 3.5x; lit_max 0.540/0.485, lit_mean 0.3036/0.2616).
+- Fix (ONLY normalization changed; sprite6/s2.0/bloom12/0.6/gamma2.2/palette/bg/legend/tau frozen):
+  GLOBAL anchor A = p99 of all per-neuron per-bin counts over 1000 bins (A=2.0, max=9,
+  mean=0.2463); norm(v)=0.03+0.97*clip(v/A,0,1); decay tau=4 handling untouched.
+- After: hit lit_max=0.441 lit_mean=0.2213; med lit_max=0.311 lit_mean=0.1257.
+  lum>100: 3337 vs 1188 ratio 2.81x (target >=2x PASS); lum>60 13143/7979 (1.65x);
+  lum>150 739/581; neurons lit>0.2: 3345 vs 343 (9.75x, target >=5x PASS);
+  lit>0.3: 627 vs 4 (157x). bg (11,16,32) exact both; white 0.000% both;
+  legend max #E7F5FF exact both. VRAM peak 0.030 GB.

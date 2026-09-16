@@ -4,7 +4,9 @@
 Vectorized GPU scatter of glow sprites over static edge background:
   sprite radius 6px / sigma 2.0, additive blending,
   bloom radius 12px strength 0.6, output gamma 2.2.
-Per-frame min-max norm of bin counts -> [0.15, 1.0] (never raw rate).
+GLOBAL normalization (G1 fix): reference anchor A = 99th percentile of all
+per-neuron per-bin firing counts over the 1000 bins; norm(v) = LO+(HI-LO)*clip(v/A,0,1)
+with [LO,HI]=[0.03,1.0], so quiet base-rate frames stay dim vs volley frames.
 Frame f aggregates mean of its 10/3 bins (1000 bins -> 300 frames);
 persistence = exponential decay tau=4 frames (weight-normalized average).
 Legend: top-left monospace 14px #E7F5FF on 40%-alpha navy pill.
@@ -29,7 +31,7 @@ SPRITE_R, SPRITE_SIGMA = 6, 2.0
 BLOOM_R, BLOOM_SIGMA, BLOOM_STRENGTH = 12, 4.0, 0.6
 GAMMA = 2.2
 TAU = 4.0
-NORM_LO, NORM_HI = 0.15, 1.0
+NORM_LO, NORM_HI = 0.03, 1.0  # GLOBAL norm floor/dim anchor (was per-frame [0.15, 1.0])
 N_BINS, N_FRAMES = 1000, 300
 FRAME_S = 10.0 / 300.0
 DECAY_WIN = 24  # ~6*tau, tail < 0.25%
@@ -74,28 +76,23 @@ def gauss_kernel2d(radius, sigma, device):
 
 
 @torch.no_grad()
-def render_frame(F, pos_xy, color01, bin_of_spike, spike_ids, bin_rate,
+def render_frame(F, pos_xy, color01, gmat, anchor, bin_rate,
                  bg, k_sprite, k_bloom, font, device):
     t0 = time.perf_counter()
     f0 = max(0, F - DECAY_WIN)
     hist_frames = F - f0 + 1
     # raw per-neuron values for history frames: mean count over frame bins
+    # (identical aggregation as before); GLOBAL normalization via anchor
     ws, acc = [], torch.zeros(pos_xy.shape[0], device=device, dtype=torch.float32)
     for k in range(f0, F + 1):
         bins = frame_bins(k)
-        nb = len(bins)
-        sel = np.isin(bin_of_spike, bins)
-        cnt = np.bincount(spike_ids[sel], minlength=pos_xy.shape[0]).astype(np.float32) / nb
+        cnt = gmat[bins].mean(axis=0).astype(np.float32)  # mean over frame's bins
         v = torch.from_numpy(cnt).to(device)
-        vmin, vmax = v.min(), v.max()
-        if float(vmax - vmin) < 1e-9:
-            norm = torch.full_like(v, NORM_LO)
-        else:
-            norm = NORM_LO + (NORM_HI - NORM_LO) * (v - vmin) / (vmax - vmin)
+        norm = NORM_LO + (NORM_HI - NORM_LO) * (v / anchor).clamp(0.0, 1.0)
         w = math.exp(-(F - k) / TAU)
         ws.append(w)
         acc = acc + norm * w
-    lit = acc / sum(ws)  # weight-normalized decay average, stays in [0.15, 1.0]
+    lit = acc / sum(ws)  # weight-normalized decay average, stays in [0.03, 1.0]
     # vectorized splat: deposit (color + white-hot core) at rounded pixels
     xs = pos_xy[:, 0].round().clamp(0, W - 1).long()
     ys = pos_xy[:, 1].round().clamp(0, H - 1).long()
@@ -163,7 +160,14 @@ def main():
     st_ms, sids = sp["spike_times"], sp["spike_ids"]
     bin_rate = sp["bin10ms_rate"]
     assert bin_rate.shape == (1000,)
-    bin_of_spike = np.clip((st_ms // 10).astype(np.int32), 0, 999)
+    bin_of_spike = np.clip((st_ms // 10).astype(np.int64), 0, 999)
+    # GLOBAL anchor: full per-neuron x per-bin count matrix, single vectorized pass
+    gmat = np.bincount(bin_of_spike * 5500 + sids.astype(np.int64),
+                       minlength=1000 * 5500).reshape(1000, 5500)
+    anchor = float(np.percentile(gmat, 99))
+    print(f"global anchor p99={anchor:.4f} counts (max={int(gmat.max())}, "
+          f"mean={gmat.mean():.4f}); norm maps [0, anchor] -> [{NORM_LO}, {NORM_HI}]",
+          flush=True)
 
     k_sprite = gauss_kernel2d(SPRITE_R, SPRITE_SIGMA, device)
     k_bloom = gauss_kernel2d(BLOOM_R, BLOOM_SIGMA, device)
@@ -178,7 +182,7 @@ def main():
     dts = []
     for F, name in zip(frames, names):
         img, dt, rate, lmax, lmean = render_frame(
-            F, pos_t, col_t, bin_of_spike, sids, bin_rate, bg, k_sprite, k_bloom, font, device)
+            F, pos_t, col_t, gmat, anchor, bin_rate, bg, k_sprite, k_bloom, font, device)
         path = os.path.join(args.outdir, name + ".png")
         img.save(path)
         a = np.array(img)

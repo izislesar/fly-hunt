@@ -41,3 +41,13 @@
 - Commit `feat(brain): cuda renderer + G1 probes` + `git push origin viz10/brain` exit 0.
   HARD STOP after push: full 300-frame render is Task 4 (needs G1 human OK).
 - Push: first attempt connection-reset, retry exit 0 (`34eaec3..3f6a545 viz10/brain -> viz10/brain`).
+
+# 2026-09-16T22:05Z — G1 fix DONE (global normalization, re-pushed viz10/brain)
+- Human gate rejected per-frame min-max (equal-brightness evidence above, logged in out/fail_brain.log).
+- Change confined to tools/brain_render.py normalization: global p99 anchor A=2.0 counts over
+  1000-bin per-neuron matrix (single vectorized bincount, 5.5M cells); map [0,A]->[0.03,1.0].
+  Aggregation (mean of frame's 10/3 bins), tau=4 weight-normalized decay, sprite/bloom/gamma,
+  palette, bg, legend all byte-identical logic. Side benefit: matrix reuse cut render to 0.72s/0.04s.
+- Probes re-rendered ONLY (frames 65 hit / 158 med): gap now 2.81x (lum>100) / 9.75x (lit>0.2) /
+  157x (lit>0.3). bg exact, white 0%, legend legible, VRAM 0.030GB, 300f projection ~114s.
+- Commit `fix(brain): global normalization for G1` + push (see below). HARD STOP, awaiting G1 re-review.
