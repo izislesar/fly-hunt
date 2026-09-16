@@ -76,3 +76,32 @@ Evidence: out/trophy_hunt.mp4
 
 ## F3 VERDICT: APPROVE
 4/4 gates exit 0 live + cross-consistency holds. Headless real-EGL branch BLOCKED-by-env, covered cleanly by fail_egl.log (honest synthetic verification, no fabrication).
+
+## RERUN (real-egl, 2026-09-16T17:07Z, branch rerun/qa)
+
+QA re-execution on REAL rerun artifacts (Tasks 1-5 outputs). All 7 plan gates run LIVE
+this run (fresh commands, no cached results). Prior content above preserved byte-for-byte.
+
+### Gate results (live, this run)
+
+- budget: `python3 tools/check_budget.py --vram-cap 3.5 --ram-cap 14` → EXIT 0, `PASS rss=1.6484GB vram=0.1525GB`
+- circuit: `python3 tools/check_circuit.py --input data/hunting_circuit_6k.npz --max-neurons 6500 --min-neurons 4000` → EXIT 0, `PASS: N=5500 in [4000,6500], syn=120344, RSS_est=1.5014GB < 8.0GB` (edges now REAL: edges_synthetic=False, S=120344)
+- sync: `python3 tools/check_sync.py --csv out/physics_log.csv` → EXIT 0, `PASS: 90 rows, header exact, ... 66 phys/frame ... ok`
+- physics: `python3 tools/check_physics.py` → EXIT 0, `no NaN in 500 steps`
+- shot: `python3 tools/check_shot.py --range 20 --spread 0.02` → EXIT 0, `PASS: all shot checks passed`
+- reward: `python3 tools/check_reward.py --hit 1 --dist 5 --loom 50` → EXIT 0, `PASS: 0<reward<=1, miss/no-see=0, clip probe raw=1.2->1.0`
+- spikes: `python3 tools/check_spikes.py` → EXIT 0, `PASS: spikes.npz valid` (shape=(300,) n_spikes=412811 rate 4.8/142.7/25.02Hz, meta cross-check diff 0.00Hz)
+- bridge (informational 8th): EXIT 1, 10/15 — known иначе-branch state, vendor untouched, not a finding.
+
+Findings: (none — 7/7 EXIT 0, no silent fixes made.)
+
+### Cross-consistency (real run)
+
+- ffprobe (EXIT 0): h264 1280x480 pix_fmt=yuv420p r_frame_rate=30/1 duration=3.000000 size=362406 (354K <50MB) ✓
+- CSV hits: `grep -c ",1$" out/physics_log.csv` → 5; run_meta.json hits 5 entries (frames 0,19,46,65,85, dist 12.0→4.36, reward 0.98 each) — AGREE ✓
+- N=5500 (circuit gate + npz meta) / DN==150 (circuit quota row) ✓
+- shot.json params threshold3/hyst2/ammo5/range20/cooldown500/spread0.02 — frozen, untouched ✓
+- run_meta.json path=real-egl, frames=90, 640x480@30 ✓
+- Single ffmpeg stitch command (from out/fail_ffmpeg.log): `ffmpeg -y -framerate 30 -i out/frames/f%05d.png -framerate 30 -i out/spikes/sp%05d.png -filter_complex hstack -c:v libx264 -crf 23 -pix_fmt yuv420p out/trophy_hunt.mp4` ✓
+
+RERUN VERDICT: APPROVE

@@ -87,3 +87,29 @@ real-sim validation; recorded in §Honest deviations.)
 ## Verdict
 
 F1 VERDICT: APPROVE
+
+## RERUN (real-egl, 2026-09-16T17:07Z, branch rerun/qa)
+
+Mini-audit on REAL rerun artifacts (Tasks 1-5 outputs). All 7 gates re-executed LIVE
+this run (fresh commands, no cached results). Prior content above preserved byte-for-byte.
+
+| # | gate | command | EXIT | key PASS line (verbatim) |
+|---|------|---------|------|--------------------------|
+| 1 | budget | `python3 tools/check_budget.py --vram-cap 3.5 --ram-cap 14` | 0 | `PASS rss=1.6484GB vram=0.1525GB` |
+| 2 | circuit | `python3 tools/check_circuit.py --input data/hunting_circuit_6k.npz --max-neurons 6500 --min-neurons 4000` | 0 | `PASS: N=5500 in [4000,6500], syn=120344, RSS_est=1.5014GB < 8.0GB` |
+| 3 | sync | `python3 tools/check_sync.py --csv out/physics_log.csv` | 0 | `PASS: 90 rows, header exact, columns==6, monotonic t_neural/t_physics/frame_id; ratio 5:1 neural:physics (0.1ms x5 = 0.5ms) ok; 66 phys/frame (33.0ms ~= 33.33ms, residual accumulate-and-correct) ok; moose_pos 'x;y;z' ok` |
+| 4 | physics | `python3 tools/check_physics.py` | 0 | `no NaN in 500 steps` (PATH=analytic(mujoco-missing) xml-cross-checked) |
+| 5 | shot | `python3 tools/check_shot.py --range 20 --spread 0.02` | 0 | `PASS: all shot checks passed` |
+| 6 | reward | `python3 tools/check_reward.py --hit 1 --dist 5 --loom 50` | 0 | `PASS: 0<reward<=1, miss/no-see=0, clip probe raw=1.2->1.0` |
+| 7 | spikes | `python3 tools/check_spikes.py` | 0 | `PASS: spikes.npz valid` (shape=(300,) n_spikes=412811 rate_mean=25.02, meta cross-check diff=0.00Hz) |
+
+Findings: (none — 7/7 EXIT 0, zero numbered findings, no silent fixes made.)
+
+- ffprobe (EXIT 0): `codec_name=h264 width=1280 height=480 pix_fmt=yuv420p r_frame_rate=30/1 duration=3.000000 size=362406` — 1280/480/30/h264 HOLD.
+- N=5500: circuit gate `N = 5500 (bounds [4000,6500])` + live npz read `meta N=5500` (keys neuron_ids/neuron_types/cell_type_detail/edges/weights_init/meta_json) + meta `circuit=data/hunting_circuit_6k.npz N=5500 S=120344 real-edge` — HOLD.
+- DN==150: circuit gate live output row `DN: 150` (quota table DAN:100 DN:150 JO:540 KC:2000 LC4:104 LPLC2:210 MBON:96 ORN:500 PN:300 SEZ-GRN:700 T2/T3-vis:800) — HOLD.
+- Single ffmpeg command (exact, from out/fail_ffmpeg.log, one command only): `ffmpeg -y -framerate 30 -i out/frames/f%05d.png -framerate 30 -i out/spikes/sp%05d.png -filter_complex hstack -c:v libx264 -crf 23 -pix_fmt yuv420p out/trophy_hunt.mp4` — HOLD.
+- CSV hits: `grep -c ",1$" out/physics_log.csv` = 5 (@frames 0,19,46,65,85 per run_meta.json) — AGREES with meta hits[5].
+- Bridge (8th, informational, NOT in plan's 7): `python3 tools/check_bridge.py` EXIT 1, 10/15 passed — same иначе-branch state as F1 Layer-2 row 11 (ADAPTATION.md covers; vendor untouched). Not a finding against the 7-gate acceptance.
+
+RERUN VERDICT: APPROVE
