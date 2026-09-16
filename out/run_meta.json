@@ -1,10 +1,10 @@
 {
-  "path": "synthetic(mujoco-missing)",
+  "path": "real-egl",
   "import_probe": {
-    "mujoco": "ModuleNotFoundError: No module named 'mujoco'",
-    "brian2": "ModuleNotFoundError: No module named 'brian2'",
+    "mujoco": "ok",
+    "brian2": "ok",
     "torch": "ModuleNotFoundError: No module named 'torch'",
-    "flygym": "ModuleNotFoundError: No module named 'flygym'",
+    "flygym": "ok",
     "vendor_brain_body_bridge": {
       "BrainEngine.step@451": true,
       "get_dn_spikes@464": true,
@@ -13,58 +13,103 @@
       "no def reset/spike/torque": true
     },
     "two_flies_cmd": "two_flies.py --headless --visual --gustatory --somatosensory --duration 3 --separation 5.0 --no-viewer (NOT executed: mujoco missing; synthetic fallback with same 90-frame interface)",
-    "xvfb-run": "not-found (synthetic fallback, no X needed)"
+    "xvfb-run": "/usr/bin/xvfb-run"
   },
+  "vendor_drift": {
+    "--help": {
+      "exit": 1,
+      "tail": [
+        "  File \"/home/izislesar/Projects/fly_oxota/fly-brain/two_flies.py\", line 24, in <module>",
+        "    from flygym import Fly",
+        "ImportError: cannot import name 'Fly' from 'flygym' (/home/izislesar/venv-brainfly314/lib/python3.14/site-packages/flygym/__init__.py)"
+      ]
+    },
+    "--headless --duration 3 --no-viewer": {
+      "exit": 1,
+      "tail": [
+        "  File \"/home/izislesar/Projects/fly_oxota/fly-brain/two_flies.py\", line 24, in <module>",
+        "    from flygym import Fly",
+        "ImportError: cannot import name 'Fly' from 'flygym' (/home/izislesar/venv-brainfly314/lib/python3.14/site-packages/flygym/__init__.py)"
+      ]
+    }
+  },
+  "torch_state": "ModuleNotFoundError: No module named 'torch' (CPU fallback, not a failure)",
   "frames": 90,
   "size": "640x480",
   "fps": 30,
   "seed": 1,
-  "renderer": "PIL-12.3.0-hunt-scene",
-  "circuit_N": 5500,
+  "renderer": "mujoco-EGL-3.9.0-hunt_arena.xml-hunt_cam",
+  "circuit": "data/hunting_circuit_6k.npz N=5500 S=120344 real-edge",
+  "neural": "brian2-2.10.1 PoissonGroup(5500) TimedArray-10ms 3s n_spikes=412811",
+  "physics": "mujoco-3.9.0 66 phys/frame x0.5ms sim_time=2.9700s",
   "shot_params": {
     "threshold": 3,
     "hysteresis": 2,
     "ammo_max": 5,
-    "ammo_used": 2,
-    "ammo_left": 3,
+    "ammo_used": 5,
+    "ammo_left": 0,
     "range_m": 20.0,
     "cooldown_ms": 500,
     "spread_rad": 0.02
   },
   "spike_rate_hz": {
-    "min": 18.0,
-    "max": 140.0,
-    "mean": 22.911
+    "min": 4.818,
+    "max": 142.727,
+    "mean": 25.019
   },
-  "spike_scale": "spike_count = round(rate_hz * window_s * N/1000); per-1000-neuron normalization, documented",
+  "spike_scale": "full-population brian2 counts (no /1000 normalization on real path)",
   "hits": [
     {
-      "frame": 30,
-      "dist": 9.3034,
-      "loom": 80.45,
+      "frame": 0,
+      "dist": 12.0,
+      "loom": 40.0,
       "reward": 0.98,
-      "dW_mean": 1.959999975,
-      "log_line": "999.9,1,9.3034,80.45,0.98,1.959999975"
+      "dW_mean": 0.035892999793388426,
+      "log_line": "0.0,1,12.0,40.0,0.98,0.035892999793388426"
+    },
+    {
+      "frame": 19,
+      "dist": 10.2921,
+      "loom": 65.62,
+      "reward": 0.98,
+      "dW_mean": 0.03749501632231405,
+      "log_line": "633.27,1,10.2921,65.62,0.98,0.03749501632231405"
+    },
+    {
+      "frame": 46,
+      "dist": 7.8652,
+      "loom": 102.02,
+      "reward": 0.98,
+      "dW_mean": 0.03841597500000001,
+      "log_line": "1533.18,1,7.8652,102.02,0.98,0.03841597500000001"
     },
     {
       "frame": 65,
       "dist": 6.1573,
       "loom": 127.64,
       "reward": 0.98,
-      "dW_mean": 1.9043999750000002,
-      "log_line": "2166.45,1,6.1573,127.64,0.98,1.9043999750000002"
+      "dW_mean": 1.9064077766528924,
+      "log_line": "2166.45,1,6.1573,127.64,0.98,1.9064077766528924"
+    },
+    {
+      "frame": 85,
+      "dist": 4.3596,
+      "loom": 154.61,
+      "reward": 0.98,
+      "dW_mean": 0.03934810723140496,
+      "log_line": "2833.05,1,4.3596,154.61,0.98,0.03934810723140496"
     }
   ],
   "per_frame": [
     {
       "t": 0.0,
-      "hit": 0,
+      "hit": 1,
       "dist": 12.0,
       "loom": 40.0,
-      "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 3
+      "reward": 0.98,
+      "dW_mean": 0.035892999793388426,
+      "rate_hz": 18.945,
+      "spike_count": 3253
     },
     {
       "t": 33.33,
@@ -72,9 +117,9 @@
       "dist": 11.9101,
       "loom": 41.35,
       "reward": 0.0,
-      "dW_mean": 0.039999975,
-      "rate_hz": 20.0,
-      "spike_count": 4
+      "dW_mean": 0.03970959483471074,
+      "rate_hz": 19.927,
+      "spike_count": 4415
     },
     {
       "t": 66.66,
@@ -82,9 +127,9 @@
       "dist": 11.8202,
       "loom": 42.7,
       "reward": 0.0,
-      "dW_mean": 0.032399975000000004,
-      "rate_hz": 18.0,
-      "spike_count": 3
+      "dW_mean": 0.036515710537190084,
+      "rate_hz": 19.109,
+      "spike_count": 3195
     },
     {
       "t": 99.99,
@@ -92,9 +137,9 @@
       "dist": 11.7303,
       "loom": 44.04,
       "reward": 0.0,
-      "dW_mean": 0.04409997500000001,
-      "rate_hz": 21.0,
-      "spike_count": 3
+      "dW_mean": 0.0407305535123967,
+      "rate_hz": 20.182,
+      "spike_count": 3370
     },
     {
       "t": 133.32,
@@ -102,9 +147,9 @@
       "dist": 11.6404,
       "loom": 45.39,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 4
+      "dW_mean": 0.040803975,
+      "rate_hz": 20.2,
+      "spike_count": 4314
     },
     {
       "t": 166.65,
@@ -112,9 +157,9 @@
       "dist": 11.5506,
       "loom": 46.74,
       "reward": 0.0,
-      "dW_mean": 0.032399975000000004,
-      "rate_hz": 18.0,
-      "spike_count": 3
+      "dW_mean": 0.03735432210743802,
+      "rate_hz": 19.327,
+      "spike_count": 3283
     },
     {
       "t": 199.98,
@@ -122,9 +167,9 @@
       "dist": 11.4607,
       "loom": 48.09,
       "reward": 0.0,
-      "dW_mean": 0.036099975,
-      "rate_hz": 19.0,
-      "spike_count": 3
+      "dW_mean": 0.04556281797520661,
+      "rate_hz": 21.345,
+      "spike_count": 3354
     },
     {
       "t": 233.31,
@@ -132,9 +177,9 @@
       "dist": 11.3708,
       "loom": 49.44,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 4
+      "dW_mean": 0.04303736342975207,
+      "rate_hz": 20.745,
+      "spike_count": 4445
     },
     {
       "t": 266.64,
@@ -142,9 +187,9 @@
       "dist": 11.2809,
       "loom": 50.79,
       "reward": 0.0,
-      "dW_mean": 0.04409997500000001,
-      "rate_hz": 21.0,
-      "spike_count": 3
+      "dW_mean": 0.041172074173553716,
+      "rate_hz": 20.291,
+      "spike_count": 3372
     },
     {
       "t": 299.97,
@@ -152,9 +197,9 @@
       "dist": 11.191,
       "loom": 52.13,
       "reward": 0.0,
-      "dW_mean": 0.039999975,
-      "rate_hz": 20.0,
-      "spike_count": 3
+      "dW_mean": 0.04183881797520661,
+      "rate_hz": 20.455,
+      "spike_count": 3263
     },
     {
       "t": 333.3,
@@ -162,9 +207,9 @@
       "dist": 11.1011,
       "loom": 53.48,
       "reward": 0.0,
-      "dW_mean": 0.04409997500000001,
-      "rate_hz": 21.0,
-      "spike_count": 4
+      "dW_mean": 0.03913200805785124,
+      "rate_hz": 19.782,
+      "spike_count": 4330
     },
     {
       "t": 366.63,
@@ -172,9 +217,9 @@
       "dist": 11.0112,
       "loom": 54.83,
       "reward": 0.0,
-      "dW_mean": 0.032399975000000004,
-      "rate_hz": 18.0,
-      "spike_count": 3
+      "dW_mean": 0.0382735617768595,
+      "rate_hz": 19.564,
+      "spike_count": 3198
     },
     {
       "t": 399.96,
@@ -182,9 +227,9 @@
       "dist": 10.9213,
       "loom": 56.18,
       "reward": 0.0,
-      "dW_mean": 0.04409997500000001,
-      "rate_hz": 21.0,
-      "spike_count": 3
+      "dW_mean": 0.03644625599173554,
+      "rate_hz": 19.091,
+      "spike_count": 3276
     },
     {
       "t": 433.29,
@@ -192,9 +237,9 @@
       "dist": 10.8315,
       "loom": 57.53,
       "reward": 0.0,
-      "dW_mean": 0.032399975000000004,
-      "rate_hz": 18.0,
-      "spike_count": 4
+      "dW_mean": 0.04341537995867769,
+      "rate_hz": 20.836,
+      "spike_count": 4460
     },
     {
       "t": 466.62,
@@ -202,9 +247,9 @@
       "dist": 10.7416,
       "loom": 58.88,
       "reward": 0.0,
-      "dW_mean": 0.039999975,
-      "rate_hz": 20.0,
-      "spike_count": 3
+      "dW_mean": 0.03637686756198348,
+      "rate_hz": 19.073,
+      "spike_count": 3302
     },
     {
       "t": 499.95,
@@ -212,9 +257,9 @@
       "dist": 10.6517,
       "loom": 60.22,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 3
+      "dW_mean": 0.0407305535123967,
+      "rate_hz": 20.182,
+      "spike_count": 3285
     },
     {
       "t": 533.28,
@@ -222,9 +267,9 @@
       "dist": 10.5618,
       "loom": 61.57,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 4
+      "dW_mean": 0.042136867561983475,
+      "rate_hz": 20.527,
+      "spike_count": 4486
     },
     {
       "t": 566.61,
@@ -232,9 +277,9 @@
       "dist": 10.4719,
       "loom": 62.92,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 3
+      "dW_mean": 0.04649901632231405,
+      "rate_hz": 21.564,
+      "spike_count": 3352
     },
     {
       "t": 599.94,
@@ -242,19 +287,19 @@
       "dist": 10.382,
       "loom": 64.27,
       "reward": 0.0,
-      "dW_mean": 0.04409997500000001,
-      "rate_hz": 21.0,
-      "spike_count": 3
+      "dW_mean": 0.039203975,
+      "rate_hz": 19.8,
+      "spike_count": 3313
     },
     {
       "t": 633.27,
-      "hit": 0,
+      "hit": 1,
       "dist": 10.2921,
       "loom": 65.62,
-      "reward": 0.0,
-      "dW_mean": 0.036099975,
-      "rate_hz": 19.0,
-      "spike_count": 4
+      "reward": 0.98,
+      "dW_mean": 0.03749501632231405,
+      "rate_hz": 19.364,
+      "spike_count": 4395
     },
     {
       "t": 666.6,
@@ -262,9 +307,9 @@
       "dist": 10.2022,
       "loom": 66.97,
       "reward": 0.0,
-      "dW_mean": 0.036099975,
-      "rate_hz": 19.0,
-      "spike_count": 3
+      "dW_mean": 0.03548083450413223,
+      "rate_hz": 18.836,
+      "spike_count": 3238
     },
     {
       "t": 699.93,
@@ -272,9 +317,9 @@
       "dist": 10.1124,
       "loom": 68.31,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 3
+      "dW_mean": 0.03714377665289256,
+      "rate_hz": 19.273,
+      "spike_count": 3190
     },
     {
       "t": 733.26,
@@ -282,9 +327,9 @@
       "dist": 10.0225,
       "loom": 69.66,
       "reward": 0.0,
-      "dW_mean": 0.036099975,
-      "rate_hz": 19.0,
-      "spike_count": 4
+      "dW_mean": 0.04087746260330579,
+      "rate_hz": 20.218,
+      "spike_count": 4366
     },
     {
       "t": 766.59,
@@ -292,9 +337,9 @@
       "dist": 9.9326,
       "loom": 71.01,
       "reward": 0.0,
-      "dW_mean": 0.032399975000000004,
-      "rate_hz": 18.0,
-      "spike_count": 3
+      "dW_mean": 0.03927600805785124,
+      "rate_hz": 19.818,
+      "spike_count": 3255
     },
     {
       "t": 799.92,
@@ -302,9 +347,9 @@
       "dist": 9.8427,
       "loom": 72.36,
       "reward": 0.0,
-      "dW_mean": 0.036099975,
-      "rate_hz": 19.0,
-      "spike_count": 3
+      "dW_mean": 0.03644625599173554,
+      "rate_hz": 19.091,
+      "spike_count": 3314
     },
     {
       "t": 833.25,
@@ -312,9 +357,9 @@
       "dist": 9.7528,
       "loom": 73.71,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 4
+      "dW_mean": 0.03637686756198348,
+      "rate_hz": 19.073,
+      "spike_count": 4295
     },
     {
       "t": 866.58,
@@ -322,9 +367,9 @@
       "dist": 9.6629,
       "loom": 75.06,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 3
+      "dW_mean": 0.03813141301652893,
+      "rate_hz": 19.527,
+      "spike_count": 3265
     },
     {
       "t": 899.91,
@@ -332,9 +377,9 @@
       "dist": 9.573,
       "loom": 76.4,
       "reward": 0.0,
-      "dW_mean": 0.036099975,
-      "rate_hz": 19.0,
-      "spike_count": 3
+      "dW_mean": 0.0382735617768595,
+      "rate_hz": 19.564,
+      "spike_count": 3296
     },
     {
       "t": 933.24,
@@ -342,9 +387,9 @@
       "dist": 9.4831,
       "loom": 77.75,
       "reward": 0.0,
-      "dW_mean": 0.04409997500000001,
-      "rate_hz": 21.0,
-      "spike_count": 4
+      "dW_mean": 0.03658523119834711,
+      "rate_hz": 19.127,
+      "spike_count": 4403
     },
     {
       "t": 966.57,
@@ -352,19 +397,19 @@
       "dist": 9.3933,
       "loom": 79.1,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 3
+      "dW_mean": 0.043947379958677694,
+      "rate_hz": 20.964,
+      "spike_count": 3256
     },
     {
       "t": 999.9,
-      "hit": 1,
+      "hit": 0,
       "dist": 9.3034,
       "loom": 80.45,
-      "reward": 0.98,
-      "dW_mean": 1.959999975,
-      "rate_hz": 140.0,
-      "spike_count": 24
+      "reward": 0.0,
+      "dW_mean": 1.9937439749999997,
+      "rate_hz": 141.2,
+      "spike_count": 23388
     },
     {
       "t": 1033.23,
@@ -372,9 +417,9 @@
       "dist": 9.2135,
       "loom": 81.8,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 4
+      "dW_mean": 1.9442499254132233,
+      "rate_hz": 139.436,
+      "spike_count": 30782
     },
     {
       "t": 1066.56,
@@ -382,9 +427,9 @@
       "dist": 9.1236,
       "loom": 83.15,
       "reward": 0.0,
-      "dW_mean": 0.039999975,
-      "rate_hz": 20.0,
-      "spike_count": 3
+      "dW_mean": 0.03949250392561983,
+      "rate_hz": 19.873,
+      "spike_count": 3320
     },
     {
       "t": 1099.89,
@@ -392,9 +437,9 @@
       "dist": 9.0337,
       "loom": 84.49,
       "reward": 0.0,
-      "dW_mean": 0.04409997500000001,
-      "rate_hz": 21.0,
-      "spike_count": 3
+      "dW_mean": 0.04206225599173554,
+      "rate_hz": 20.509,
+      "spike_count": 3291
     },
     {
       "t": 1133.22,
@@ -402,9 +447,9 @@
       "dist": 8.9438,
       "loom": 85.84,
       "reward": 0.0,
-      "dW_mean": 0.039999975,
-      "rate_hz": 20.0,
-      "spike_count": 4
+      "dW_mean": 0.03898827252066116,
+      "rate_hz": 19.745,
+      "spike_count": 4390
     },
     {
       "t": 1166.55,
@@ -412,9 +457,9 @@
       "dist": 8.8539,
       "loom": 87.19,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 3
+      "dW_mean": 0.04087746260330579,
+      "rate_hz": 20.218,
+      "spike_count": 3334
     },
     {
       "t": 1199.88,
@@ -422,9 +467,9 @@
       "dist": 8.764,
       "loom": 88.54,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 3
+      "dW_mean": 0.039060107231404954,
+      "rate_hz": 19.764,
+      "spike_count": 3293
     },
     {
       "t": 1233.21,
@@ -432,9 +477,9 @@
       "dist": 8.6742,
       "loom": 89.89,
       "reward": 0.0,
-      "dW_mean": 0.032399975000000004,
-      "rate_hz": 18.0,
-      "spike_count": 4
+      "dW_mean": 0.036863975,
+      "rate_hz": 19.2,
+      "spike_count": 4318
     },
     {
       "t": 1266.54,
@@ -442,9 +487,9 @@
       "dist": 8.5843,
       "loom": 91.24,
       "reward": 0.0,
-      "dW_mean": 0.04409997500000001,
-      "rate_hz": 21.0,
-      "spike_count": 3
+      "dW_mean": 0.04043752871900826,
+      "rate_hz": 20.109,
+      "spike_count": 3260
     },
     {
       "t": 1299.87,
@@ -452,9 +497,9 @@
       "dist": 8.4944,
       "loom": 92.58,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 3
+      "dW_mean": 0.03728407417355372,
+      "rate_hz": 19.309,
+      "spike_count": 3238
     },
     {
       "t": 1333.2,
@@ -462,9 +507,9 @@
       "dist": 8.4045,
       "loom": 93.93,
       "reward": 0.0,
-      "dW_mean": 0.036099975,
-      "rate_hz": 19.0,
-      "spike_count": 4
+      "dW_mean": 0.04087746260330579,
+      "rate_hz": 20.218,
+      "spike_count": 4442
     },
     {
       "t": 1366.53,
@@ -472,9 +517,9 @@
       "dist": 8.3146,
       "loom": 95.28,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 3
+      "dW_mean": 0.041098322107438016,
+      "rate_hz": 20.273,
+      "spike_count": 3294
     },
     {
       "t": 1399.86,
@@ -482,9 +527,9 @@
       "dist": 8.2247,
       "loom": 96.63,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 3
+      "dW_mean": 0.043795049380165284,
+      "rate_hz": 20.927,
+      "spike_count": 3387
     },
     {
       "t": 1433.19,
@@ -492,9 +537,9 @@
       "dist": 8.1348,
       "loom": 97.98,
       "reward": 0.0,
-      "dW_mean": 0.036099975,
-      "rate_hz": 19.0,
-      "spike_count": 4
+      "dW_mean": 0.036169098966942155,
+      "rate_hz": 19.018,
+      "spike_count": 4376
     },
     {
       "t": 1466.52,
@@ -502,9 +547,9 @@
       "dist": 8.0449,
       "loom": 99.33,
       "reward": 0.0,
-      "dW_mean": 0.04409997500000001,
-      "rate_hz": 21.0,
-      "spike_count": 3
+      "dW_mean": 0.040145561776859504,
+      "rate_hz": 20.036,
+      "spike_count": 3366
     },
     {
       "t": 1499.85,
@@ -512,19 +557,19 @@
       "dist": 7.9551,
       "loom": 100.67,
       "reward": 0.0,
-      "dW_mean": 0.032399975000000004,
-      "rate_hz": 18.0,
-      "spike_count": 3
+      "dW_mean": 0.0026662890495867775,
+      "rate_hz": 5.164,
+      "spike_count": 830
     },
     {
       "t": 1533.18,
-      "hit": 0,
+      "hit": 1,
       "dist": 7.8652,
       "loom": 102.02,
-      "reward": 0.0,
-      "dW_mean": 0.04409997500000001,
-      "rate_hz": 21.0,
-      "spike_count": 4
+      "reward": 0.98,
+      "dW_mean": 0.03841597500000001,
+      "rate_hz": 19.6,
+      "spike_count": 4365
     },
     {
       "t": 1566.51,
@@ -532,9 +577,9 @@
       "dist": 7.7753,
       "loom": 103.37,
       "reward": 0.0,
-      "dW_mean": 0.039999975,
-      "rate_hz": 20.0,
-      "spike_count": 3
+      "dW_mean": 0.03855865268595041,
+      "rate_hz": 19.636,
+      "spike_count": 3354
     },
     {
       "t": 1599.84,
@@ -542,9 +587,9 @@
       "dist": 7.6854,
       "loom": 104.72,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 3
+      "dW_mean": 0.037424636157024786,
+      "rate_hz": 19.345,
+      "spike_count": 3212
     },
     {
       "t": 1633.17,
@@ -552,9 +597,9 @@
       "dist": 7.5955,
       "loom": 106.07,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 4
+      "dW_mean": 0.03784790888429752,
+      "rate_hz": 19.455,
+      "spike_count": 4423
     },
     {
       "t": 1666.5,
@@ -562,9 +607,9 @@
       "dist": 7.5056,
       "loom": 107.42,
       "reward": 0.0,
-      "dW_mean": 0.036099975,
-      "rate_hz": 19.0,
-      "spike_count": 3
+      "dW_mean": 0.039203975,
+      "rate_hz": 19.8,
+      "spike_count": 3226
     },
     {
       "t": 1699.83,
@@ -572,9 +617,9 @@
       "dist": 7.4157,
       "loom": 108.76,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 3
+      "dW_mean": 0.038701594834710744,
+      "rate_hz": 19.673,
+      "spike_count": 3307
     },
     {
       "t": 1733.16,
@@ -582,9 +627,9 @@
       "dist": 7.3258,
       "loom": 110.11,
       "reward": 0.0,
-      "dW_mean": 0.04409997500000001,
-      "rate_hz": 21.0,
-      "spike_count": 4
+      "dW_mean": 0.03749501632231405,
+      "rate_hz": 19.364,
+      "spike_count": 4366
     },
     {
       "t": 1766.49,
@@ -592,9 +637,9 @@
       "dist": 7.236,
       "loom": 111.46,
       "reward": 0.0,
-      "dW_mean": 0.04409997500000001,
-      "rate_hz": 21.0,
-      "spike_count": 3
+      "dW_mean": 0.036099975,
+      "rate_hz": 19.0,
+      "spike_count": 3213
     },
     {
       "t": 1799.82,
@@ -602,9 +647,9 @@
       "dist": 7.1461,
       "loom": 112.81,
       "reward": 0.0,
-      "dW_mean": 0.039999975,
-      "rate_hz": 20.0,
-      "spike_count": 3
+      "dW_mean": 0.04221154524793389,
+      "rate_hz": 20.545,
+      "spike_count": 3386
     },
     {
       "t": 1833.15,
@@ -612,9 +657,9 @@
       "dist": 7.0562,
       "loom": 114.16,
       "reward": 0.0,
-      "dW_mean": 0.04409997500000001,
-      "rate_hz": 21.0,
-      "spike_count": 4
+      "dW_mean": 0.04198771053719009,
+      "rate_hz": 20.491,
+      "spike_count": 4440
     },
     {
       "t": 1866.48,
@@ -622,9 +667,9 @@
       "dist": 6.9663,
       "loom": 115.51,
       "reward": 0.0,
-      "dW_mean": 0.039999975,
-      "rate_hz": 20.0,
-      "spike_count": 3
+      "dW_mean": 0.03913200805785124,
+      "rate_hz": 19.782,
+      "spike_count": 3281
     },
     {
       "t": 1899.81,
@@ -632,9 +677,9 @@
       "dist": 6.8764,
       "loom": 116.85,
       "reward": 0.0,
-      "dW_mean": 0.032399975000000004,
-      "rate_hz": 18.0,
-      "spike_count": 3
+      "dW_mean": 0.04595174359504133,
+      "rate_hz": 21.436,
+      "spike_count": 3328
     },
     {
       "t": 1933.14,
@@ -642,9 +687,9 @@
       "dist": 6.7865,
       "loom": 118.2,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 4
+      "dW_mean": 0.04198771053719009,
+      "rate_hz": 20.491,
+      "spike_count": 4448
     },
     {
       "t": 1966.47,
@@ -652,9 +697,9 @@
       "dist": 6.6966,
       "loom": 119.55,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 3
+      "dW_mean": 0.041615975,
+      "rate_hz": 20.4,
+      "spike_count": 3273
     },
     {
       "t": 1999.8,
@@ -662,9 +707,9 @@
       "dist": 6.6067,
       "loom": 120.9,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 3
+      "dW_mean": 0.04556281797520661,
+      "rate_hz": 21.345,
+      "spike_count": 3338
     },
     {
       "t": 2033.13,
@@ -672,9 +717,9 @@
       "dist": 6.5169,
       "loom": 122.25,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 4
+      "dW_mean": 0.03665481797520661,
+      "rate_hz": 19.145,
+      "spike_count": 4352
     },
     {
       "t": 2066.46,
@@ -682,9 +727,9 @@
       "dist": 6.427,
       "loom": 123.6,
       "reward": 0.0,
-      "dW_mean": 0.039999975,
-      "rate_hz": 20.0,
-      "spike_count": 3
+      "dW_mean": 0.04051068574380166,
+      "rate_hz": 20.127,
+      "spike_count": 3359
     },
     {
       "t": 2099.79,
@@ -692,9 +737,9 @@
       "dist": 6.3371,
       "loom": 124.94,
       "reward": 0.0,
-      "dW_mean": 0.04409997500000001,
-      "rate_hz": 21.0,
-      "spike_count": 3
+      "dW_mean": 0.04183881797520661,
+      "rate_hz": 20.455,
+      "spike_count": 3340
     },
     {
       "t": 2133.12,
@@ -702,9 +747,9 @@
       "dist": 6.2472,
       "loom": 126.29,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 4
+      "dW_mean": 0.039060107231404954,
+      "rate_hz": 19.764,
+      "spike_count": 4350
     },
     {
       "t": 2166.45,
@@ -712,9 +757,9 @@
       "dist": 6.1573,
       "loom": 127.64,
       "reward": 0.98,
-      "dW_mean": 1.9043999750000002,
-      "rate_hz": 138.0,
-      "spike_count": 24
+      "dW_mean": 1.9064077766528924,
+      "rate_hz": 138.073,
+      "spike_count": 22848
     },
     {
       "t": 2199.78,
@@ -722,9 +767,9 @@
       "dist": 6.0674,
       "loom": 128.99,
       "reward": 0.0,
-      "dW_mean": 0.036099975,
-      "rate_hz": 19.0,
-      "spike_count": 3
+      "dW_mean": 1.9559293634297519,
+      "rate_hz": 139.855,
+      "spike_count": 23124
     },
     {
       "t": 2233.11,
@@ -732,9 +777,9 @@
       "dist": 5.9775,
       "loom": 130.34,
       "reward": 0.0,
-      "dW_mean": 0.036099975,
-      "rate_hz": 19.0,
-      "spike_count": 4
+      "dW_mean": 0.037635974999999995,
+      "rate_hz": 19.4,
+      "spike_count": 4378
     },
     {
       "t": 2266.44,
@@ -742,9 +787,9 @@
       "dist": 5.8876,
       "loom": 131.69,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 3
+      "dW_mean": 0.04058390888429752,
+      "rate_hz": 20.145,
+      "spike_count": 3292
     },
     {
       "t": 2299.77,
@@ -752,9 +797,9 @@
       "dist": 5.7978,
       "loom": 133.03,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 3
+      "dW_mean": 0.04341537995867769,
+      "rate_hz": 20.836,
+      "spike_count": 3324
     },
     {
       "t": 2333.1,
@@ -762,9 +807,9 @@
       "dist": 5.7079,
       "loom": 134.38,
       "reward": 0.0,
-      "dW_mean": 0.036099975,
-      "rate_hz": 19.0,
-      "spike_count": 4
+      "dW_mean": 0.039203975,
+      "rate_hz": 19.8,
+      "spike_count": 4379
     },
     {
       "t": 2366.43,
@@ -772,9 +817,9 @@
       "dist": 5.618,
       "loom": 135.73,
       "reward": 0.0,
-      "dW_mean": 0.032399975000000004,
-      "rate_hz": 18.0,
-      "spike_count": 3
+      "dW_mean": 0.035275644421487604,
+      "rate_hz": 18.782,
+      "spike_count": 3256
     },
     {
       "t": 2399.76,
@@ -782,9 +827,9 @@
       "dist": 5.5281,
       "loom": 137.08,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 3
+      "dW_mean": 0.03942027252066116,
+      "rate_hz": 19.855,
+      "spike_count": 3321
     },
     {
       "t": 2433.09,
@@ -792,9 +837,9 @@
       "dist": 5.4382,
       "loom": 138.43,
       "reward": 0.0,
-      "dW_mean": 0.039999975,
-      "rate_hz": 20.0,
-      "spike_count": 4
+      "dW_mean": 0.03956480144628099,
+      "rate_hz": 19.891,
+      "spike_count": 4386
     },
     {
       "t": 2466.42,
@@ -802,9 +847,9 @@
       "dist": 5.3483,
       "loom": 139.78,
       "reward": 0.0,
-      "dW_mean": 0.032399975000000004,
-      "rate_hz": 18.0,
-      "spike_count": 3
+      "dW_mean": 0.0407305535123967,
+      "rate_hz": 20.182,
+      "spike_count": 3296
     },
     {
       "t": 2499.75,
@@ -812,9 +857,9 @@
       "dist": 5.2584,
       "loom": 141.12,
       "reward": 0.0,
-      "dW_mean": 0.032399975000000004,
-      "rate_hz": 18.0,
-      "spike_count": 3
+      "dW_mean": 0.038844801446281,
+      "rate_hz": 19.709,
+      "spike_count": 3228
     },
     {
       "t": 2533.08,
@@ -822,9 +867,9 @@
       "dist": 5.1685,
       "loom": 142.47,
       "reward": 0.0,
-      "dW_mean": 0.032399975000000004,
-      "rate_hz": 18.0,
-      "spike_count": 4
+      "dW_mean": 0.040072735330578514,
+      "rate_hz": 20.018,
+      "spike_count": 4424
     },
     {
       "t": 2566.41,
@@ -832,9 +877,9 @@
       "dist": 5.0787,
       "loom": 143.82,
       "reward": 0.0,
-      "dW_mean": 0.032399975000000004,
-      "rate_hz": 18.0,
-      "spike_count": 3
+      "dW_mean": 0.04258592541322315,
+      "rate_hz": 20.636,
+      "spike_count": 3374
     },
     {
       "t": 2599.74,
@@ -842,9 +887,9 @@
       "dist": 4.9888,
       "loom": 145.17,
       "reward": 0.0,
-      "dW_mean": 0.04409997500000001,
-      "rate_hz": 21.0,
-      "spike_count": 3
+      "dW_mean": 0.03949250392561983,
+      "rate_hz": 19.873,
+      "spike_count": 3216
     },
     {
       "t": 2633.07,
@@ -852,9 +897,9 @@
       "dist": 4.8989,
       "loom": 146.52,
       "reward": 0.0,
-      "dW_mean": 0.032399975000000004,
-      "rate_hz": 18.0,
-      "spike_count": 4
+      "dW_mean": 0.040218454338842975,
+      "rate_hz": 20.055,
+      "spike_count": 4415
     },
     {
       "t": 2666.4,
@@ -862,9 +907,9 @@
       "dist": 4.809,
       "loom": 147.87,
       "reward": 0.0,
-      "dW_mean": 0.039999975,
-      "rate_hz": 20.0,
-      "spike_count": 3
+      "dW_mean": 0.03700374359504133,
+      "rate_hz": 19.236,
+      "spike_count": 3267
     },
     {
       "t": 2699.73,
@@ -872,9 +917,9 @@
       "dist": 4.7191,
       "loom": 149.21,
       "reward": 0.0,
-      "dW_mean": 0.036099975,
-      "rate_hz": 19.0,
-      "spike_count": 3
+      "dW_mean": 0.041245892355371905,
+      "rate_hz": 20.309,
+      "spike_count": 3296
     },
     {
       "t": 2733.06,
@@ -882,9 +927,9 @@
       "dist": 4.6292,
       "loom": 150.56,
       "reward": 0.0,
-      "dW_mean": 0.039999975,
-      "rate_hz": 20.0,
-      "spike_count": 4
+      "dW_mean": 0.039203975,
+      "rate_hz": 19.8,
+      "spike_count": 4372
     },
     {
       "t": 2766.39,
@@ -892,9 +937,9 @@
       "dist": 4.5393,
       "loom": 151.91,
       "reward": 0.0,
-      "dW_mean": 0.032399975000000004,
-      "rate_hz": 18.0,
-      "spike_count": 3
+      "dW_mean": 0.03985465268595041,
+      "rate_hz": 19.964,
+      "spike_count": 3238
     },
     {
       "t": 2799.72,
@@ -902,19 +947,19 @@
       "dist": 4.4494,
       "loom": 153.26,
       "reward": 0.0,
-      "dW_mean": 0.048399975000000005,
-      "rate_hz": 22.0,
-      "spike_count": 3
+      "dW_mean": 0.041172074173553716,
+      "rate_hz": 20.291,
+      "spike_count": 3299
     },
     {
       "t": 2833.05,
-      "hit": 0,
+      "hit": 1,
       "dist": 4.3596,
       "loom": 154.61,
-      "reward": 0.0,
-      "dW_mean": 0.036099975,
-      "rate_hz": 19.0,
-      "spike_count": 4
+      "reward": 0.98,
+      "dW_mean": 0.03934810723140496,
+      "rate_hz": 19.836,
+      "spike_count": 4454
     },
     {
       "t": 2866.38,
@@ -922,9 +967,9 @@
       "dist": 4.2697,
       "loom": 155.96,
       "reward": 0.0,
-      "dW_mean": 0.039999975,
-      "rate_hz": 20.0,
-      "spike_count": 3
+      "dW_mean": 0.04087746260330579,
+      "rate_hz": 20.218,
+      "spike_count": 3276
     },
     {
       "t": 2899.71,
@@ -932,9 +977,9 @@
       "dist": 4.1798,
       "loom": 157.3,
       "reward": 0.0,
-      "dW_mean": 0.039999975,
-      "rate_hz": 20.0,
-      "spike_count": 3
+      "dW_mean": 0.041615975,
+      "rate_hz": 20.4,
+      "spike_count": 3365
     },
     {
       "t": 2933.04,
@@ -942,9 +987,9 @@
       "dist": 4.0899,
       "loom": 158.65,
       "reward": 0.0,
-      "dW_mean": 0.032399975000000004,
-      "rate_hz": 18.0,
-      "spike_count": 4
+      "dW_mean": 0.03841597500000001,
+      "rate_hz": 19.6,
+      "spike_count": 4473
     },
     {
       "t": 2966.37,
@@ -952,9 +997,9 @@
       "dist": 4.0,
       "loom": 160.0,
       "reward": 0.0,
-      "dW_mean": 0.036099975,
-      "rate_hz": 19.0,
-      "spike_count": 3
+      "dW_mean": 0.04303736342975207,
+      "rate_hz": 20.745,
+      "spike_count": 3301
     }
   ]
 }

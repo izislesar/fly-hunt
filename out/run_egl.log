@@ -1,0 +1,10 @@
+date: 2026-09-16T16:44:28Z
+cmd: MUJOCO_GL=egl CC=gcc CXX=g++ /home/izislesar/venv-brainfly314/bin/python tools/run_hunt.py --real-egl
+torch: ModuleNotFoundError: No module named 'torch' (CPU fallback, not a failure)
+vendor: two_flies.py --help exit=1, --headless exit=1 (ImportError flygym.Fly -> run_hunt.py real-path fallback)
+model-ok nq=7 nv=6 arena=arena/hunt_arena.xml timestep=0.0005
+render-ok shape=(480, 640, 3) dtype=uint8 mean=150.0 EGL 640x480
+step-ok n_steps=5940 sim_time=2.9700s wall=4.75s
+brian2-ok n_spikes=412811 neurons=5500 wall=8.77s schedule=base20/stim140/rearm5 seed=1
+sim_time=2.9700s mujoco_wall=4.75s total_wall=27.74s
+hits=5 @frames [0, 19, 46, 65, 85] ammo_left=0

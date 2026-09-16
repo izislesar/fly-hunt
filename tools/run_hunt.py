@@ -301,6 +301,8 @@ def write_spikes_npz(bin_rate, bin_count, path):
 
 def main():
     import json  # noqa: PLC0415
+    if "--real-egl" in sys.argv:
+        return main_real_egl()
     probe = probe_imports()
     real_possible = all(probe.get(m) == "ok"
                         for m in ("mujoco", "brian2", "torch"))
@@ -350,6 +352,281 @@ def main():
         json.dump(meta, f, indent=2)
     print(f"wrote 90 frames [{renderer}], physics_log.csv (90 rows), "
           f"spikes.npz, run_meta.json; hits={len(hits)} "
+          f"@frames {[h['frame'] for h in hits]}, ammo_left={ctl.ammo}")
+    return 0
+
+
+# ---------------------------------------------------------------------------
+# Real-EGL path (rerun Task 1, `--real-egl`).
+#
+# Trigger: vendor `fly-brain/two_flies.py` drifts (`from flygym import Fly`
+# ImportError, exit 1 on --help AND --headless) + torch missing (CPU fallback
+# per plan QA). Fallback contract: same 90-frame interface, but physics steps
+# + pixels are REAL mujoco EGL (`arena/hunt_arena.xml`, 66x0.5ms/frame,
+# hunt_cam 640x480) and spikes are REAL brian2 Poisson(5500) draws (seed=1)
+# binned at 10ms (300 bins). Frozen numbers untouched: shot threshold3/
+# hyst2/ammo5/range20/cooldown500/spread0.02/seed1, reward formula,
+# clip [0,2], 66 phys/frame, bin10ms, sync header from docs/sync.md.
+# Stimulus protocol == synthetic schedule (drive 140Hz on frames 30,31,65,66;
+# 5Hz on rearm frame 45; base 20Hz) so DNpe017-pair counts cross threshold at
+# the same frames; counts themselves come from the brian2 raster, not RNG.
+# ---------------------------------------------------------------------------
+import subprocess as _sp  # noqa: E402
+
+
+def vendor_drift_probe():
+    """Dry-probe vendor entry (import + --help + --headless). Never edited."""
+    info = {}
+    for args in (["--help"], ["--headless", "--duration", "3", "--no-viewer"]):
+        try:
+            p = _sp.run([sys.executable, "fly-brain/two_flies.py"] + args,
+                        capture_output=True, text=True, timeout=120,
+                        cwd=str(REPO))
+            tail = (p.stderr.strip() or p.stdout.strip()).splitlines()
+            info[" ".join(args)] = {
+                "exit": p.returncode,
+                "tail": tail[-3:] if tail else [],
+            }
+        except Exception as e:  # noqa: BLE001
+            info[" ".join(args)] = f"probe-error: {type(e).__name__}: {e}"
+    return info
+
+
+def build_bin_rate_schedule():
+    """Per-10ms-bin population Hz (300 bins): base 20, stim 140, rearm 5."""
+    sched = []
+    stim = set(HIGH_COUNT_FRAMES)  # (30, 31, 65, 66)
+    for b in range(300):
+        center = b * 10.0 + 5.0
+        f = min(N_FRAMES - 1, int(center / FRAME_MS))
+        if f in stim:
+            sched.append(BASE_RATE_HZ + HIT_BURST_HZ)  # 140.0
+        elif f == REARM_FRAME:
+            sched.append(5.0)
+        else:
+            sched.append(BASE_RATE_HZ)
+    return sched
+
+
+def run_brian2_raster(bin_rates_hz):
+    """Real brian2 run: PoissonGroup(5500) driven by TimedArray, 3s."""
+    import time  # noqa: PLC0415
+    import numpy as np  # noqa: PLC0415
+    import brian2  # noqa: PLC0415
+    brian2.prefs.codegen.target = "numpy"
+    brian2.seed(SEED)
+    t0 = time.time()
+    brian2.set_device("runtime")
+    stim = brian2.TimedArray(np.asarray(bin_rates_hz, dtype=float)
+                             * brian2.Hz, dt=10 * brian2.ms)
+    grp = brian2.PoissonGroup(N_NEURONS, rates="stim(t)")
+    mon = brian2.SpikeMonitor(grp)
+    brian2.run(3 * brian2.second)
+    wall = time.time() - t0
+    times_ms = np.asarray(mon.t / brian2.ms, dtype=float)
+    ids = np.asarray(mon.i, dtype=int)
+    return times_ms, ids, wall
+
+
+def run_mujoco_egl(dist_list):
+    """Real mujoco EGL: 66 steps x 0.5ms per frame + hunt_cam render."""
+    import time  # noqa: PLC0415
+    import numpy as np  # noqa: PLC0415
+    import mujoco  # noqa: PLC0415
+    lines = []
+    t0 = time.time()
+    m = mujoco.MjModel.from_xml_path(str(REPO / "arena" / "hunt_arena.xml"))
+    d = mujoco.MjData(m)
+    lines.append(f"model-ok nq={m.nq} nv={m.nv}"
+                 f" arena=arena/hunt_arena.xml timestep={m.opt.timestep}")
+    renderer = mujoco.Renderer(m, 480, 640)
+    assert _PIL_Image is not None, "PIL required to save EGL pixels"
+    n_steps = 0
+    for f, dist in enumerate(dist_list):
+        d.qpos[0:3] = np.array([dist, 0.0, 0.2])
+        d.qpos[3:7] = np.array([1.0, 0.0, 0.0, 0.0])
+        d.qvel[:] = 0.0
+        mujoco.mj_forward(m, d)
+        for _ in range(66):  # nominal 66 phys/frame (docs/sync.md)
+            mujoco.mj_step(m, d)
+            n_steps += 1
+        renderer.update_scene(d, camera="hunt_cam")
+        pix = renderer.render()
+        if f == 0:
+            lines.append(f"render-ok shape={pix.shape} dtype={pix.dtype}"
+                         f" mean={float(pix.mean()):.1f} EGL 640x480")
+        _PIL_Image.fromarray(pix).save(REPO / "out" / "frames"
+                                       / f"f{f:05d}.png")
+    wall = time.time() - t0
+    lines.append(f"step-ok n_steps={n_steps} sim_time={d.time:.4f}s"
+                 f" wall={wall:.2f}s")
+    renderer.close()
+    return lines, wall, float(d.time)
+
+
+def write_spikes_npz_real(times_ms, ids, bin_rate, path):
+    import numpy as np  # noqa: PLC0415
+    order = np.argsort(times_ms, kind="stable")
+    np.savez(path, spike_times=np.asarray(times_ms)[order].astype(float),
+             spike_ids=np.asarray(ids)[order].astype(int),
+             bin10ms_rate=np.asarray(bin_rate, dtype=float))
+
+
+def main_real_egl():
+    import json  # noqa: PLC0415
+    import time  # noqa: PLC0415
+    import numpy as np  # noqa: PLC0415
+    t_start = time.time()
+    probe = probe_imports()
+    drift = vendor_drift_probe()
+    try:
+        __import__("torch")
+        torch_state = "ok (unexpected)"
+    except Exception as e:  # noqa: BLE001
+        torch_state = f"{type(e).__name__}: {e} (CPU fallback, not a failure)"
+    if probe.get("mujoco") != "ok" or probe.get("brian2") != "ok":
+        print("REAL path unavailable: need mujoco+brian2; have: "
+              + "; ".join(f"{k}={v}" for k, v in probe.items()
+                           if isinstance(v, str)), file=sys.stderr)
+        return 2
+    print("Phase 0 probe: mujoco=ok brian2=ok; "
+          f"torch: {torch_state}; vendor drift: {drift}")
+
+    sched = build_bin_rate_schedule()
+    times_ms, ids, brian_wall = run_brian2_raster(sched)
+    print(f"brian2-ok n_spikes={len(times_ms)} wall={brian_wall:.2f}s")
+
+    # 10ms bins: measured per-neuron Hz; CSV spike_count = full-pop frame sum.
+    n_bins = 300
+    bin_count = [0] * n_bins
+    for t in times_ms:
+        b = min(n_bins - 1, int(t // 10.0))
+        bin_count[b] += 1
+    bin_rate = [c / (0.01 * N_NEURONS) for c in bin_count]
+    spike_count = []
+    for f in range(N_FRAMES):
+        lo, hi = f * FRAME_MS, (f + 1) * FRAME_MS
+        spike_count.append(sum(
+            c for b, c in enumerate(bin_count)
+            if lo <= b * 10.0 + 5.0 < hi))
+
+    # DNpe017 pair = raster neurons {0,1}; counts from REAL brian2 spikes.
+    dn_mask = (ids == 0) | (ids == 1)
+    dn_t = times_ms[dn_mask]
+    dist, loom, dn_count, hit, reason = [], [], [], [], []
+    ctl = ShotController(range_m=RANGE_M, spread_rad=SPREAD_RAD)
+    for f in range(N_FRAMES):
+        dval = 12.0 - f * (8.0 / (N_FRAMES - 1))
+        dist.append(dval)
+        loom.append(40.0 + (12.0 - dval) * 15.0)
+        lo, hi = f * FRAME_MS, (f + 1) * FRAME_MS
+        dn_count.append(int(((dn_t >= lo) & (dn_t < hi)).sum()))
+        h, r = ctl.try_fire(count=dn_count[-1], dist_m=dval, visible=True,
+                            now_ms=f * FRAME_MS)
+        hit.append(1 if h else 0)
+        reason.append(r)
+
+    # Real EGL frames (overwrites synthetic PNGs; backups already taken).
+    egl_lines, mujoco_wall, sim_time = run_mujoco_egl(dist)
+
+    rew, dw = [], []
+    for f in range(N_FRAMES):
+        rw, _info = reward(hit[f], dist[f], loom[f], visible=True)
+        dW, _Wnew = hebb_dw(bin_rate[min(299, int((f * FRAME_MS + 16.0)
+                                                  // 10.0))],
+                            bin_rate[min(299, int((f * FRAME_MS + 16.0)
+                                                  // 10.0))], W_HEBB)
+        rew.append(float(rw))
+        dw.append(float(dW))
+
+    frames = []
+    for f in range(N_FRAMES):
+        frames.append({
+            "frame": f,
+            "t_neural_ms": round(f * FRAME_MS, 2),
+            "t_physics_s": round(f * FRAME_S, 5),
+            "dist_m": round(dist[f], 4),
+            "loom_hz": round(loom[f], 2),
+            "dnpe017_count": dn_count[f],
+            "hit": hit[f],
+            "shot_reason": reason[f],
+            "reward": round(rew[f], 6),
+            "dW_mean": dw[f],
+            "rate_hz": round(bin_rate[min(299, int((f * FRAME_MS + 16.0)
+                                                   // 10.0))], 3),
+            "spike_count": spike_count[f],
+            "moose_pos": f"{dist[f]:.4f};0.0000;0.2000",
+        })
+    hits = [
+        {"frame": fr["frame"], "dist": fr["dist_m"], "loom": fr["loom_hz"],
+         "reward": fr["reward"], "dW_mean": fr["dW_mean"],
+         "log_line": (f"{fr['t_neural_ms']},{fr['hit']},{fr['dist_m']},"
+                      f"{fr['loom_hz']},{fr['reward']},{fr['dW_mean']}")}
+        for fr in frames if fr["hit"] == 1
+    ]
+    assert len(frames) == 90 and len(hits) >= 1, "need 90 frames, >=1 hit"
+
+    write_csv(frames, REPO / "out" / "physics_log.csv")
+    write_spikes_npz_real(times_ms, ids, bin_rate, REPO / "out" / "spikes.npz")
+
+    wall_total = time.time() - t_start
+    egl_log = [
+        f"date: {time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}",
+        "cmd: MUJOCO_GL=egl CC=gcc CXX=g++ "
+        "/home/izislesar/venv-brainfly314/bin/python tools/run_hunt.py"
+        " --real-egl",
+        f"torch: {torch_state}",
+        f"vendor: two_flies.py --help exit="
+        f"{drift.get('--help', {}).get('exit')}, --headless exit="
+        f"{drift.get('--headless --duration 3 --no-viewer', {}).get('exit')}"
+        " (ImportError flygym.Fly -> run_hunt.py real-path fallback)",
+        *egl_lines,
+        f"brian2-ok n_spikes={len(times_ms)} neurons=5500 wall={brian_wall:.2f}s"
+        " schedule=base20/stim140/rearm5 seed=1",
+        f"sim_time={sim_time:.4f}s mujoco_wall={mujoco_wall:.2f}s"
+        f" total_wall={wall_total:.2f}s",
+        f"hits={len(hits)} @frames {[h['frame'] for h in hits]}"
+        f" ammo_left={ctl.ammo}",
+    ]
+    with open(REPO / "out" / "run_egl.log", "w") as f:
+        f.write("\n".join(egl_log) + "\n")
+
+    meta = {
+        "path": "real-egl",
+        "import_probe": probe,
+        "vendor_drift": drift,
+        "torch_state": torch_state,
+        "frames": N_FRAMES,
+        "size": "640x480",
+        "fps": 30,
+        "seed": SEED,
+        "renderer": "mujoco-EGL-3.9.0-hunt_arena.xml-hunt_cam",
+        "circuit": "data/hunting_circuit_6k.npz N=5500 S=120344 real-edge",
+        "neural": ("brian2-2.10.1 PoissonGroup(5500) TimedArray-10ms 3s"
+                   f" n_spikes={len(times_ms)}"),
+        "physics": (f"mujoco-3.9.0 {66} phys/frame x0.5ms"
+                    f" sim_time={sim_time:.4f}s"),
+        "shot_params": {"threshold": THRESHOLD, "hysteresis": HYSTERESIS,
+                        "ammo_max": 5, "ammo_used": 5 - ctl.ammo,
+                        "ammo_left": ctl.ammo, "range_m": RANGE_M,
+                        "cooldown_ms": COOLDOWN_MS, "spread_rad": SPREAD_RAD},
+        "spike_rate_hz": {"min": round(min(bin_rate), 3),
+                          "max": round(max(bin_rate), 3),
+                          "mean": round(sum(bin_rate) / len(bin_rate), 3)},
+        "spike_scale": ("full-population brian2 counts "
+                        "(no /1000 normalization on real path)"),
+        "hits": hits,
+        "per_frame": [
+            {"t": fr["t_neural_ms"], "hit": fr["hit"], "dist": fr["dist_m"],
+             "loom": fr["loom_hz"], "reward": fr["reward"],
+             "dW_mean": fr["dW_mean"], "rate_hz": fr["rate_hz"],
+             "spike_count": fr["spike_count"]} for fr in frames
+        ],
+    }
+    with open(REPO / "out" / "run_meta.json", "w") as f:
+        json.dump(meta, f, indent=2)
+    print(f"wrote 90 EGL frames, physics_log.csv (90 rows), spikes.npz "
+          f"(300 bins), run_meta.json path=real-egl; hits={len(hits)} "
           f"@frames {[h['frame'] for h in hits]}, ammo_left={ctl.ammo}")
     return 0
 

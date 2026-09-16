@@ -18,3 +18,12 @@ xvfb attempt: `which xvfb-run` -> not-found (xvfb-run NOT installed; no X retry 
 EGL libs (host): /usr/lib/libEGL_nvidia.so + /usr/lib/libEGL_mesa.so present (Task 1), but unusable without mujoco pip package (PEP668, no conda env).
 real_cmd (NOT executed): two_flies.py --headless --visual --gustatory --somatosensory --duration 3 --separation 5.0 --no-viewer
 delivered instead: 90x out/frames/f00000..f00089.png (640x480 PIL hunt scene), out/physics_log.csv 90 rows (check_sync PASS), out/spikes.npz (300 bins), out/run_meta.json path=synthetic(mujoco-missing), 2 hits @frames 30,65 ammo_left=3. No EGL output faked.
+
+=== Task 1 rerun: vendor drift + torch CPU fallback (real-path taken) ===
+date: 2026-09-16T16:44:28Z
+vendor: fly-brain/two_flies.py --help exit=1; --headless --duration 3 --no-viewer exit=1
+  File "fly-brain/two_flies.py", line 24: from flygym import Fly
+  ImportError: cannot import name 'Fly' from 'flygym' (flygym 2.1.0 package present, API drift)
+torch: ModuleNotFoundError: No module named 'torch' (CPU fallback per plan QA, not a failure)
+fallback: tools/run_hunt.py --real-egl (mujoco-3.9.0 EGL + brian2-2.10.1 real raster, torch-free)
+evidence: out/run_egl.log (model-ok nq=7 nv=6, step-ok 5940 steps sim 2.9700s, render-ok 640x480, 5 hits)
