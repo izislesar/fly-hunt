@@ -3,3 +3,5 @@
 # CLI recorded: python3 tools/render_spikes.py --palette magma:#000004-#FCFFA4 --size 640x480 --fps 30 (args parsed; non-default palette/size/fps warn-only)
 # frame mapping: 90 frames <- 300 bins @3.333 bins/frame; y = 480 rows sampled from 5500 seed 0; hit frames {30,65} from run_meta.json with #FCFFA4 flash bar + counter text.
 status: OK no-mismatch
+# 2026-09-16T16:49Z Task 2 rerun (real-egl npz): cmd `/home/izislesar/venv-brainfly314/bin/python tools/render_spikes.py --palette magma:#000004-#FCFFA4 --size 640x480 --fps 30 --input out/spikes.npz --meta out/run_meta.json --outdir out/spikes` → LUT matplotlib-magma-256 (3.11.2), PIL path, hits=[0,19,46,65,85]; wrote 90 PNGs. Verify: ls count=90; file sp00000.png=PNG 640x480 8-bit RGB; distinct md5=90/90; HI #FCFFA4 top24px counts f0=14966 f19=14986 f46=14976 f65=14982 f85=14989; nonhit sp00001 topleft=(24,15,61). Input npz: rate (300,) mean 25.02Hz, 412811 spikes (real-egl, NOT .synth.bak).
+status: OK rerun-90-distinct-hitflash-verified

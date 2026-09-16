@@ -10,3 +10,8 @@
 - Commit `feat(run): real egl 3s hunt` (9 files) + `git push origin rerun/run` exit 0 (after `gh auth setup-git`; initial https push failed with no-credential error).
 - Frozen untouched: shot threshold3/hyst2/ammo5/range20/cooldown500/spread0.02/seed1, reward formula, clip [0,2], 66 phys/frame, bin10ms, sync header.
 - Task 2 ready: out/spikes.npz (300-bin real raster) + out/physics_log.csv + 90 EGL frames in place.
+# 2026-09-16T16:49Z — Task 2 DONE (magma spike rerender from real npz, pushed)
+- Render cmd: `/home/izislesar/venv-brainfly314/bin/python tools/render_spikes.py --palette 'magma:#000004-#FCFFA4' --size 640x480 --fps 30 --input out/spikes.npz --meta out/run_meta.json --outdir out/spikes` (flags confirmed via --help first; input = CURRENT real-egl npz, never .synth.bak).
+- Render output: LUT matplotlib-magma-256 (3.11.2), PIL path, hits=[0,19,46,65,85]; wrote 90 PNGs over stale set (no leftovers possible — full overwrite).
+- Verify: `ls out/spikes/sp*.png | wc -l`=90; `file sp00000.png`=PNG 640x480 8-bit RGB; distinct md5=90/90; #FCFFA4 top-24px counts f0=14966 f19=14986 f46=14976 f65=14982 f85=14989; nonhit sp00001 topleft magma (24,15,61).
+- Git: .gitignore keeps only 3 spike samples (sp00000/sp00030/sp00065); other 87 PNGs ignored by rule. Committed [see SHA below] + push result [see below].
