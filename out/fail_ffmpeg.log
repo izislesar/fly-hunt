@@ -89,3 +89,7 @@ inputs: out/duel/f*.png 300 + out/brain/b*.png 300 (pre-checked)
 tone-match: BEFORE duel=109.70 brain=21.91 mismatch=80.03%; gamma iter1 g=2.9099 -> duel=24.92 mismatch=12.10%; FINAL (gutter+tags) duel=25.00 brain=22.03 mismatch=11.87% PASS
 command: ffmpeg -y -framerate 30 -i out/duel/f%05d.png -framerate 30 -i out/brain/b%05d.png -filter_complex hstack -c:v libx264 -crf 23 -pix_fmt yuv420p out/trophy_hunt_rifle.mp4 (exit 0)
 ffprobe: codec_name=h264 width=1280 height=480 r_frame_rate=30/1 duration=10.000000 size=189366
+
+---
+C3 clarity STOP (2026-09-17T01:20Z): ffmpeg NOT run — pre-stitch tone gate failed.
+hunt_pre_L=32.00 brain_L=22.04 mismatch=45.17% -> ONE gamma iteration (hunt-side, g=1.50, PIL power in place on out/duel_ann/f*.png only) -> hunt_post_L=14.59 mismatch=33.80% FAIL (>15%). Calib used RGB-mean (13.01% at g=1.5) vs L-luma acceptance — metric error, logged. No mp4 written; exact hstack command never executed; no flags altered. Next lane: re-pick gamma (≈1.36 interp, needs own task authority) or STOP stands.
