@@ -7,3 +7,5 @@
 - Determinism: eye150 rebuild+rerender byte-identical FIRST try (tries=['3d669959e629'], nzdiff=0, maxabs=0). Pass.
 - Bind health: 1.12mm every logged frame (rifle prop never detached). Wall: 88.2s for 300.
 - Verdict: view reads — horizon mid-frame, sky top / ground bottom, moose-box speck at center distance, dark ball grows late-take. No fallback needed.
+# 2026-09-17T01:05Z C1 close-out
+- Commit `63053ce` feat(clarity): fly-eye pip frames (tools/fly_eye.py + .gitignore + this notepad, 3 files +267). `git push origin clarity` exit 0 (new branch, To https://github.com/izislesar/fly-hunt). Existing artifacts untouched (mp4s/takes/duel/brain PNGs read-only; pre-existing `out/fail_circuit.log` modification left unstaged).
