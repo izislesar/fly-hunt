@@ -16,6 +16,8 @@ out/frames10/*.png
 !out/frames10/probe_*.png
 # diorama duel take: 300xPNG f00000-f00299, Task D2 (3 staging probe_*.png keepable)
 out/duel/f*.png
+# clarity fly-eye PiP take: 300xPNG e00000-e00299, Task C1 (reproducible via tools/fly_eye.py)
+out/flyeye/e*.png
 # viz10 cut intermediates: 300+300 tone-matched panels (Task 7, reproducible via cut_prep)
 out/cut_h/*.png
 out/cut_b/*.png

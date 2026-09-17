@@ -1,0 +1,9 @@
+# 2026-09-17T01:00Z C1 fly-eye PiP frames (branch clarity, commit pending)
+- Tool: `tools/fly_eye.py` (NEW, committed) imports frozen D1 pipeline (`fly_duel.build/tune/bind/render`, light v1, sky repaint, rifle prop) + D2 take loom trajectory (`out/physics_log_10s.csv` dist_m, x=12000->4000mm, z=1500 fixed). Static neutral pose, thorax [0.5,0.0,1.9] (settle_fly), yaw 0.0deg. No physics, camera-only; `arena/`, `fly-brain/` untouched.
+- Eye camera (logged): pos = live thorax + yaw-rotated head offset [2.0,0.0,0.8] = [2.5,0.0,2.7]; target = pos + fwd*4000, z-=60 -> [4002.5,0.0,-57.3]; fovy=60, down-tilt 0.86deg. Faces +x toward moose/loom axis.
+- Render: 1280x960 EGL -> LANCZOS 640x480 (render_supersampled) -> LANCZOS 160x120. `out/flyeye/e%05d.png` x300 (+ 3 probe_eye_N.png evidence, on disk untracked). `.gitignore` += `out/flyeye/e*.png` (duel policy mirror).
+- Probe iteration: first heuristic (G>R&B) reported ground=0.000 — investigated via vertical band means (top sky ~(78,114,174), bottom ~(115,110,106)): lit checker renders desaturated gray, heuristic miscalibrated, NOT empty frame. Fixed heuristic to non-sky (B<=R+10), 1 iteration with evidence, no camera re-aim needed.
+- Samples (shipped 160x120 pixels): f0 READABLE(moose 0.25% + ground 51.1% + sky 48.9%) md5 ad85c1e1; f150 READABLE(moose 0.25% + ground 51.1% + sky 48.8%) md5 3d669959; f299 READABLE(moose 0.25% + ball 0.24% + ground 51.3% + sky 48.6%) md5 e8da29a2. Ball fraction grows 0.01%->0.24% as loom approaches (12000->4000mm) — coherent with duel take. file(1): all 160x120 RGB. whitefrac=0.0000.
+- Determinism: eye150 rebuild+rerender byte-identical FIRST try (tries=['3d669959e629'], nzdiff=0, maxabs=0). Pass.
+- Bind health: 1.12mm every logged frame (rifle prop never detached). Wall: 88.2s for 300.
+- Verdict: view reads — horizon mid-frame, sky top / ground bottom, moose-box speck at center distance, dark ball grows late-take. No fallback needed.
