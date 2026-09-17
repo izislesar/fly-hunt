@@ -21,6 +21,9 @@ out/flyeye/e*.png
 # viz10 cut intermediates: 300+300 tone-matched panels (Task 7, reproducible via cut_prep)
 out/cut_h/*.png
 out/cut_b/*.png
+# clarity annotated panels: 300+300 PNG (Task C2, reproducible via tools/annotate.py; proof_*.png keepable)
+out/duel_ann/f*.png
+out/brain_ann/b*.png
 # synthetic backups (pre-rerun fallbacks, never committed)
 *.bak.*
 *.bak/
