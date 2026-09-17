@@ -24,3 +24,9 @@
 - Brain PNGs are git-TRACKED: tag/gutter pass dirtied them, so restored via `git checkout -- out/brain/` AFTER the stitch (mp4 has tags baked; repo brain set pristine). Duel f*.png are gitignored — tone-matched versions stay on disk only.
 - Stitch: exact plan command, exit 0. ffprobe: h264 1280x480 30/1 duration=10.0 size=189366 (185K <50MB).
 - Commit `feat(video): rifle duel 10s cut` = out/trophy_hunt_rifle.mp4 + this learnings entry (mirrors 4198a02 precedent). Push origin diorama exit 0. HARD STOP.
+
+# 2026-09-17T00:05Z D4 merge to main + tag trophy-hunt-duel (F1+F2 APPROVE)
+- Gate: F1 APPROVE (8 findings incl. 300+300 contiguous, 4-mp4 inventory clean, vendor/arena diffs empty). F2 APPROVE (8 findings incl. reward md5 identical, prop visual-only, no audio, forbidden-grep 0).
+- Chain: main e62d626 <- ... <- diorama afe4947 `feat(video): rifle duel 10s cut`; merge-base(main,diorama)=e62d626 => fast-forward.
+- Forbidden-paths check on range e62d626..afe4947: EMPTY (only allowed samples).
+- Merge: `git checkout main && git merge --ff-only diorama` + `git push origin main` + `git tag trophy-hunt-duel` + `git push origin trophy-hunt-duel`. Branches diorama/viz10/rerun KEPT for traceability.
