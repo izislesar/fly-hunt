@@ -83,3 +83,9 @@ frame=   90 fps=0.0 q=-1.0 Lsize=      46KiB time=00:00:02.93 bitrate= 129.7kbit
 # exact cmd: ffmpeg -y -framerate 30 -i out/frames/f%05d.png -framerate 30 -i out/spikes/sp%05d.png -filter_complex hstack -c:v libx264 -crf 23 -pix_fmt yuv420p out/trophy_hunt.mp4 (exit 0)
 # ffprobe: codec_name=h264 width=1280 height=480 pix_fmt=yuv420p r_frame_rate=30/1 duration=3.000000 size=362406
 # ls: -rw-r--r-- 354K out/trophy_hunt.mp4 (limit 50MB — PASS)
+
+--- D3 rifle assembly (2026-09-17, branch diorama) ---
+inputs: out/duel/f*.png 300 + out/brain/b*.png 300 (pre-checked)
+tone-match: BEFORE duel=109.70 brain=21.91 mismatch=80.03%; gamma iter1 g=2.9099 -> duel=24.92 mismatch=12.10%; FINAL (gutter+tags) duel=25.00 brain=22.03 mismatch=11.87% PASS
+command: ffmpeg -y -framerate 30 -i out/duel/f%05d.png -framerate 30 -i out/brain/b%05d.png -filter_complex hstack -c:v libx264 -crf 23 -pix_fmt yuv420p out/trophy_hunt_rifle.mp4 (exit 0)
+ffprobe: codec_name=h264 width=1280 height=480 r_frame_rate=30/1 duration=10.000000 size=189366
