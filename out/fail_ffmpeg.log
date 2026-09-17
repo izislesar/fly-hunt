@@ -93,3 +93,10 @@ ffprobe: codec_name=h264 width=1280 height=480 r_frame_rate=30/1 duration=10.000
 ---
 C3 clarity STOP (2026-09-17T01:20Z): ffmpeg NOT run — pre-stitch tone gate failed.
 hunt_pre_L=32.00 brain_L=22.04 mismatch=45.17% -> ONE gamma iteration (hunt-side, g=1.50, PIL power in place on out/duel_ann/f*.png only) -> hunt_post_L=14.59 mismatch=33.80% FAIL (>15%). Calib used RGB-mean (13.01% at g=1.5) vs L-luma acceptance — metric error, logged. No mp4 written; exact hstack command never executed; no flags altered. Next lane: re-pick gamma (≈1.36 interp, needs own task authority) or STOP stands.
+
+---
+C3 corrective assembly PASS (2026-09-17T04:50Z, branch clarity):
+restore: tools/annotate.py re-run exit 0, f00019 white 7073px @>200, PiP identical, originals md5-stable
+gamma trail (L-luma full-set): pre hunt=32.00 brain=22.04 mismatch=45.19% -> sample g=1.30/9.58% PASS (g=1.36/17.14% FAIL, rejected) -> applied g=1.30 (1 of max 2) -> post hunt=19.72 mismatch=10.52% PASS
+command: ffmpeg -y -framerate 30 -i out/duel_ann/f%05d.png -framerate 30 -i out/brain_ann/b%05d.png -filter_complex hstack -c:v libx264 -crf 23 -pix_fmt yuv420p out/trophy_hunt_clear.mp4 (exit 0)
+ffprobe: codec_name=h264 width=1280 height=480 r_frame_rate=30/1 pix_fmt=yuv420p duration=10.000000 size=210858 sha256=15c4131b9bb680fed936543de19d929275145995cc8d28feaab4876db719d409
